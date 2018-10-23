@@ -4,13 +4,14 @@ Item {
     id: root
 
     property int selectedButton: 0
-    
+
     ListView {
         anchors.fill: parent
         orientation: Qt.Horizontal
-        model: 10
+        model: _sprintModel
         delegate: CpbTabButton {
             checked: selectedButton == index
+            text: model.titleRole
 
             onClicked: {
                 selectedButton = index
