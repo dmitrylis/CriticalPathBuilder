@@ -2,6 +2,7 @@ import QtQuick 2.11
 import QtQuick.Window 2.11
 
 import "controls"
+import "views"
 
 Window {
     visible: true
@@ -9,15 +10,13 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
-    // back background
     Rectangle {
         anchors.fill: parent
         color: "grey"
     }
 
-    // buttons
-    CpbTabBar {
-        id: tabBar
+    CpbSprintTabView {
+        id: sprintTabView
 
         anchors {
             left: parent.left
@@ -27,17 +26,14 @@ Window {
         height: 50
     }
 
-    // critical path content
-    Loader {
-        id: content
+    CpbSprintView {
+        id: sprintView
 
         anchors {
             left: parent.left
             right: parent.right
-            top: tabBar.bottom
+            top: sprintTabView.bottom
             bottom: parent.bottom
         }
-
-        sourceComponent: Rectangle { color: "white" }
     }
 }
