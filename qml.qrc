@@ -3,5 +3,6 @@
         <file>qml/CpbMain.qml</file>
         <file>qml/controls/CpbTabBar.qml</file>
         <file>qml/controls/CpbTabButton.qml</file>
+        <file>qml/controls/CpbCardsView.qml</file>
     </qresource>
 </RCC>
