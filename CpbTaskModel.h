@@ -13,7 +13,6 @@ class TaskModel: public QAbstractListModel
 public:
     enum TaskRoles {
         TitleRole = Qt::UserRole + 1,
-        ParentStoryRole,
         RowRole,
         ColumnRole,
         DaysRole

@@ -13,7 +13,6 @@ class StoryModel: public QAbstractListModel
 public:
     enum StoryRoles {
         TitleRole = Qt::UserRole + 1,
-        ParentSprintRole,
         RowRole,
         TaskModelRole
     };

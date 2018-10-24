@@ -9,7 +9,7 @@ class Task : public QObject
 {
     Q_OBJECT
 public:
-    explicit Task(const QString& title, QObject *parent);
+    explicit Task(const QString& title, QObject *parent = nullptr);
 
     QString title() const;
 
@@ -18,7 +18,6 @@ signals:
 public slots:
 
 private:
-    QObject *mParent;
     QString mTitle;
     int mRow;
     int mColumn;

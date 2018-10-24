@@ -3,7 +3,7 @@
 using namespace CPB;
 
 Story::Story(const QString& title, QObject *parent)
-    : mParent(parent),
+    : QObject(parent),
       mTitle(title)
 {
 

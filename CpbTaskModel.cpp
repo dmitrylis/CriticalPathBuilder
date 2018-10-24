@@ -39,8 +39,6 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
     switch( role ) {
     case TaskRoles::TitleRole:
         return mTaskList[index.row()]->title();
-    case TaskRoles::ParentStoryRole:
-        return mTaskList[index.row()]->title();
     case TaskRoles::RowRole:
         return mTaskList[index.row()]->title();
     case TaskRoles::ColumnRole:
@@ -58,9 +56,8 @@ QHash<int, QByteArray> TaskModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[TaskRoles::TitleRole] = "titleRole";
-    roles[TaskRoles::ParentStoryRole] = "ParentStoryRole";
-    roles[TaskRoles::RowRole] = "RowRole";
-    roles[TaskRoles::ColumnRole] = "ColumnRole";
-    roles[TaskRoles::DaysRole] = "DaysRole";
+    roles[TaskRoles::RowRole] = "rowRole";
+    roles[TaskRoles::ColumnRole] = "columnRole";
+    roles[TaskRoles::DaysRole] = "daysRole";
     return roles;
 }

@@ -16,10 +16,10 @@ SOURCES += \
         main.cpp \
         CpbSprintModel.cpp \
         CpbSprint.cpp \
-    CpbStory.cpp \
-    CpbStoryModel.cpp \
-    CpbTaskModel.cpp \
-    CpbTask.cpp
+        CpbStory.cpp \
+        CpbStoryModel.cpp \
+        CpbTaskModel.cpp \
+        CpbTask.cpp
 
 RESOURCES += qml.qrc
 

@@ -3,7 +3,7 @@
 using namespace CPB;
 
 Task::Task(const QString& title, QObject *parent)
-    : mParent(parent),
+    : QObject(parent),
       mTitle(title)
 {
 
