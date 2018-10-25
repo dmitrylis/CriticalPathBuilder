@@ -1,8 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/CpbMain.qml</file>
-        <file>qml/controls/CpbTabBar.qml</file>
         <file>qml/controls/CpbTabButton.qml</file>
-        <file>qml/controls/CpbCardsView.qml</file>
+        <file>qml/views/CpbCardsView.qml</file>
+        <file>qml/views/CpbSprintTabView.qml</file>
+        <file>qml/views/CpbSprintView.qml</file>
+        <file>qml/views/CpbStoryView.qml</file>
+        <file>qml/controls/CpbTask.qml</file>
+        <file>qml/singletons/CpbStyle.qml</file>
+        <file>qml/singletons/qmldir</file>
     </qresource>
 </RCC>

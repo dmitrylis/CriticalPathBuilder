@@ -1,5 +1,7 @@
 import QtQuick 2.11
 
+import "../controls"
+
 Item {
     id: root
 
