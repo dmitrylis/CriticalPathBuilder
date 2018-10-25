@@ -15,7 +15,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         CpbSprintModel.cpp \
-        CpbSprint.cpp
+        CpbSprint.cpp \
+        CpbStory.cpp \
+        CpbStoryModel.cpp \
+        CpbTaskModel.cpp \
+        CpbTask.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,4 +36,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     CpbSprintModel.h \
-    CpbSprint.h
+    CpbSprint.h \
+    CpbStory.h \
+    CpbStoryModel.h \
+    CpbTaskModel.h \
+    CpbTask.h

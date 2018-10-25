@@ -3,6 +3,7 @@
 #include <QQmlContext>
 
 #include "CpbSprintModel.h"
+#include "CpbStoryModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
     // custom section
     CPB::SprintModel sprintModel;
     engine.rootContext()->setContextProperty("_sprintModel", &sprintModel);
+    CPB::StoryModel storyModel;
+    engine.rootContext()->setContextProperty("_storyModel", &storyModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/CpbMain.qml")));
     if (engine.rootObjects().isEmpty())
