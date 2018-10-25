@@ -2,7 +2,8 @@
 #define CPBSTORYMODEL_H
 
 #include <QAbstractListModel>
-#include "CpbStory.h"
+
+#include "entities/CpbStory.h"
 
 namespace CPB {
 
