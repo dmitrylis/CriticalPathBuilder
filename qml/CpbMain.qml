@@ -36,4 +36,15 @@ Window {
             bottom: parent.bottom
         }
     }
+
+    // temp button for testing
+    CpbTabButton {
+        anchors {
+            bottom: parent.bottom
+        }
+        text: "add sprint"
+        onClicked: {
+            _sprintManager.addSprint()
+        }
+    }
 }

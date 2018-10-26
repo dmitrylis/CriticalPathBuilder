@@ -2,9 +2,14 @@
 
 using namespace CPB;
 
+namespace  {
+const QString SPRINT_NAME_TEMPLATE ("Sprint %0");
+}
+
 SprintManager::SprintManager(QObject *parent) :
     QObject(parent),
-    m_currentSprint(0)
+    m_sprintModel(nullptr),
+    m_currentSprint(nullptr)
 {
     m_sprintModel = new SprintModel(this);
 }
@@ -14,18 +19,54 @@ SprintModel *SprintManager::sprintModel() const
     return m_sprintModel;
 }
 
-int SprintManager::currentSprint() const
+Sprint* SprintManager::currentSprint() const
 {
     return m_currentSprint;
 }
 
-void SprintManager::setCurrentSprint(int currentSprint)
+void SprintManager::setCurrentSprint(Sprint* sprint)
 {
-    if (m_currentSprint == currentSprint)
+    if (m_currentSprint == sprint)
     {
         return;
     }
 
-    m_currentSprint = currentSprint;
+    m_currentSprint = sprint;
     emit currentSprintChanged(m_currentSprint);
+}
+
+void SprintManager::addSprint()
+{
+    const QString newSprintName = SPRINT_NAME_TEMPLATE.arg(m_sprintModel->rowCount() + 1);
+    Sprint* newSprint = new Sprint(newSprintName, this);
+
+    if (m_sprintModel->append(newSprint))
+    {
+        setCurrentSprint(newSprint);
+    }
+    else
+    {
+        newSprint->deleteLater();
+    }
+}
+
+void SprintManager::removeSprint(Sprint* sprint)
+{
+    // detect sprint to select after removing
+    Sprint* sprintToSelect = currentSprint();
+    if (sprintToSelect == sprint)
+    {
+        sprintToSelect = m_sprintModel->getPrevious(sprint);
+        if (sprintToSelect == nullptr)
+        {
+            sprintToSelect = m_sprintModel->getNext(sprint);
+        }
+    }
+
+    // remove sprint and select detected
+    if (m_sprintModel->remove(sprint))
+    {
+        setCurrentSprint(sprintToSelect);
+        sprint->deleteLater();
+    }
 }
