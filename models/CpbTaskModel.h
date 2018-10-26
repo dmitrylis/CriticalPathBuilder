@@ -1,26 +1,26 @@
-#ifndef SPRINTMODEL_H
-#define SPRINTMODEL_H
+#ifndef CPBTASKMODEL_H
+#define CPBTASKMODEL_H
 
 #include <QAbstractListModel>
 
-#include "CpbSprint.h"
+#include "entities/CpbTask.h"
 
 namespace CPB {
 
-class SprintModel : public QAbstractListModel
+class TaskModel: public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    enum SprintRoles {
+    enum TaskRoles {
         TitleRole = Qt::UserRole + 1,
-        StartDateRole,
-        EndDateRole,
-        StoryModelRole
+        RowRole,
+        ColumnRole,
+        DaysRole
     };
-    Q_ENUM(SprintRoles)
+    Q_ENUM(TaskRoles)
 
-    explicit SprintModel(QObject *parent = nullptr);
+    explicit TaskModel(QObject *parent = nullptr);
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -28,9 +28,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
 private:
-    QList<Sprint*> mSprintList;
+    QList<Task*> mTaskList;
 };
 
 }
 
-#endif // SPRINTMODEL_H
+#endif // CPBTASKMODEL_H

@@ -2,7 +2,8 @@
 #define CPBSTORY_H
 
 #include <QObject>
-#include "CpbTaskModel.h"
+
+#include "models/CpbTaskModel.h"
 
 namespace CPB {
 

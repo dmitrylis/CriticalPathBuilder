@@ -5,18 +5,16 @@ import "../controls"
 Item {
     id: root
 
-    property int selectedButton: 0
-
     ListView {
         anchors.fill: parent
         orientation: Qt.Horizontal
-        model: _sprintModel
+        model: _sprintManager.sprintModel
         delegate: CpbTabButton {
-            checked: selectedButton == index
+            checked: _sprintManager.currentSprint == index
             text: model.titleRole
 
             onClicked: {
-                selectedButton = index
+                _sprintManager.currentSprint = index
             }
         }
     }

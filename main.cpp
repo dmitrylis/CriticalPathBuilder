@@ -2,8 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "CpbSprintModel.h"
-#include "CpbStoryModel.h"
+#include "managers/CpbSprintManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,10 +12,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     // custom section
-    CPB::SprintModel sprintModel;
-    engine.rootContext()->setContextProperty("_sprintModel", &sprintModel);
-    CPB::StoryModel storyModel;
-    engine.rootContext()->setContextProperty("_storyModel", &storyModel);
+    CPB::SprintManager sprintManager;
+    engine.rootContext()->setContextProperty("_sprintManager", &sprintManager);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/CpbMain.qml")));
     if (engine.rootObjects().isEmpty())

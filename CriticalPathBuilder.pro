@@ -13,13 +13,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp \
-        CpbSprintModel.cpp \
-        CpbSprint.cpp \
-        CpbStory.cpp \
-        CpbStoryModel.cpp \
-        CpbTaskModel.cpp \
-        CpbTask.cpp
+    main.cpp \
+    entities/CpbSprint.cpp \
+    entities/CpbStory.cpp \
+    entities/CpbTask.cpp \
+    models/CpbSprintModel.cpp \
+    models/CpbStoryModel.cpp \
+    models/CpbTaskModel.cpp \
+    managers/CpbSprintManager.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,9 +36,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    CpbSprintModel.h \
-    CpbSprint.h \
-    CpbStory.h \
-    CpbStoryModel.h \
-    CpbTaskModel.h \
-    CpbTask.h
+    entities/CpbSprint.h \
+    entities/CpbStory.h \
+    entities/CpbTask.h \
+    models/CpbSprintModel.h \
+    models/CpbStoryModel.h \
+    models/CpbTaskModel.h \
+    managers/CpbSprintManager.h
