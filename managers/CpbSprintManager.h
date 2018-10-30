@@ -11,22 +11,25 @@ class SprintManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(SprintModel* sprintModel READ sprintModel CONSTANT)
-    Q_PROPERTY(int currentSprint READ currentSprint WRITE setCurrentSprint NOTIFY currentSprintChanged)
+    Q_PROPERTY(Sprint* currentSprint READ currentSprint WRITE setCurrentSprint NOTIFY currentSprintChanged)
 
 public:
     explicit SprintManager(QObject *parent = nullptr);
 
     SprintModel *sprintModel() const;
 
-    int currentSprint() const;
-    void setCurrentSprint(int currentSprint);
+    Sprint* currentSprint() const;
+    void setCurrentSprint(Sprint* sprint);
+
+    Q_INVOKABLE void addSprint();
+    Q_INVOKABLE void removeSprint(Sprint* sprint);
 
 signals:
-    void currentSprintChanged(int currentSprint);
+    void currentSprintChanged(Sprint* sprint);
 
 private:
     SprintModel* m_sprintModel;
-    int m_currentSprint;
+    Sprint* m_currentSprint;
 };
 
 }
