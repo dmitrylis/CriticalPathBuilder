@@ -37,7 +37,22 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
 
 void SprintManager::addSprint()
 {
-    const QString newSprintName = SPRINT_NAME_TEMPLATE.arg(m_sprintModel->rowCount() + 1);
+    // >> TODO: move to separate class?
+    int sprintNumber = 1;
+    QString newSprintName = SPRINT_NAME_TEMPLATE.arg(sprintNumber), tempSprintName;
+
+    while (sprintNumber <= (m_sprintModel->rowCount() + 1))
+    {
+        tempSprintName = SPRINT_NAME_TEMPLATE.arg(sprintNumber);
+        if (m_sprintModel->isNameValid(tempSprintName))
+        {
+            newSprintName = tempSprintName;
+            break;
+        }
+        ++sprintNumber;
+    }
+    // <<
+
     Sprint* newSprint = new Sprint(newSprintName, this);
 
     if (m_sprintModel->append(newSprint))

@@ -99,6 +99,20 @@ bool SprintModel::remove(Sprint *sprint)
     return true;
 }
 
+bool SprintModel::isNameValid(const QString &name)
+{
+    if (name.isNull() || name.isEmpty())
+    {
+        return false;
+    }
+
+    auto result = std::find_if(mSprintList.begin(), mSprintList.end(), [name] (const Sprint* const sprint) {
+        return sprint->title().compare(name, Qt::CaseInsensitive) == 0;
+    });
+
+    return result == mSprintList.end();
+}
+
 Sprint *SprintModel::getPrevious(Sprint *sprint) const
 {
     if (sprint == nullptr)

@@ -32,6 +32,7 @@ public:
     // custom
     bool append(Sprint *sprint);
     bool remove(Sprint *sprint);
+    bool isNameValid(const QString& name);
     Sprint *getPrevious(Sprint *sprint) const;
     Sprint *getNext(Sprint *sprint) const;
 
