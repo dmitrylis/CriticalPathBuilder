@@ -39,12 +39,25 @@ Window {
 
     // temp button for testing
     CpbTabButton {
+        id: cpdbutt
         anchors {
             bottom: parent.bottom
         }
         text: "add sprint"
         onClicked: {
             _sprintManager.addSprint()
+        }
+    }
+
+    // temp button 2 for testing
+    CpbTabButton {
+        anchors {
+            bottom: parent.bottom
+            left: cpdbutt.right
+        }
+        text: "add story"
+        onClicked: {
+            _storyManager.addStory()
         }
     }
 }

@@ -26,6 +26,15 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    bool move(int first, int last);
+    bool append(Story *story);
+    bool remove(Story *story);
+    Story *getPrevious(Story *story) const;
+    Story *getNext(Story *story) const;
+
+protected:
+    bool isValidIndex(int index) const;
+
 private:
     QList<Story*> mStoryList;
 };

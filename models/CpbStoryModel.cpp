@@ -59,3 +59,83 @@ QHash<int, QByteArray> StoryModel::roleNames() const
     roles[StoryRoles::TaskModelRole] = "taskModelRole";
     return roles;
 }
+
+bool StoryModel::move(int first, int last)
+{
+    emit beginMoveRows(QModelIndex(), first, first, QModelIndex(), last);
+    mStoryList.swap(first, last);
+    emit endMoveRows();
+
+    return true;
+}
+
+bool StoryModel::append(Story *story)
+{
+    if (story == nullptr || mStoryList.contains(story))
+    {
+        return false;
+    }
+
+    emit beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    mStoryList.append(story);
+    emit endInsertRows();
+
+    return true;
+}
+
+bool StoryModel::remove(Story *story)
+{
+    if (story == nullptr)
+    {
+        return false;
+    }
+
+    const int storyIndex = mStoryList.indexOf(story);
+    if (storyIndex < 0)
+    {
+        return false;
+    }
+
+    emit beginRemoveRows(QModelIndex(), storyIndex, storyIndex);
+    mStoryList.removeAt(storyIndex);
+    emit endRemoveRows();
+
+    return true;
+}
+
+Story *StoryModel::getPrevious(Story *sprint) const
+{
+    if (sprint == nullptr)
+    {
+        return nullptr;
+    }
+
+    int sprintIndex = mStoryList.indexOf(sprint) - 1;
+    if (isValidIndex(sprintIndex))
+    {
+        return mStoryList[sprintIndex];
+    }
+
+    return nullptr;
+}
+
+Story *StoryModel::getNext(Story *sprint) const
+{
+    if (sprint == nullptr)
+    {
+        return nullptr;
+    }
+
+    int sprintIndex = mStoryList.indexOf(sprint) + 1;
+    if (isValidIndex(sprintIndex))
+    {
+        return mStoryList[sprintIndex];
+    }
+
+    return nullptr;
+}
+
+bool StoryModel::isValidIndex(int index) const
+{
+    return 0 <= index && index < rowCount();
+}
