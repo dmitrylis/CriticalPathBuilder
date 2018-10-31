@@ -42,9 +42,9 @@ Window {
         anchors {
             bottom: parent.bottom
         }
-        text: "add sprint"
+        text: "Create sprint"
         onClicked: {
-            _sprintManager.addSprint()
+            _sprintManager.createSprint()
         }
     }
 }

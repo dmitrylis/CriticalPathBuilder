@@ -21,8 +21,9 @@ public:
     Sprint* currentSprint() const;
     void setCurrentSprint(Sprint* sprint);
 
-    Q_INVOKABLE void addSprint();
+    Q_INVOKABLE void createSprint();
     Q_INVOKABLE void removeSprint(Sprint* sprint);
+    Q_INVOKABLE void moveSprint(int from, int to);
 
 signals:
     void currentSprintChanged(Sprint* sprint);

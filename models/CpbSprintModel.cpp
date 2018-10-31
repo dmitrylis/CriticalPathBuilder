@@ -72,9 +72,9 @@ bool SprintModel::append(Sprint *sprint)
         return false;
     }
 
-    emit beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
     mSprintList.append(sprint);
-    emit endInsertRows();
+    endInsertRows();
 
     return true;
 }
@@ -92,11 +92,30 @@ bool SprintModel::remove(Sprint *sprint)
         return false;
     }
 
-    emit beginRemoveRows(QModelIndex(), sprintIndex, sprintIndex);
+    beginRemoveRows(QModelIndex(), sprintIndex, sprintIndex);
     mSprintList.removeAt(sprintIndex);
-    emit endRemoveRows();
+    endRemoveRows();
 
     return true;
+}
+
+void SprintModel::move(int from, int to)
+{
+    if (from == to)
+    {
+        return;
+    }
+
+    // http://doc.qt.io/qt-5/qabstractitemmodel.html#beginMoveRows
+    // some lifehack
+    int moveTo = to;
+    if (to > from) {
+        ++moveTo;
+    }
+
+    beginMoveRows(QModelIndex(), from, from, QModelIndex(), moveTo);
+    mSprintList.move(from, to);
+    endMoveRows();
 }
 
 bool SprintModel::isNameValid(const QString &name)
