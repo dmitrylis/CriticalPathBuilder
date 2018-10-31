@@ -9,17 +9,27 @@ Button {
 
     background: Item {
         Rectangle {
-            id: background
+            id: buttonBg
 
             anchors {
                 fill: parent
                 leftMargin: 2
                 rightMargin: 2
                 topMargin: 4
-                bottomMargin: -background.radius
+                bottomMargin: -buttonBg.radius
             }
             radius: 4
         }
+    }
+
+    contentItem: Text {
+        id: buttonText
+
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        text: root.text
+        color: "black"
+        elide: Text.ElideRight
     }
 
     onCheckedChanged: checkable = false
@@ -30,7 +40,7 @@ Button {
             when: !root.checked && !root.down
 
             PropertyChanges {
-                target: background
+                target: buttonBg
                 color: "lightgrey"
             }
         },
@@ -39,7 +49,7 @@ Button {
             when: root.checked && !root.down
 
             PropertyChanges {
-                target: background
+                target: buttonBg
                 color: "white"
             }
         },
