@@ -32,6 +32,7 @@ public:
     // custom
     bool append(Sprint *sprint);
     bool remove(Sprint *sprint);
+    bool appendStory(Sprint *sprint, Story *story);
     Sprint *getPrevious(Sprint *sprint) const;
     Sprint *getNext(Sprint *sprint) const;
 

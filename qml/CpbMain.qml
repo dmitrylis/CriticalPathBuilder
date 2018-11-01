@@ -57,7 +57,7 @@ Window {
         }
         text: "add story"
         onClicked: {
-            _storyManager.addStory()
+            _sprintManager.addStoryToSprint()
         }
     }
 }

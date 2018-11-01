@@ -1,6 +1,7 @@
 #include "CpbStoryModel.h"
 
 using namespace CPB;
+using namespace std;
 
 StoryModel::StoryModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -62,9 +63,16 @@ QHash<int, QByteArray> StoryModel::roleNames() const
 
 bool StoryModel::move(int first, int last)
 {
-    emit beginMoveRows(QModelIndex(), first, first, QModelIndex(), last);
-    mStoryList.swap(first, last);
-    emit endMoveRows();
+    if(first!=last)
+    {
+        if (first < last)
+        {
+            swap(first, last);
+        }
+        emit beginMoveRows(QModelIndex(), first, first, QModelIndex(), last);
+        mStoryList.swap(first, last);
+        emit endMoveRows();
+    }
 
     return true;
 }

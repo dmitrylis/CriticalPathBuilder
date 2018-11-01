@@ -23,6 +23,7 @@ public:
 
     Q_INVOKABLE void addSprint();
     Q_INVOKABLE void removeSprint(Sprint* sprint);
+    Q_INVOKABLE void addStoryToSprint();
 
 signals:
     void currentSprintChanged(Sprint* sprint);

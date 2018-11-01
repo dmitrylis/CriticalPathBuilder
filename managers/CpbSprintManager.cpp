@@ -70,3 +70,8 @@ void SprintManager::removeSprint(Sprint* sprint)
         sprint->deleteLater();
     }
 }
+
+void SprintManager::addStoryToSprint()
+{
+
+}

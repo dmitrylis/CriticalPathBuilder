@@ -57,9 +57,10 @@ Rectangle {
             DropArea {
                 anchors {
                     fill: parent
-                    margins: 20
+                    margins: 10
                 }
-                onEntered: _storyManager.move(drag.source.visualIndex, icon.visualIndex)
+
+                onEntered: _storyManager.move(drag.source.visualIndex, delegateRoot.visualIndex)
             }
 
         }
