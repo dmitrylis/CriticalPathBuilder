@@ -1,5 +1,7 @@
 #include "CpbSprintManager.h"
 
+#include <QtGlobal>
+
 using namespace CPB;
 
 namespace  {
@@ -35,11 +37,11 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
     emit currentSprintChanged(m_currentSprint);
 }
 
-void SprintManager::addSprint()
+void SprintManager::createSprint()
 {
     // >> TODO: move to separate class?
     int sprintNumber = 1;
-    QString newSprintName = SPRINT_NAME_TEMPLATE.arg(sprintNumber), tempSprintName;
+    QString newSprintName, tempSprintName;
 
     while (sprintNumber <= (m_sprintModel->rowCount() + 1))
     {
@@ -52,6 +54,8 @@ void SprintManager::addSprint()
         ++sprintNumber;
     }
     // <<
+
+    Q_ASSERT(!newSprintName.isNull() && !newSprintName.isEmpty());
 
     Sprint* newSprint = new Sprint(newSprintName, this);
 
@@ -84,4 +88,9 @@ void SprintManager::removeSprint(Sprint* sprint)
         setCurrentSprint(sprintToSelect);
         sprint->deleteLater();
     }
+}
+
+void SprintManager::moveSprint(int from, int to)
+{
+    m_sprintModel->move(from, to);
 }
