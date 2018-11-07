@@ -89,3 +89,8 @@ void SprintManager::removeSprint(Sprint* sprint)
         sprint->deleteLater();
     }
 }
+
+void SprintManager::moveSprint(int from, int to)
+{
+    m_sprintModel->move(from, to);
+}
