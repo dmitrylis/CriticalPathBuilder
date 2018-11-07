@@ -81,16 +81,12 @@ bool SprintModel::append(Sprint *sprint)
 
 bool SprintModel::remove(Sprint *sprint)
 {
-    if (sprint == nullptr)
+    if (sprint == nullptr || !mSprintList.contains(sprint))
     {
         return false;
     }
 
     const int sprintIndex = mSprintList.indexOf(sprint);
-    if (sprintIndex < 0)
-    {
-        return false;
-    }
 
     beginRemoveRows(QModelIndex(), sprintIndex, sprintIndex);
     mSprintList.removeAt(sprintIndex);
@@ -134,7 +130,7 @@ bool SprintModel::isNameValid(const QString &name)
 
 Sprint *SprintModel::getPrevious(Sprint *sprint) const
 {
-    if (sprint == nullptr)
+    if (sprint == nullptr || !mSprintList.contains(sprint))
     {
         return nullptr;
     }
@@ -150,7 +146,7 @@ Sprint *SprintModel::getPrevious(Sprint *sprint) const
 
 Sprint *SprintModel::getNext(Sprint *sprint) const
 {
-    if (sprint == nullptr)
+    if (sprint == nullptr || !mSprintList.contains(sprint))
     {
         return nullptr;
     }
