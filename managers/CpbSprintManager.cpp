@@ -46,7 +46,7 @@ void SprintManager::createSprint()
     while (sprintNumber <= (m_sprintModel->rowCount() + 1))
     {
         tempSprintName = SPRINT_NAME_TEMPLATE.arg(sprintNumber);
-        if (m_sprintModel->isNameValid(tempSprintName))
+        if (m_sprintModel->titleValid(tempSprintName))
         {
             newSprintName = tempSprintName;
             break;

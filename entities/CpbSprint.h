@@ -2,24 +2,24 @@
 #define CPBSPRINT_H
 
 #include <QObject>
+#include <models/CpbStoryModel.h>
 
 namespace CPB {
 
 class Sprint : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(StoryModel* storyModel READ storyModel CONSTANT)
 
 public:
     explicit Sprint(const QString& title, QObject *parent = nullptr);
 
     QString title() const;
-
-signals:
-
-public slots:
+    StoryModel* storyModel() const;
 
 private:
-    QString mTitle;
+    QString m_title;
+    StoryModel* m_storyModel;
 };
 
 }
