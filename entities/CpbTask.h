@@ -18,9 +18,9 @@ signals:
 public slots:
 
 private:
-    QString mTitle;
-    int mRow;
-    int mColumn;
+    QString m_title;
+    int m_row;
+    int m_column;
 };
 
 }

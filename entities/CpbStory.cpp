@@ -4,13 +4,13 @@ using namespace CPB;
 
 Story::Story(const QString& title, QObject *parent)
     : QObject(parent),
-      mTitle(title)
+      m_title(title)
 {
 
 }
 
 QString Story::title() const
 {
-    return mTitle;
+    return m_title;
 }
 

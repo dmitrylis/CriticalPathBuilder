@@ -16,14 +16,10 @@ public:
 
     QString title() const;
 
-signals:
-
-public slots:
-
 private:
-    QString mTitle;
-    int mRow;
-    TaskModel mTaskModel;
+    QString m_title;
+    int m_row;
+    TaskModel m_taskModel;
 };
 
 }

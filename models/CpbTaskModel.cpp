@@ -2,30 +2,13 @@
 
 using namespace CPB;
 
-TaskModel::TaskModel(QObject *parent): QAbstractListModel(parent)
+TaskModel::TaskModel(QObject *parent)
+    : EntityModel<Task> (parent)
 {
-
 }
 
-QVariant TaskModel::headerData(int section, Qt::Orientation orientation, int role) const
+TaskModel::~TaskModel()
 {
-    Q_UNUSED(section)
-    Q_UNUSED(orientation)
-    Q_UNUSED(role)
-
-    return QVariant();
-}
-
-int TaskModel::rowCount(const QModelIndex &parent) const
-{
-    // For list models only the root node (an invalid parent) should return the list's size. For all
-    // other (valid) parents, rowCount() should return 0 so that it does not become a tree model.
-    if (parent.isValid())
-    {
-        return 0;
-    }
-
-    return mTaskList.count();
 }
 
 QVariant TaskModel::data(const QModelIndex &index, int role) const
@@ -38,13 +21,13 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
     QVariant aData;
     switch( role ) {
     case TaskRoles::TitleRole:
-        return mTaskList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     case TaskRoles::RowRole:
-        return mTaskList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     case TaskRoles::ColumnRole:
-        return mTaskList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     case TaskRoles::DaysRole:
-        return mTaskList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     default:
         break;
     }

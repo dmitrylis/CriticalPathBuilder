@@ -1,13 +1,12 @@
 #ifndef SPRINTMODEL_H
 #define SPRINTMODEL_H
 
-#include <QAbstractListModel>
-
+#include "CpbEntityModel.h"
 #include "entities/CpbSprint.h"
 
 namespace CPB {
 
-class SprintModel : public QAbstractListModel
+class SprintModel : public EntityModel<Sprint>
 {
     Q_OBJECT
 
@@ -22,26 +21,18 @@ public:
     Q_ENUM(SprintRoles)
 
     explicit SprintModel(QObject *parent = nullptr);
+    ~SprintModel() override;
 
     // overrides
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
     // custom
-    bool append(Sprint *sprint);
-    bool remove(Sprint *sprint);
-    void move(int from, int to);
-    bool isNameValid(const QString& name);
     Sprint *getPrevious(Sprint *sprint) const;
     Sprint *getNext(Sprint *sprint) const;
 
 protected:
     bool isValidIndex(int index) const;
-
-private:
-    QList<Sprint*> mSprintList;
 };
 
 }

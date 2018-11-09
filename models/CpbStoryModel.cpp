@@ -3,30 +3,12 @@
 using namespace CPB;
 
 StoryModel::StoryModel(QObject *parent)
-    : QAbstractListModel(parent)
+    : EntityModel<Story> (parent)
 {
-
 }
 
-QVariant StoryModel::headerData(int section, Qt::Orientation orientation, int role) const
+StoryModel::~StoryModel()
 {
-    Q_UNUSED(section)
-    Q_UNUSED(orientation)
-    Q_UNUSED(role)
-
-    return QVariant();
-}
-
-int StoryModel::rowCount(const QModelIndex &parent) const
-{
-    // For list models only the root node (an invalid parent) should return the list's size. For all
-    // other (valid) parents, rowCount() should return 0 so that it does not become a tree model.
-    if (parent.isValid())
-    {
-        return 0;
-    }
-
-    return mStoryList.count();
 }
 
 QVariant StoryModel::data(const QModelIndex &index, int role) const
@@ -39,11 +21,11 @@ QVariant StoryModel::data(const QModelIndex &index, int role) const
     QVariant aData;
     switch( role ) {
     case StoryRoles::TitleRole:
-        return mStoryList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     case StoryRoles::RowRole:
-        return mStoryList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     case StoryRoles::TaskModelRole:
-        return mStoryList[index.row()]->title();
+        return m_entityList[index.row()]->title();
     default:
         break;
     }
