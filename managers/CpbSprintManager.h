@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/CpbSprintModel.h"
+#include "CpbSprintModel.h"
 
 namespace CPB {
 

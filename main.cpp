@@ -2,8 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "managers/CpbSprintManager.h"
-#include "managers/CpbStoryManager.h"
+#include "CpbSprintManager.h"
+#include "CpbStoryManager.h"
 
 int main(int argc, char *argv[])
 {

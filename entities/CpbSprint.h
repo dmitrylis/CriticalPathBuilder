@@ -2,7 +2,8 @@
 #define CPBSPRINT_H
 
 #include <QObject>
-#include <models/CpbStoryModel.h>
+
+#include "CpbStoryModel.h"
 
 namespace CPB {
 
