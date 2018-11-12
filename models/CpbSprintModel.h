@@ -2,7 +2,7 @@
 #define SPRINTMODEL_H
 
 #include "CpbEntityModel.h"
-#include "entities/CpbSprint.h"
+#include "CpbSprint.h"
 
 namespace CPB {
 

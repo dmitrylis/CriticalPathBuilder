@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "models/CpbTaskModel.h"
+#include "CpbTaskModel.h"
 
 namespace CPB {
 

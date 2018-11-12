@@ -2,7 +2,7 @@
 #define CPBTASKMODEL_H
 
 #include "CpbEntityModel.h"
-#include "entities/CpbTask.h"
+#include "CpbTask.h"
 
 namespace CPB {
 

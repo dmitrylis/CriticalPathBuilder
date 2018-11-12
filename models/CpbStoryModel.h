@@ -2,7 +2,7 @@
 #define CPBSTORYMODEL_H
 
 #include "CpbEntityModel.h"
-#include "entities/CpbStory.h"
+#include "CpbStory.h"
 
 namespace CPB {
 

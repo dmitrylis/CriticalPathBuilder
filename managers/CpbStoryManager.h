@@ -3,8 +3,8 @@
 
 #include <QObject>
 
-#include "models/CpbStoryModel.h"
-#include "managers/CpbSprintManager.h"
+#include "CpbStoryModel.h"
+#include "CpbSprintManager.h"
 
 namespace CPB {
 
