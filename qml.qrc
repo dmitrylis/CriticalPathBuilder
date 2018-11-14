@@ -9,5 +9,6 @@
         <file>qml/controls/CpbTask.qml</file>
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
+        <file>qml/components/CpbRectangle.qml</file>
     </qresource>
 </RCC>
