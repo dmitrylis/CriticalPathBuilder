@@ -11,11 +11,11 @@ Item {
         orientation: Qt.Horizontal
         model: _sprintManager.sprintModel
         delegate: CpbTabButton {
-            checked: _sprintManager.currentSprint === model.sprintRole
-            text: model.titleRole
+            checked: _sprintManager.currentSprint === sprintRole
+            text: titleRole
 
             onClicked: {
-                _sprintManager.currentSprint = model.sprintRole
+                _sprintManager.currentSprint = sprintRole
             }
 
             Button {
@@ -29,7 +29,7 @@ Item {
                 height: 20
 
                 onClicked: {
-                    _sprintManager.removeSprint(model.sprintRole)
+                    _sprintManager.removeSprint(sprintRole)
                 }
             }
         }

@@ -3,10 +3,22 @@
 
 #include <QObject>
 
-class TaskManager
+#include "models/CpbTaskModel.h"
+#include "managers/CpbSprintManager.h"
+
+namespace CPB {
+
+class TaskManager : public QObject
 {
+    Q_OBJECT
+
 public:
-    TaskManager();
+    explicit TaskManager(QObject *parent = nullptr);
+
+    Q_INVOKABLE void createTask(Story* story);
+
 };
+
+}
 
 #endif // CPBTASKMANAGER_H

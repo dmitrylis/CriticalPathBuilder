@@ -4,6 +4,7 @@ import "../controls"
 import "../singletons"
 
 Item {
+    id: root
     height: background.height + CpbStyle.marginMedium
 
     Rectangle {
@@ -31,12 +32,23 @@ Item {
                 height: childrenRect.height
 
                 Repeater {
-                    model: 10 // model of tasks
+                    model: taskModelRole
                     delegate: CpbTask {
 
                     }
                 }
             }
+        }
+    }
+
+    CpbTabButton {
+        anchors {
+            bottom: root.bottom
+            left: root.left
+        }
+        text: "add task"
+        onClicked: {
+            _taskManager.createTask(storyRole)
         }
     }
 }
