@@ -26,7 +26,8 @@ SOURCES += \
     models/CpbStoryModel.cpp \
     models/CpbTaskModel.cpp \
     managers/CpbSprintManager.cpp \
-    managers/CpbStoryManager.cpp
+    managers/CpbStoryManager.cpp \
+    managers/CpbTaskManager.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,4 +51,5 @@ HEADERS += \
     models/CpbStoryModel.h \
     models/CpbTaskModel.h \
     managers/CpbSprintManager.h \
-    managers/CpbStoryManager.h
+    managers/CpbStoryManager.h \
+    managers/CpbTaskManager.h
