@@ -5,14 +5,27 @@
 
 namespace CPB {
 
-template <class T>
-class EntityModel : public QAbstractListModel
+// auxiliary class where it is possible to add properties, signals and slots
+// because it's impossible to do it in template class
+class EntityModelPrivate : public QAbstractListModel
 {
-    //Q_OBJECT
+    Q_OBJECT
+    Q_PROPERTY(int rowCount READ rowCount NOTIFY rowCountChanged)
 
 public:
-    explicit EntityModel(QObject *parent = nullptr);
-    virtual ~EntityModel();
+    explicit EntityModelPrivate(QObject *parent = nullptr) : QAbstractListModel(parent) {}
+    virtual ~EntityModelPrivate() {}
+
+signals:
+    void rowCountChanged();
+};
+
+template <class T>
+class EntityModel : public EntityModelPrivate
+{
+public:
+    explicit EntityModel(QObject *parent = nullptr) : EntityModelPrivate(parent) {}
+    virtual ~EntityModel() {}
 
     // overrides
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
@@ -27,17 +40,6 @@ public:
 protected:
     QList<T*> m_entityList;
 };
-
-template <class T>
-EntityModel<T>::EntityModel(QObject *parent)
-    : QAbstractListModel(parent)
-{
-}
-
-template<class T>
-EntityModel<T>::~EntityModel()
-{
-}
 
 template<class T>
 QVariant EntityModel<T>::headerData(int section, Qt::Orientation orientation, int role) const
@@ -74,6 +76,8 @@ bool EntityModel<T>::append(T *entity)
     m_entityList.append(entity);
     endInsertRows();
 
+    emit rowCountChanged();
+
     return true;
 }
 
@@ -90,6 +94,8 @@ bool EntityModel<T>::remove(T *entity)
     beginRemoveRows(QModelIndex(), entityIndex, entityIndex);
     m_entityList.removeAt(entityIndex);
     endRemoveRows();
+
+    emit rowCountChanged();
 
     return true;
 }

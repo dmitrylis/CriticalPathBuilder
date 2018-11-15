@@ -1,54 +1,92 @@
 import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 import "../controls"
+import "../components"
 import "../singletons"
 
 Item {
     id: root
-    height: background.height + CpbStyle.marginMedium
 
-    Rectangle {
-        id: background
+    height: column.height + CpbStyle.marginMedium
+
+    Column {
+        id: column
 
         anchors.centerIn: parent
         width: parent.width - CpbStyle.marginMedium
-        height: flickableContent.height
-        radius: CpbStyle.marginTiny
-        color: "grey"
-        clip: true
 
-        Flickable {
-            id: flickableContent
+        CpbRectangle {
+            id: title
+
+            height: 50
+            width: parent.width
+            color: "green"
+            radius: [CpbStyle.marginTiny, CpbStyle.marginTiny, 0, 0]
+
+            Text {
+                anchors {
+                    left: parent.left
+                    verticalCenter: parent.verticalCenter
+                    leftMargin: CpbStyle.marginTiny
+                }
+
+                text: titleRole
+                color: "white"
+            }
+
+            Button {
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                }
+
+                text: "x"
+                width: 20
+                height: 20
+
+                onClicked: {
+                    _storyManager.removeStory(storyRole, _sprintManager.currentSprint)
+                }
+            }
+        }
+
+        CpbRectangle {
+            id: background
 
             width: parent.width
-            height: content.height
+            height: flickableContent.height
+            radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
+            color: "#F5F5F5"
+            clip: true
 
-            contentWidth: content.width
+            Flickable {
+                id: flickableContent
 
-            Item {
-                id: content
+                width: parent.width
+                height: content.height
 
-                width: childrenRect.width
-                height: childrenRect.height
+                contentWidth: content.width
 
-                Repeater {
-                    model: taskModelRole
-                    delegate: CpbTask {
+                Item {
+                    id: content
 
+                    width: childrenRect.width
+                    height: childrenRect.height
+
+                    Repeater {
+                        model: taskModelRole
+                        delegate: CpbTask {}
                     }
                 }
             }
         }
-    }
 
-    CpbTabButton {
-        anchors {
-            bottom: root.bottom
-            left: root.left
-        }
-        text: "add task"
-        onClicked: {
-            _taskManager.createTask(storyRole)
+        CpbTabButton {
+            text: "add task"
+            onClicked: {
+                _taskManager.createTask(storyRole)
+            }
         }
     }
 }
