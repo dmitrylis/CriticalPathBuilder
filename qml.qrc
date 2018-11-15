@@ -10,5 +10,6 @@
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
         <file>qml/components/CpbRectangle.qml</file>
+        <file>qml/controls/CpbText.qml</file>
     </qresource>
 </RCC>

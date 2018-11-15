@@ -1,6 +1,8 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 
+import "../singletons"
+
 Button {
     id: root
 
@@ -22,14 +24,8 @@ Button {
         }
     }
 
-    contentItem: Text {
-        id: buttonText
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+    contentItem: CpbText {
         text: root.text
-        color: "black"
-        elide: Text.ElideRight
     }
 
     onCheckedChanged: checkable = false
@@ -41,7 +37,7 @@ Button {
 
             PropertyChanges {
                 target: buttonBg
-                color: "lightgrey"
+                color: CpbStyle.greyColor
             }
         },
         State {
@@ -50,7 +46,7 @@ Button {
 
             PropertyChanges {
                 target: buttonBg
-                color: "white"
+                color: CpbStyle.whiteColor
             }
         },
         State {

@@ -1,10 +1,15 @@
 import QtQuick 2.11
 
+import "../controls"
+import "../singletons"
+
 Rectangle {
     clip: true
 
+    // list view with stories
     ListView {
-        id: root
+        id: storyListView
+
         anchors.fill: parent
 
         displaced: Transition {
@@ -12,55 +17,104 @@ Rectangle {
         }
 
         model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
-        delegate: MouseArea {
+
+        delegate: Item {
             id: delegateRoot
 
             property int visualIndex: index
 
-            width: ListView.view.width
-            height: icon.height
-            acceptedButtons: Qt.RightButton
-
-            drag.target: icon
-            drag.axis: Drag.YAxis
+            width: storyListView.width
+            height: mainView.height
 
             CpbStoryView {
-                id: icon // TODO: rename
-                width: parent.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
+                id: mainView
 
-                Drag.active: delegateRoot.drag.active
-                Drag.source: delegateRoot
-                Drag.hotSpot.x: width/2
-                Drag.hotSpot.y: height/2
+                anchors.horizontalCenter: delegateRoot.horizontalCenter
+                anchors.verticalCenter: delegateRoot.verticalCenter
+                width: delegateRoot.width
+
+                titleMouseArea {
+                    cursorShape: Qt.OpenHandCursor
+                    drag.target: mainView
+                    drag.axis: Drag.YAxis
+                }
+
+                Drag.active: titleMouseArea.drag.active
+                Drag.source: delegateRoot // to pass visualIndex
+                Drag.hotSpot.x: width / 2
+                Drag.hotSpot.y: height / 2
 
                 states: [
                     State {
-                        when: icon.Drag.active
+                        when: mainView.Drag.active
+
                         ParentChange {
-                            target: icon
-                            parent: root
+                            target: mainView
+                            parent: storyListView
                         }
 
                         AnchorChanges {
-                            target: icon
+                            target: mainView
                             anchors.horizontalCenter: undefined
                             anchors.verticalCenter: undefined
                         }
-                    }
 
+                        PropertyChanges {
+                            target: mainView.titleMouseArea
+                            cursorShape: Qt.ClosedHandCursor
+                        }
+                    }
                 ]
             }
 
             DropArea {
-                anchors {
-                    fill: parent
-                    margins: 10
-                }
+                anchors.fill: parent
 
-                onEntered: _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, _sprintManager.currentSprint)
+                onEntered: {
+                    _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, _sprintManager.currentSprint)
+                }
             }
+        }
+    }
+
+    // text stubs
+    CpbText {
+        anchors.centerIn: parent
+        text: "Click \"Create sprint\" button to create new sprint"
+        fontSize: CpbStyle.fontHuge
+        visible: _sprintManager.sprintModel.rowCount === 0
+    }
+
+    CpbText {
+        anchors.centerIn: parent
+        text: "Click \"Create story\" button to create new story"
+        fontSize: CpbStyle.fontHuge
+        visible: _sprintManager.currentSprint !== null &&
+                 _sprintManager.currentSprint.storyModel.rowCount === 0
+    }
+
+    // temp buttons for testing
+    CpbTabButton {
+        id: cpdbutt
+
+        anchors.bottom: parent.bottom
+        text: "Create sprint"
+
+        onClicked: {
+            _sprintManager.createSprint()
+        }
+    }
+
+    CpbTabButton {
+        anchors {
+            bottom: parent.bottom
+            left: cpdbutt.right
+        }
+        text: "Create story"
+        visible: _sprintManager.currentSprint !== null
+
+        onClicked: {
+            _storyManager.createStory(_sprintManager.currentSprint)
         }
     }
 }
