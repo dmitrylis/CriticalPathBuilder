@@ -37,13 +37,28 @@ Window {
         }
     }
 
+    // need to move it from here in the future
+    Text {
+        anchors.centerIn: parent
+        text: "Click \"Create sprint\" button to create new sprint"
+        visible: _sprintManager.sprintModel.rowCount === 0
+    }
+
+    // need to move it from here in the future
+    Text {
+        anchors.centerIn: parent
+        text: "Click \"Create story\" button to create new story"
+        visible: _sprintManager.currentSprint !== null &&
+                 _sprintManager.currentSprint.storyModel.rowCount === 0
+    }
+
     // temp button for testing
     CpbTabButton {
-        id:cpdbutt
-        anchors {
-            bottom: parent.bottom
-        }
+        id: cpdbutt
+
+        anchors.bottom: parent.bottom
         text: "Create sprint"
+
         onClicked: {
             _sprintManager.createSprint()
         }
@@ -54,7 +69,9 @@ Window {
             bottom: parent.bottom
             left: cpdbutt.right
         }
-        text: "add story"
+        text: "Create story"
+        visible: _sprintManager.currentSprint !== null
+
         onClicked: {
             _storyManager.createStory(_sprintManager.currentSprint)
         }
