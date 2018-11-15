@@ -21,6 +21,10 @@ Item {
 
         property int maxRadius: Math.min(root.width / 2, root.height / 2)
 
+        function correctRadius(radius) {
+            return Math.max(0, Math.min(radius, maxRadius))
+        }
+
         function drawRectangle(context) {
             var input = root.radius
             var output = [0, 0, 0, 0]
@@ -28,11 +32,12 @@ Item {
             var height = root.height
 
             if (typeof input === 'number') {
-                output = [input, input, input, input]
+                var value = correctRadius(input)
+                output = [value, value, value, value]
             }
             else if (Array.isArray(input) && input.length === 4) {
                 for (var index in output) {
-                    output[index] = Math.max(0, Math.min(input[index], internal.maxRadius))
+                    output[index] = correctRadius(input[index])
                 }
             }
             else {
