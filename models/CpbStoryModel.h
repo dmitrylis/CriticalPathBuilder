@@ -12,7 +12,8 @@ class StoryModel : public EntityModel<Story>
 
 public:
     enum StoryRoles {
-        TitleRole = Qt::UserRole + 1,
+        StoryRole = Qt::UserRole + 1,
+        TitleRole,
         RowRole,
         TaskModelRole
     };

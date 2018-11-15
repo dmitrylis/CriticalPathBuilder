@@ -8,28 +8,27 @@ Rectangle {
         anchors.fill: parent
 
         displaced: Transition {
-                NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
-            }
+            NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
+        }
 
         model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
         delegate: MouseArea {
             id: delegateRoot
 
-            property int visualIndex: model.index
+            property int visualIndex: index
 
             width: ListView.view.width
             height: icon.height
+            acceptedButtons: Qt.RightButton
 
             drag.target: icon
             drag.axis: Drag.YAxis
 
-
             CpbStoryView {
-                id: icon
+                id: icon // TODO: rename
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                enabled: false
 
                 Drag.active: delegateRoot.drag.active
                 Drag.source: delegateRoot
@@ -62,7 +61,6 @@ Rectangle {
 
                 onEntered: _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, _sprintManager.currentSprint)
             }
-
         }
     }
 }

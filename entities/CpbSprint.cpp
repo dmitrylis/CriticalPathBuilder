@@ -19,4 +19,3 @@ StoryModel* Sprint::storyModel() const
 {
     return m_storyModel;
 }
-
