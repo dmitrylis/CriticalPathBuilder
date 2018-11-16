@@ -54,7 +54,7 @@ Item {
                 height: 20
 
                 onClicked: {
-                    _storyManager.removeStory(storyRole, _sprintManager.currentSprint)
+                    _popupManager.showRemoveStoryPopup(storyRole)
                 }
             }
         }

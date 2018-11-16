@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-#include "CpbTaskModel.h"
-#include "CpbSprintManager.h"
+#include "CpbStory.h"
 
 namespace CPB {
 
@@ -16,7 +15,6 @@ public:
     explicit TaskManager(QObject *parent = nullptr);
 
     Q_INVOKABLE void createTask(Story* story);
-
 };
 
 }
