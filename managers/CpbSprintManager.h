@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "CpbSprintModel.h"
+#include "xmlSerializer.h"
 
 namespace CPB {
 

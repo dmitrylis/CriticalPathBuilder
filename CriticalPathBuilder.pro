@@ -1,4 +1,4 @@
-QT += core quick
+QT += core quick xml
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -27,7 +27,8 @@ SOURCES += \
     models/CpbTaskModel.cpp \
     managers/CpbSprintManager.cpp \
     managers/CpbStoryManager.cpp \
-    managers/CpbTaskManager.cpp
+    managers/CpbTaskManager.cpp \
+    xmlSerializer.cpp
 
 RESOURCES += qml.qrc
 
@@ -52,4 +53,5 @@ HEADERS += \
     models/CpbTaskModel.h \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
-    managers/CpbTaskManager.h
+    managers/CpbTaskManager.h \
+    xmlSerializer.h

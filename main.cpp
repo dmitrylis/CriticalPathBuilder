@@ -5,10 +5,14 @@
 #include "CpbSprintManager.h"
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
+#include "xmlSerializer.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
+    /*xmlSerializer xml;
+    xml.xmlAddSprint("SHIET");*/
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;

@@ -67,6 +67,8 @@ void SprintManager::createSprint()
     {
         newSprint->deleteLater();
     }
+    xmlSerializer xmldoc;
+    xmldoc.xmlAddSprint(newSprintName);
 }
 
 void SprintManager::removeSprint(Sprint* sprint)
