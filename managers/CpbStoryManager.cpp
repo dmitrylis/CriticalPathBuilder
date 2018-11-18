@@ -41,8 +41,7 @@ void StoryManager::createStory(Sprint* sprint)
     {
         newStory->deleteLater();
     }
-    xmlSerializer xml;
-    xml.xmlAddStory(sprint->title(), newStoryName);
+    xmlSerializer::Instance().xmlAddStory(sprint->title(), newStoryName);
 }
 
 void StoryManager::removeStory(Story* story, Sprint* sprint)

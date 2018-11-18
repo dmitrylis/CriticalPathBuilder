@@ -2,33 +2,37 @@
 
 xmlSerializer::xmlSerializer()
 {
+    mFile.setFileName("mydoc.xml");
+
+    mFile.open(QIODevice::ReadOnly);
+    if (!document.setContent(&mFile))
+    {
+        mFile.close();
+        QDomElement docEle = document.createElement("Sprints");
+        document.appendChild(docEle);
+        _xmlSaveToFile();
+    }
+    mFile.close();
 }
 
 void xmlSerializer::xmlCreate()
 {
-    QFile file("mydoc.xml");
-
-    file.open(QIODevice::ReadOnly);
+    mFile.open(QIODevice::ReadOnly);
     QDomDocument document;
-    document.setContent(&file);
-    file.close();
+    document.setContent(&mFile);
+    mFile.close();
 
     QDomElement docEle = document.documentElement();
     QDomNodeList elements = docEle.elementsByTagName("Sprints");
 
-    file.open(QIODevice::WriteOnly);
-    QTextStream stream(&file);
+    mFile.open(QIODevice::WriteOnly);
+    QTextStream stream(&mFile);
     stream << document.toString();
-    file.close();
+    mFile.close();
 }
 
 void xmlSerializer::xmlAddSprint(QString sprint_name)
 {
-    QFile file("mydoc.xml");
-    file.open(QIODevice::ReadOnly);
-    document.setContent(&file);
-    file.close();
-
     QDomElement docEle = document.documentElement();
     QDomNodeList elements = docEle.elementsByTagName("Sprints");
 
@@ -38,19 +42,11 @@ void xmlSerializer::xmlAddSprint(QString sprint_name)
     docEle.appendChild(new_sprint);
     new_sprint.appendChild(story_elements);
 
-    file.open(QIODevice::WriteOnly);
-    QTextStream stream(&file);
-    stream << document.toString();
-    file.close();
+    _xmlSaveToFile();
 }
 
 void xmlSerializer::xmlAddStory(QString sprint_name, QString story_name)
 {
-    QFile file("mydoc.xml");
-    file.open(QIODevice::ReadOnly);
-    document.setContent(&file);
-    file.close();
-
     QDomElement docEle = document.documentElement();
     QDomNodeList elements = docEle.elementsByTagName("Sprint");
 
@@ -70,19 +66,11 @@ void xmlSerializer::xmlAddStory(QString sprint_name, QString story_name)
         }
     }
 
-    file.open(QIODevice::WriteOnly);
-    QTextStream stream(&file);
-    stream << document.toString();
-    file.close();
+    _xmlSaveToFile();
 }
 
 void xmlSerializer::xmlAddTask(QString sprint_name, QString story_name, QString task_name)
 {
-    QFile file("mydoc.xml");
-    file.open(QIODevice::ReadOnly);
-    document.setContent(&file);
-    file.close();
-
     QDomElement docEle = document.documentElement();
     QDomNodeList elements = docEle.elementsByTagName("Sprint");
 
@@ -111,17 +99,20 @@ void xmlSerializer::xmlAddTask(QString sprint_name, QString story_name, QString 
         }
     }
 
-    file.open(QIODevice::WriteOnly);
-    QTextStream stream(&file);
-    stream << document.toString();
-    file.close();
+    _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlSaveCurrent()
+xmlSerializer& xmlSerializer::Instance()
 {
-    QFile file("mydoc.xml");
-
-    file.open(QIODevice::WriteOnly);
-
-    file.close();
+    static xmlSerializer xml;
+    return xml;
 }
+
+void xmlSerializer::_xmlSaveToFile()
+{
+    mFile.open(QIODevice::WriteOnly);
+    QTextStream stream(&mFile);
+    stream << document.toString();
+    mFile.close();
+}
+

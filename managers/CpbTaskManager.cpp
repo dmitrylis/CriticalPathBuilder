@@ -40,7 +40,5 @@ void TaskManager::createTask(Story* story)
     {
         newTask->deleteLater();
     }
-
-    xmlSerializer xml;
-    xml.xmlAddTask("Sprint 1", story->title(), newTaskName);
+    xmlSerializer::Instance().xmlAddTask("Sprint 1", story->title(), newTaskName);
 }
