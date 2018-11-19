@@ -2,6 +2,7 @@ import QtQuick 2.11
 
 import "../controls"
 import "../singletons"
+import "../effects"
 
 Rectangle {
     clip: true
@@ -34,9 +35,14 @@ Rectangle {
                 width: delegateRoot.width
 
                 titleMouseArea {
-                    cursorShape: Qt.OpenHandCursor
+                    cursorShape: mainView.Drag.active || titleMouseArea.pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
                     drag.target: mainView
                     drag.axis: Drag.YAxis
+                }
+
+                layer.enabled: mainView.Drag.active || mainView.titleMouseArea.pressed
+                layer.effect: CpbShadowEffect {
+                    alpha: 0.5
                 }
 
                 Drag.active: titleMouseArea.drag.active
@@ -60,8 +66,8 @@ Rectangle {
                         }
 
                         PropertyChanges {
-                            target: mainView.titleMouseArea
-                            cursorShape: Qt.ClosedHandCursor
+                            target: mainView
+                            z: 1
                         }
                     }
                 ]
@@ -71,7 +77,7 @@ Rectangle {
                 anchors.fill: parent
 
                 onEntered: {
-                    _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, _sprintManager.currentSprint)
+                    _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
                 }
             }
         }

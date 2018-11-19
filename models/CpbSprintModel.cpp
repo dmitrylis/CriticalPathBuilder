@@ -18,18 +18,18 @@ QVariant SprintModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    QVariant aData;
+    Sprint* const sprint = m_entityList[index.row()];
     switch( role ) {
     case SprintRoles::SprintRole:
-        return QVariant::fromValue(m_entityList[index.row()]);
+        return QVariant::fromValue(sprint);
     case SprintRoles::TitleRole:
-        return m_entityList[index.row()]->title();
+        return sprint->title();
     case SprintRoles::StartDateRole:
-        return m_entityList[index.row()]->title();
+        return sprint->title(); // TODO: need to update it
     case SprintRoles::EndDateRole:
-        return m_entityList[index.row()]->title();
+        return sprint->title(); // TODO: need to update it
     case SprintRoles::StoryModelRole:
-        return m_entityList[index.row()]->title();
+        return sprint->title(); // TODO: need to update it
     default:
         break;
     }

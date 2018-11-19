@@ -34,7 +34,7 @@ void TaskManager::createTask(Story* story)
         ++taskNumber;
     }
 
-    Task* newTask = new Task(newTaskName, this);
+    Task* newTask = new Task(newTaskName, story);
 
     if (!taskModel->append(newTask))
     {

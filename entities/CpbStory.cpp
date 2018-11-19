@@ -10,9 +10,18 @@ Story::Story(const QString& title, QObject *parent)
     m_taskModel = new TaskModel(this);
 }
 
+Story::~Story()
+{
+}
+
 QString Story::title() const
 {
     return m_title;
+}
+
+int Story::row() const
+{
+    return m_row;
 }
 
 TaskModel* Story::taskModel() const

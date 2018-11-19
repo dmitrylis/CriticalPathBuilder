@@ -35,7 +35,7 @@ void StoryManager::createStory(Sprint* sprint)
     }
     // <<
 
-    Story* newStory = new Story(newStoryName, this);
+    Story* newStory = new Story(newStoryName, sprint);
 
     if (!storyModel->append(newStory))
     {
@@ -43,25 +43,37 @@ void StoryManager::createStory(Sprint* sprint)
     }
 }
 
-void StoryManager::removeStory(Story* story, Sprint* sprint)
+void StoryManager::removeStory(Story* story)
 {
-    if (story == nullptr || sprint == nullptr)
+    if (story == nullptr)
     {
         return;
     }
 
-    if (sprint->storyModel()->remove(story))
+    Sprint* parentSprint = qobject_cast<Sprint*>(story->parent());
+    if (parentSprint == nullptr)
+    {
+        return;
+    }
+
+    if (parentSprint->storyModel()->remove(story))
     {
         story->deleteLater();
     }
 }
 
-void StoryManager::moveStory(int first, int last, Sprint* sprint)
+void StoryManager::moveStory(int first, int last, Story* story)
 {
-    if (sprint == nullptr)
+    if (story == nullptr)
     {
         return;
     }
 
-    sprint->storyModel()->move(first, last);
+    Sprint* parentSprint = qobject_cast<Sprint*>(story->parent());
+    if (parentSprint == nullptr)
+    {
+        return;
+    }
+
+    parentSprint->storyModel()->move(first, last);
 }

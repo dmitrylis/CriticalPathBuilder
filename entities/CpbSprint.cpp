@@ -10,6 +10,10 @@ Sprint::Sprint(const QString& title, QObject *parent)
     m_storyModel = new StoryModel(this);
 }
 
+Sprint::~Sprint()
+{
+}
+
 QString Sprint::title() const
 {
     return m_title;
