@@ -8,7 +8,7 @@ namespace  {
 const QString SPRINT_NAME_TEMPLATE ("Sprint %0");
 }
 
-SprintManager::SprintManager(QObject *parent) :
+SprintManager::SprintManager( QObject *parent) :
     QObject(parent),
     m_sprintModel(nullptr),
     m_currentSprint(nullptr)
@@ -62,12 +62,12 @@ void SprintManager::createSprint()
     if (m_sprintModel->append(newSprint))
     {
         setCurrentSprint(newSprint);
+        emit sprintCreated(newSprintName);
     }
     else
     {
         newSprint->deleteLater();
     }
-    xmlSerializer::Instance().xmlAddSprint(newSprintName);
 }
 
 void SprintManager::removeSprint(Sprint* sprint)

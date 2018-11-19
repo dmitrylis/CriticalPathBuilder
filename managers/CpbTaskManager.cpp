@@ -35,10 +35,10 @@ void TaskManager::createTask(Story* story)
     }
 
     Task* newTask = new Task(newTaskName, this);
+    emit taskCreated("Sprint 1", story->title(), newTaskName);
 
     if (!taskModel->append(newTask))
     {
         newTask->deleteLater();
     }
-    xmlSerializer::Instance().xmlAddTask("Sprint 1", story->title(), newTaskName);
 }

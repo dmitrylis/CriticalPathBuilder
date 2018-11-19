@@ -19,6 +19,13 @@ int main(int argc, char *argv[])
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
 
+    xmlSerializer xml;
+
+    //connect section
+    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &xmlSerializer::xmlAddSprint);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &xmlSerializer::xmlAddStory);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &xmlSerializer::xmlAddTask);
+
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("_sprintManager", &sprintManager);
     rootContext->setContextProperty("_storyManager", &storyManager);

@@ -28,6 +28,7 @@ public:
 
 signals:
     void currentSprintChanged(Sprint* sprint);
+    void sprintCreated(const QString& sprintName);
 
 private:
     SprintModel* m_sprintModel;

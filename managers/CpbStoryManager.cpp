@@ -36,12 +36,12 @@ void StoryManager::createStory(Sprint* sprint)
     // <<
 
     Story* newStory = new Story(newStoryName, this);
+    emit storyCreated(sprint->title(), newStoryName);
 
     if (!storyModel->append(newStory))
     {
         newStory->deleteLater();
     }
-    xmlSerializer::Instance().xmlAddStory(sprint->title(), newStoryName);
 }
 
 void StoryManager::removeStory(Story* story, Sprint* sprint)

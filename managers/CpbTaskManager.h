@@ -17,6 +17,8 @@ public:
 
     Q_INVOKABLE void createTask(Story* story);
 
+signals:
+    void taskCreated(const QString& sprintName, const QString& storyName, const QString& taskName);
 };
 
 }
