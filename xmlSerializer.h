@@ -4,6 +4,7 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QTextStream>
+#include <QObject>
 
 class xmlSerializer: public QObject
 {

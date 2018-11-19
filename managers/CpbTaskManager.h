@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "CpbStory.h"
+#include "CpbSprint.h"
 
 namespace CPB {
 

@@ -55,6 +55,5 @@ HEADERS += \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
     managers/CpbTaskManager.h \
-    managers/CpbPopupManager.h
+    managers/CpbPopupManager.h \
     xmlSerializer.h
-    managers/CpbPopupManager.h

@@ -35,7 +35,9 @@ void TaskManager::createTask(Story* story)
     }
 
     Task* newTask = new Task(newTaskName, story);
-    emit taskCreated("Sprint 1", story->title(), newTaskName);
+
+    Sprint* parentSprint = qobject_cast<Sprint*>(story->parent());
+    emit taskCreated(parentSprint->title(), story->title(), newTaskName);
 
     if (!taskModel->append(newTask))
     {
