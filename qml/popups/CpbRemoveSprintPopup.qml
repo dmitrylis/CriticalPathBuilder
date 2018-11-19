@@ -2,6 +2,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 
 import "../controls"
+import "../effects"
 
 Rectangle {
     id: root
@@ -10,6 +11,11 @@ Rectangle {
 
     width: 300
     height: 200
+
+    layer.enabled: true
+    layer.effect: CpbShadowEffect {
+        alpha: 0.5
+    }
 
     CpbText {
         anchors.horizontalCenter: parent.horizontalCenter
