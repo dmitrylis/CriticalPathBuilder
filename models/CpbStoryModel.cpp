@@ -18,16 +18,16 @@ QVariant StoryModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    QVariant aData;
-    switch( role ) {
+    Story* const story = m_entityList[index.row()];
+    switch(role) {
     case StoryRoles::StoryRole:
-        return QVariant::fromValue(m_entityList[index.row()]);
+        return QVariant::fromValue(story);
     case StoryRoles::TitleRole:
-        return m_entityList[index.row()]->title();
+        return story->title();
     case StoryRoles::RowRole:
-        return m_entityList[index.row()]->title();
+        return story->row();
     case StoryRoles::TaskModelRole:
-        return QVariant::fromValue(m_entityList[index.row()]->taskModel());
+        return QVariant::fromValue(story->taskModel());
     default:
         break;
     }

@@ -5,7 +5,9 @@
 #include "CpbSprintManager.h"
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
+#include "CpbPopupManager.h"
 #include "xmlSerializer.h"
+#include "CpbPopupManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +20,7 @@ int main(int argc, char *argv[])
     CPB::SprintManager sprintManager;
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
+    CPB::PopupManager popupManager;
 
     xmlSerializer xml;
 
@@ -30,10 +33,13 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty("_sprintManager", &sprintManager);
     rootContext->setContextProperty("_storyManager", &storyManager);
     rootContext->setContextProperty("_taskManager", &taskManager);
+    rootContext->setContextProperty("_popupManager", &popupManager);
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/CpbMain.qml")));
     if (engine.rootObjects().isEmpty())
+    {
         return -1;
+    }
 
     return app.exec();
 }

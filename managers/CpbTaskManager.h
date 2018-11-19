@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-#include "CpbTaskModel.h"
-#include "CpbSprintManager.h"
+#include "CpbStory.h"
 
 namespace CPB {
 

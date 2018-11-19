@@ -8,14 +8,14 @@ namespace CPB {
 class Task : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Task(const QString& title, QObject *parent = nullptr);
+    virtual ~Task();
 
     QString title() const;
-
-signals:
-
-public slots:
+    int row() const;
+    int column() const;
 
 private:
     QString m_title;

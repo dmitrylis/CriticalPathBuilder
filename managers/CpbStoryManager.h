@@ -3,8 +3,7 @@
 
 #include <QObject>
 
-#include "CpbStoryModel.h"
-#include "CpbSprintManager.h"
+#include "CpbSprint.h"
 
 namespace CPB {
 
@@ -16,8 +15,8 @@ public:
     explicit StoryManager(QObject *parent = nullptr);
 
     Q_INVOKABLE void createStory(Sprint* sprint);
-    Q_INVOKABLE void removeStory(Story* story, Sprint* sprint);
-    Q_INVOKABLE void moveStory(int first, int last, Sprint* sprint);
+    Q_INVOKABLE void removeStory(Story* story);
+    Q_INVOKABLE void moveStory(int first, int last, Story* story);
 
 signals:
     void storyCreated(const QString& sprintName, const QString& storyName);

@@ -29,7 +29,7 @@ Item {
                 height: 20
 
                 onClicked: {
-                    _sprintManager.removeSprint(sprintRole)
+                    _popupManager.showRemoveSprintPopup(sprintRole)
                 }
             }
         }

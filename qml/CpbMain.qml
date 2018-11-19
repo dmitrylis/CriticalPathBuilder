@@ -36,4 +36,9 @@ Window {
             bottom: parent.bottom
         }
     }
+
+    CpbPopupView {
+        anchors.fill: parent
+        visible: _popupManager.popupPath !== ""
+    }
 }

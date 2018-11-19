@@ -18,16 +18,16 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    QVariant aData;
+    Task* const task = m_entityList[index.row()];
     switch( role ) {
     case TaskRoles::TitleRole:
-        return m_entityList[index.row()]->title();
+        return task->title();
     case TaskRoles::RowRole:
-        return m_entityList[index.row()]->title();
+        return task->row();
     case TaskRoles::ColumnRole:
-        return m_entityList[index.row()]->title();
+        return task->column();
     case TaskRoles::DaysRole:
-        return m_entityList[index.row()]->title();
+        return task->title(); // TODO: need to update it
     default:
         break;
     }
