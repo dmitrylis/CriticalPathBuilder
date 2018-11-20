@@ -5,13 +5,14 @@ import "../singletons"
 import "../effects"
 
 Rectangle {
+    id: root
+
     clip: true
 
     // list view with stories
     ListView {
         id: storyListView
 
-        x: (parent.width < width) ? 0 : (parent.width - width) / 2
         width: storyListView.headerItem.width
         height: parent.height
 
@@ -22,31 +23,9 @@ Rectangle {
         headerPositioning: ListView.OverlayHeader
 
         // days in sprint
-        header: Row {
+        header: CpbDaysView {
             z: 100
-
-            Repeater {
-                model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
-                delegate: Rectangle {
-                    color: CpbStyle.greyColor
-                    width: 80
-                    height: 50
-
-                    Column {
-                        anchors.centerIn: parent
-
-                        CpbText {
-                            text: monthNameRole
-                        }
-                        CpbText {
-                            text: dayNumberRole
-                        }
-                        CpbText {
-                            text: dayNameRole
-                        }
-                    }
-                }
-            }
+            model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
         }
 
         model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
@@ -82,27 +61,26 @@ Rectangle {
                 Drag.hotSpot.x: width / 2
                 Drag.hotSpot.y: height / 2
 
-                states: [
-                    State {
-                        when: mainView.Drag.active
+                states: State {
+                    name: "dragged"
+                    when: mainView.Drag.active
 
-                        ParentChange {
-                            target: mainView
-                            parent: storyListView
-                        }
-
-                        AnchorChanges {
-                            target: mainView
-                            anchors.horizontalCenter: undefined
-                            anchors.verticalCenter: undefined
-                        }
-
-                        PropertyChanges {
-                            target: mainView
-                            z: 1
-                        }
+                    ParentChange {
+                        target: mainView
+                        parent: storyListView
                     }
-                ]
+
+                    AnchorChanges {
+                        target: mainView
+                        anchors.horizontalCenter: undefined
+                        anchors.verticalCenter: undefined
+                    }
+
+                    PropertyChanges {
+                        target: mainView
+                        z: 1
+                    }
+                }
             }
 
             DropArea {
@@ -111,6 +89,16 @@ Rectangle {
                 onEntered: {
                     _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
                 }
+            }
+        }
+
+        states: State {
+            name: "centered"
+            when: root.width > storyListView.width
+
+            AnchorChanges {
+                target: storyListView
+                anchors.horizontalCenter: root.horizontalCenter
             }
         }
     }

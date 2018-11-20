@@ -14,7 +14,8 @@ public:
     enum DaysModelRoles {
         DayNumberRole = Qt::UserRole + 1,
         DayNameRole,
-        MonthNameRole
+        MonthNameRole,
+        HolidayRole
     };
     Q_ENUM(DaysModelRoles)
 

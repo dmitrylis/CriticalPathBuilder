@@ -23,4 +23,8 @@ Item {
     readonly property color greyColor: "#BEBEBE"
     readonly property color darkGreyColor: "#808080"
     readonly property color greenColor: "green"
+
+    // grid
+    readonly property int cellWidth: 70
+    readonly property int cellHeight: 70
 }
