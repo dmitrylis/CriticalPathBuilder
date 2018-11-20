@@ -21,7 +21,7 @@ void StoryManager::createStory(Sprint* sprint)
     // >> TODO: move to separate class?
     int storyNumber = 1;
     QString newStoryName, tempStoryName;
-    StoryModel* storyModel = sprint->storyModel();
+    StoryModel* const storyModel = sprint->storyModel();
 
     while (storyNumber <= (storyModel->rowCount() + 1))
     {
@@ -50,7 +50,7 @@ void StoryManager::removeStory(Story* story)
         return;
     }
 
-    Sprint* parentSprint = qobject_cast<Sprint*>(story->parent());
+    Sprint* const parentSprint = story->parentSprint();
     if (parentSprint == nullptr)
     {
         return;
@@ -69,7 +69,7 @@ void StoryManager::moveStory(int first, int last, Story* story)
         return;
     }
 
-    Sprint* parentSprint = qobject_cast<Sprint*>(story->parent());
+    Sprint* const parentSprint = story->parentSprint();
     if (parentSprint == nullptr)
     {
         return;

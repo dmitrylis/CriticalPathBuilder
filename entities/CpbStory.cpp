@@ -1,9 +1,11 @@
 #include "CpbStory.h"
+#include "CpbSprint.h"
 
 using namespace CPB;
 
-Story::Story(const QString& title, QObject *parent)
-    : QObject(parent),
+Story::Story(const QString& title, Sprint* parentSprint)
+    : QObject(parentSprint),
+      m_parentSprint(parentSprint),
       m_title(title),
       m_taskModel(nullptr)
 {
@@ -12,6 +14,11 @@ Story::Story(const QString& title, QObject *parent)
 
 Story::~Story()
 {
+}
+
+Sprint* Story::parentSprint() const
+{
+    return m_parentSprint;
 }
 
 QString Story::title() const

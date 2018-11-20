@@ -7,6 +7,8 @@
 
 namespace CPB {
 
+class Sprint;
+
 class Story : public QObject
 {
     Q_OBJECT
@@ -14,14 +16,16 @@ class Story : public QObject
     Q_PROPERTY(TaskModel* taskModel READ taskModel CONSTANT)
 
 public:
-    explicit Story(const QString& title, QObject *parent = nullptr);
+    explicit Story(const QString& title, Sprint* parentSprint);
     virtual ~Story();
 
+    Sprint* parentSprint() const;
     QString title() const;
     int row() const;
     TaskModel* taskModel() const;
 
 private:
+    Sprint* m_parentSprint;
     QString m_title;
     int m_row;
     TaskModel* m_taskModel;
