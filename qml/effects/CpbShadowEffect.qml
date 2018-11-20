@@ -11,10 +11,9 @@ DropShadow {
     horizontalOffset: 0
     verticalOffset: 3
     radius: 15
-    samples: 31 // 2*radius+1
+    samples: 31 // 2 * radius + 1
     color: Qt.rgba(CpbStyle.blackColor.r,
                    CpbStyle.blackColor.g,
                    CpbStyle.blackColor.b,
                    root.alpha)
-    opacity: 0.1
 }

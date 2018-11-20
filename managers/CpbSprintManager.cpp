@@ -1,7 +1,5 @@
 #include "CpbSprintManager.h"
 
-#include <QtGlobal>
-
 using namespace CPB;
 
 namespace  {
@@ -55,9 +53,7 @@ void SprintManager::createSprint()
     }
     // <<
 
-    Q_ASSERT(!newSprintName.isNull() && !newSprintName.isEmpty());
-
-    Sprint* newSprint = new Sprint(newSprintName, this);
+    Sprint* newSprint = new Sprint(newSprintName, QDate::currentDate(), 3, this);
 
     if (m_sprintModel->append(newSprint))
     {
