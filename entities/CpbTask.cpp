@@ -1,15 +1,22 @@
 #include "CpbTask.h"
+#include "CpbStory.h"
 
 using namespace CPB;
 
-Task::Task(const QString& title, QObject *parent)
-    : QObject(parent),
+Task::Task(const QString& title, Story* parentStory)
+    : QObject(parentStory),
+      m_parentStory(parentStory),
       m_title(title)
 {
 }
 
 Task::~Task()
 {
+}
+
+Story* Task::parentStory() const
+{
+    return m_parentStory;
 }
 
 QString Task::title() const
