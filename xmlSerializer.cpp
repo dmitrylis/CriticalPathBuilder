@@ -1,5 +1,7 @@
 #include "xmlSerializer.h"
 
+using namespace CPB;
+
 xmlSerializer::xmlSerializer(QObject* parent) : QObject(parent)
 {
     mFile.setFileName("mydoc.xml");
@@ -92,7 +94,7 @@ void xmlSerializer::_xmlSaveToFile()
     mFile.close();
 }
 
-void xmlSerializer::xmlReadFile()
+void xmlSerializer::xmlReadFile(SprintModel* sprintModel)
 {
     QDomElement docEle = document.documentElement();
     QDomNodeList elements = docEle.elementsByTagName("Sprint");
@@ -101,6 +103,29 @@ void xmlSerializer::xmlReadFile()
     {
         QDomElement domElement = elements.at(i).toElement();
         QDomAttr attr = domElement.attributeNode("name");
+
+        Sprint* newSprint = new Sprint(attr.value());
+        sprintModel->append(newSprint);
+
+        QDomNodeList story_elements = domElement.elementsByTagName("Story");
+        for (int j = 0; j < story_elements.size(); ++j)
+        {
+            QDomElement storyElement = story_elements.at(j).toElement();
+            QDomAttr attr = storyElement.attributeNode("name");
+
+            Story* newStory = new Story(attr.value(), newSprint);
+
+
+            QDomNodeList task_elements = domElement.elementsByTagName("Task");
+            for (int k = 0; k < task_elements.size(); ++k)
+            {
+                QDomElement taskElement = task_elements.at(k).toElement();
+                QDomAttr attr = taskElement.attributeNode("name");
+
+                Task* newTask = new Task(attr.value(), newStory);
+
+            }
+        }
 
     }
 }
