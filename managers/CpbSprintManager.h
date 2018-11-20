@@ -15,7 +15,7 @@ class SprintManager : public QObject
     Q_PROPERTY(Sprint* currentSprint READ currentSprint WRITE setCurrentSprint NOTIFY currentSprintChanged)
 
 public:
-    explicit SprintManager(QObject *parent = nullptr);
+    explicit SprintManager(xmlSerializer* xml, QObject *parent = nullptr);
 
     SprintModel *sprintModel() const;
 

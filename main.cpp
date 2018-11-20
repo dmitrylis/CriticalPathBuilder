@@ -17,12 +17,11 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     // custom section
-    CPB::SprintManager sprintManager;
+    xmlSerializer xml;
+    CPB::SprintManager sprintManager(&xml);
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
-
-    xmlSerializer xml;
 
     //connect section
     QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &xmlSerializer::xmlAddSprint);

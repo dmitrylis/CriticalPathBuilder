@@ -17,37 +17,37 @@ xmlSerializer::xmlSerializer(QObject* parent) : QObject(parent)
     mFile.close();
 }
 
-void xmlSerializer::xmlAddSprint(QString sprint_name)
+void xmlSerializer::xmlAddSprint(QString sprintName)
 {
-    QDomElement docEle = document.documentElement();
-    QDomNodeList elements = docEle.elementsByTagName("Sprints");
+    QDomElement docElement = document.documentElement();
+    QDomNodeList sprintsElements = docElement.elementsByTagName("Sprints");
+    QDomElement newSprint = document.createElement("Sprint");
+    newSprint.setAttribute("name", sprintName);
+    QDomElement storyElements = document.createElement("Stories");
 
-    QDomElement new_sprint = document.createElement("Sprint");
-    new_sprint.setAttribute("name", sprint_name);
-    QDomElement story_elements = document.createElement("Stories");
-    docEle.appendChild(new_sprint);
-    new_sprint.appendChild(story_elements);
+    docElement.appendChild(newSprint);
+    newSprint.appendChild(storyElements);
 
     _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlAddStory(QString sprint_name, QString story_name)
+void xmlSerializer::xmlAddStory(QString sprintName, QString storyName)
 {
-    QDomElement docEle = document.documentElement();
-    QDomNodeList elements = docEle.elementsByTagName("Sprint");
+    QDomElement docElements = document.documentElement();
+    QDomNodeList elements = docElements.elementsByTagName("Sprint");
 
     for (int i = 0; i < elements.size(); ++i)
     {
         QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attr = domElement.attributeNode("name");
-        if (attr.value() == sprint_name)
+        QDomAttr attrName = domElement.attributeNode("name");
+        if (attrName.value() == sprintName)
         {
             QDomElement stories = domElement.firstChildElement("Stories");
-            QDomElement new_story = document.createElement("Story");
-            new_story.setAttribute("name", story_name);
-            QDomElement tasks_elements = document.createElement("Tasks");
-            stories.appendChild(new_story);
-            new_story.appendChild(tasks_elements);
+            QDomElement newStory = document.createElement("Story");
+            newStory.setAttribute("name", storyName);
+            QDomElement tasksElements = document.createElement("Tasks");
+            stories.appendChild(newStory);
+            newStory.appendChild(tasksElements);
             break;
         }
     }
@@ -55,28 +55,28 @@ void xmlSerializer::xmlAddStory(QString sprint_name, QString story_name)
     _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlAddTask(QString sprint_name, QString story_name, QString task_name)
+void xmlSerializer::xmlAddTask(QString sprintName, QString storyName, QString taskName)
 {
-    QDomElement docEle = document.documentElement();
-    QDomNodeList elements = docEle.elementsByTagName("Sprint");
+    QDomElement docElements = document.documentElement();
+    QDomNodeList elements = docElements.elementsByTagName("Sprint");
 
     for (int i = 0; i < elements.size(); ++i)
     {
         QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attr = domElement.attributeNode("name");
-        if (attr.value() == sprint_name)
+        QDomAttr attrSprintName = domElement.attributeNode("name");
+        if (attrSprintName.value() == sprintName)
         {
-            QDomNodeList story_elements = domElement.elementsByTagName("Story");
-            for (int i = 0; i < story_elements.size(); ++i)
+            QDomNodeList storyElements = domElement.elementsByTagName("Story");
+            for (int i = 0; i < storyElements.size(); ++i)
             {
-                QDomElement domElement = story_elements.at(i).toElement();
-                QDomAttr attr = domElement.attributeNode("name");
-                if (attr.value() == story_name)
+                QDomElement domElement = storyElements.at(i).toElement();
+                QDomAttr attrStoryName = domElement.attributeNode("name");
+                if (attrStoryName.value() == storyName)
                 {
                     QDomElement tasks = domElement.firstChildElement("Tasks");
-                    QDomElement new_task = document.createElement("Task");
-                    new_task.setAttribute("name", task_name);
-                    tasks.appendChild(new_task);
+                    QDomElement newTask = document.createElement("Task");
+                    newTask.setAttribute("name", taskName);
+                    tasks.appendChild(newTask);
                     break;
                 }
             }
@@ -96,37 +96,36 @@ void xmlSerializer::_xmlSaveToFile()
 
 void xmlSerializer::xmlReadFile(SprintModel* sprintModel)
 {
-    QDomElement docEle = document.documentElement();
-    QDomNodeList elements = docEle.elementsByTagName("Sprint");
+    QDomElement docElements = document.documentElement();
+    QDomNodeList elements = docElements.elementsByTagName("Sprint");
 
     for (int i = 0; i < elements.size(); ++i)
     {
         QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attr = domElement.attributeNode("name");
+        QDomAttr attrSprintName = domElement.attributeNode("name");
 
-        Sprint* newSprint = new Sprint(attr.value());
+        Sprint* newSprint = new Sprint(attrSprintName.value());
         sprintModel->append(newSprint);
 
-        QDomNodeList story_elements = domElement.elementsByTagName("Story");
-        for (int j = 0; j < story_elements.size(); ++j)
+        QDomNodeList storyElements = domElement.elementsByTagName("Story");
+        for (int j = 0; j < storyElements.size(); ++j)
         {
-            QDomElement storyElement = story_elements.at(j).toElement();
-            QDomAttr attr = storyElement.attributeNode("name");
+            QDomElement storyElement = storyElements.at(j).toElement();
+            QDomAttr attrStoryName = storyElement.attributeNode("name");
 
-            Story* newStory = new Story(attr.value(), newSprint);
+            Story* newStory = new Story(attrStoryName.value(), newSprint);
+            newSprint->storyModel()->append(newStory);
 
-
-            QDomNodeList task_elements = domElement.elementsByTagName("Task");
-            for (int k = 0; k < task_elements.size(); ++k)
+            QDomNodeList taskElements = storyElement.elementsByTagName("Task");
+            for (int k = 0; k < taskElements.size(); ++k)
             {
-                QDomElement taskElement = task_elements.at(k).toElement();
-                QDomAttr attr = taskElement.attributeNode("name");
+                QDomElement taskElement = taskElements.at(k).toElement();
+                QDomAttr attrTaskName = taskElement.attributeNode("name");
 
-                Task* newTask = new Task(attr.value(), newStory);
-
+                Task* newTask = new Task(attrTaskName.value(), newStory);
+                newStory->taskModel()->append(newTask);
             }
         }
-
     }
 }
 
