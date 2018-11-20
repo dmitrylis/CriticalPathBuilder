@@ -11,10 +11,42 @@ Rectangle {
     ListView {
         id: storyListView
 
-        anchors.fill: parent
+        x: (parent.width < width) ? 0 : (parent.width - width) / 2
+        width: storyListView.headerItem.width
+        height: parent.height
 
         displaced: Transition {
             NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
+        }
+
+        headerPositioning: ListView.OverlayHeader
+
+        // days in sprint
+        header: Row {
+            z: 100
+
+            Repeater {
+                model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
+                delegate: Rectangle {
+                    color: CpbStyle.greyColor
+                    width: 80
+                    height: 50
+
+                    Column {
+                        anchors.centerIn: parent
+
+                        CpbText {
+                            text: monthNameRole
+                        }
+                        CpbText {
+                            text: dayNumberRole
+                        }
+                        CpbText {
+                            text: dayNameRole
+                        }
+                    }
+                }
+            }
         }
 
         model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
