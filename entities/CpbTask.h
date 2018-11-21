@@ -12,7 +12,7 @@ class Task : public QObject
     Q_OBJECT
 
 public:
-    explicit Task(const QString& title, Story* parentStory);
+    explicit Task(const QString& title, int row, int column, Story* parentStory);
     virtual ~Task();
 
     Story* parentStory() const;

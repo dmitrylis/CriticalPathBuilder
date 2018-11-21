@@ -3,10 +3,12 @@
 
 using namespace CPB;
 
-Task::Task(const QString& title, Story* parentStory)
+Task::Task(const QString& title, int row, int column, Story* parentStory)
     : QObject(parentStory),
       m_parentStory(parentStory),
-      m_title(title)
+      m_title(title),
+      m_row(row),
+      m_column(column)
 {
 }
 

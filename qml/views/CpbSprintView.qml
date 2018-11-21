@@ -58,8 +58,6 @@ Rectangle {
 
                 Drag.active: titleMouseArea.drag.active
                 Drag.source: delegateRoot // to pass visualIndex
-                Drag.hotSpot.x: width / 2
-                Drag.hotSpot.y: height / 2
 
                 states: State {
                     name: "dragged"

@@ -14,7 +14,8 @@ public:
     enum StoryRoles {
         StoryRole = Qt::UserRole + 1,
         TitleRole,
-        RowRole,
+        RowCountRole,
+        ColumnCountRole,
         TaskModelRole
     };
     Q_ENUM(StoryRoles)
@@ -24,6 +25,7 @@ public:
 
     // overrides
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     QHash<int, QByteArray> roleNames() const override;
 };
 

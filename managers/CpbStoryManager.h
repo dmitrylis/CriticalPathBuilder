@@ -17,6 +17,7 @@ public:
     Q_INVOKABLE void createStory(Sprint* sprint);
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
+    Q_INVOKABLE void addRow(Story* story);
 };
 
 }

@@ -34,6 +34,7 @@ public:
     // custom
     bool append(T *entity);
     bool remove(T *entity);
+    void update(T *entity, const QVariant &value, int role = Qt::EditRole);
     void move(int from, int to);
     bool titleValid(const QString& name);
 
@@ -98,6 +99,23 @@ bool EntityModel<T>::remove(T *entity)
     emit rowCountChanged();
 
     return true;
+}
+
+template<class T>
+void EntityModel<T>::update(T *entity, const QVariant &value, int role)
+{
+    if (entity == nullptr || !m_entityList.contains(entity))
+    {
+        return;
+    }
+
+    const int entityIndex = m_entityList.indexOf(entity);
+    const QModelIndex modelIndex = index(entityIndex);
+
+    if (setData(modelIndex, value, role))
+    {
+        emit dataChanged(modelIndex, modelIndex, { role });
+    }
 }
 
 template<class T>

@@ -14,7 +14,7 @@ class TaskManager : public QObject
 public:
     explicit TaskManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE void createTask(Story* story);
+    Q_INVOKABLE void createTask(int row, int column, Story* story);
 };
 
 }

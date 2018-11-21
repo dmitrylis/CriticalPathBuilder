@@ -4,6 +4,7 @@
         <file>qml/controls/CpbTabButton.qml</file>
         <file>qml/controls/CpbText.qml</file>
         <file>qml/controls/CpbTask.qml</file>
+        <file>qml/controls/CpbAddTask.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>
