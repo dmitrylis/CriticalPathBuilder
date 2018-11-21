@@ -8,13 +8,12 @@ namespace  {
 const QString SPRINT_NAME_TEMPLATE ("Sprint %0");
 }
 
-SprintManager::SprintManager(xmlSerializer* xml, QObject *parent) :
+SprintManager::SprintManager(QObject *parent) :
     QObject(parent),
     m_sprintModel(nullptr),
     m_currentSprint(nullptr)
 {
     m_sprintModel = new SprintModel(this);
-    xml->xmlReadFile(m_sprintModel);
 }
 
 SprintModel *SprintManager::sprintModel() const

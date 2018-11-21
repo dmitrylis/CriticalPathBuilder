@@ -29,7 +29,7 @@ SOURCES += \
     managers/CpbStoryManager.cpp \
     managers/CpbTaskManager.cpp \
     managers/CpbPopupManager.cpp \
-    xmlSerializer.cpp
+    CpbXmlSerializer.cpp
 
 RESOURCES += qml.qrc
 
@@ -56,4 +56,4 @@ HEADERS += \
     managers/CpbStoryManager.h \
     managers/CpbTaskManager.h \
     managers/CpbPopupManager.h \
-    xmlSerializer.h
+    CpbXmlSerializer.h

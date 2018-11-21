@@ -6,7 +6,7 @@
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
 #include "CpbPopupManager.h"
-#include "xmlSerializer.h"
+#include "CpbXmlSerializer.h"
 #include "CpbPopupManager.h"
 
 int main(int argc, char *argv[])
@@ -17,11 +17,13 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     // custom section
-    xmlSerializer xml;
-    CPB::SprintManager sprintManager(&xml);
+    CPB::SprintManager sprintManager;
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
+
+    xmlSerializer xml;
+    xml.xmlReadFile(sprintManager.sprintModel());
 
     //connect section
     QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &xmlSerializer::xmlAddSprint);

@@ -4,7 +4,7 @@
 #include <QObject>
 
 #include "CpbSprintModel.h"
-#include "xmlSerializer.h"
+#include "CpbXmlSerializer.h"
 
 namespace CPB {
 
@@ -15,7 +15,7 @@ class SprintManager : public QObject
     Q_PROPERTY(Sprint* currentSprint READ currentSprint WRITE setCurrentSprint NOTIFY currentSprintChanged)
 
 public:
-    explicit SprintManager(xmlSerializer* xml, QObject *parent = nullptr);
+    explicit SprintManager(QObject *parent = nullptr);
 
     SprintModel *sprintModel() const;
 
