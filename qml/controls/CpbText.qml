@@ -6,10 +6,15 @@ Text {
     id: root
 
     property int fontSize: CpbStyle.fontMedium
+    property bool fontBold: false
 
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
     color: CpbStyle.blackColor
-    font.pixelSize: root.fontSize
     elide: Text.ElideRight
+
+    font {
+        pixelSize: root.fontSize
+        bold: root.fontBold
+    }
 }

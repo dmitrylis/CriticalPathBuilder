@@ -8,11 +8,12 @@
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>
         <file>qml/views/CpbStoryView.qml</file>
+        <file>qml/views/CpbPopupView.qml</file>
+        <file>qml/views/CpbDaysView.qml</file>
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
         <file>qml/components/CpbRectangle.qml</file>
         <file>qml/effects/CpbShadowEffect.qml</file>
-        <file>qml/views/CpbPopupView.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
     </qresource>

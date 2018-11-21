@@ -54,6 +54,8 @@ QVariant CPB::DaysModel::data(const QModelIndex &index, int role) const
         return QLocale().dayName(date.dayOfWeek());
     case DaysModelRoles::MonthNameRole:
         return QLocale().monthName(date.month());
+    case DaysModelRoles::HolidayRole:
+        return date.dayOfWeek() == 6 || date.dayOfWeek() == 7; // Saturday or Sunday
     default:
         break;
     }
@@ -67,5 +69,6 @@ QHash<int, QByteArray> CPB::DaysModel::roleNames() const
     roles[DaysModelRoles::DayNumberRole] = "dayNumberRole";
     roles[DaysModelRoles::DayNameRole] = "dayNameRole";
     roles[DaysModelRoles::MonthNameRole] = "monthNameRole";
+    roles[DaysModelRoles::HolidayRole] = "holidayRole";
     return roles;
 }
