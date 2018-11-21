@@ -51,7 +51,7 @@ QVariant CPB::DaysModel::data(const QModelIndex &index, int role) const
     case DaysModelRoles::DayNumberRole:
         return date.day();
     case DaysModelRoles::DayNameRole:
-        return QLocale().dayName(date.dayOfWeek());
+        return QLocale().dayName(date.dayOfWeek(), QLocale::ShortFormat);
     case DaysModelRoles::MonthNameRole:
         return QLocale().monthName(date.month());
     case DaysModelRoles::HolidayRole:

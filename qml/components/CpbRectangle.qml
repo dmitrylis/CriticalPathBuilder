@@ -67,7 +67,6 @@ Item {
         id: canvas
 
         anchors.fill: parent
-        renderTarget: Canvas.FramebufferObject // seems that it works faster
 
         onPaint: internal.drawRectangle(getContext("2d"))
     }

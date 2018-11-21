@@ -38,15 +38,18 @@ Item {
 
                     Column {
                         anchors.centerIn: parent
+                        width: parent.width
                         spacing: CpbStyle.marginTiny
 
                         CpbText {
                             anchors.horizontalCenter: parent.horizontalCenter
+                            width: parent.width
                             text: dayNameRole
                         }
 
                         CpbText {
                             anchors.horizontalCenter: parent.horizontalCenter
+                            width: parent.width
                             text: dayNumberRole
                             fontSize: CpbStyle.fontLarge
                             fontBold: true
@@ -55,6 +58,7 @@ Item {
 
                         CpbText {
                             anchors.horizontalCenter: parent.horizontalCenter
+                            width: parent.width
                             text: monthNameRole
                             color: CpbStyle.darkGreyColor
                         }
