@@ -36,10 +36,12 @@ void TaskManager::createTask(int row, int column, Story* story)
 
     Task* newTask = new Task(newTaskName, row, column, story);
     Sprint* parentSprint = story->parentSprint();
-    emit taskCreated(parentSprint->title(), story->title(), newTask);
 
-    if (!taskModel->append(newTask))
+    if (taskModel->append(newTask))
     {
-        newTask->deleteLater();
+        emit taskCreated(parentSprint->title(), story->title(), newTask);
+        return;
     }
+
+    newTask->deleteLater();
 }

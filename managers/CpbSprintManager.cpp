@@ -59,11 +59,10 @@ void SprintManager::createSprint()
     {
         setCurrentSprint(newSprint);
         emit sprintCreated(newSprint);
+        return;
     }
-    else
-    {
-        newSprint->deleteLater();
-    }
+
+    newSprint->deleteLater();
 }
 
 void SprintManager::removeSprint(Sprint* sprint)

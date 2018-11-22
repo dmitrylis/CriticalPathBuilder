@@ -16,7 +16,7 @@ const QString ATTRIBUTE_START_DATE ("start_date");
 const QString ATTRIBUTE_END_DATE ("end_date");
 }
 
-xmlSerializer::xmlSerializer(QObject* parent) : QObject(parent)
+XmlSerializer::XmlSerializer(QObject* parent) : QObject(parent)
 {
     mFile.setFileName("struct.xml");
     mFile.open(QIODevice::ReadOnly);
@@ -30,10 +30,9 @@ xmlSerializer::xmlSerializer(QObject* parent) : QObject(parent)
     mFile.close();
 }
 
-void xmlSerializer::xmlAddSprint(Sprint* sprint)
+void XmlSerializer::xmlAddSprint(Sprint* sprint)
 {
     QDomElement docElement = document.documentElement();
-    QDomNodeList sprintsElements = docElement.elementsByTagName(SPRINTS_TAG);
     QDomElement newSprint = document.createElement(SPRINT_TAG);
     newSprint.setAttribute(ATTRIBUTE_NAME, sprint->title());
     newSprint.setAttribute(ATTRIBUTE_START_DATE, sprint->startDate().toString("dd.MM.yyyy"));
@@ -44,7 +43,7 @@ void xmlSerializer::xmlAddSprint(Sprint* sprint)
     _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlAddStory(const QString& sprintName, Story* story)
+void XmlSerializer::xmlAddStory(const QString& sprintName, Story* story)
 {
     QDomElement docElements = document.documentElement();
     QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
@@ -67,7 +66,7 @@ void xmlSerializer::xmlAddStory(const QString& sprintName, Story* story)
     _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlChangeStoryRow(const QString& sprintName, Story* story)
+void XmlSerializer::xmlChangeStoryRow(const QString& sprintName, Story* story)
 {
     QDomElement docElements = document.documentElement();
     QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
@@ -92,7 +91,7 @@ void xmlSerializer::xmlChangeStoryRow(const QString& sprintName, Story* story)
     _xmlSaveToFile();
 }
 
-void xmlSerializer::xmlAddTask(const QString& sprintName, const QString& storyName, Task* task)
+void XmlSerializer::xmlAddTask(const QString& sprintName, const QString& storyName, Task* task)
 {
     QDomElement docElements = document.documentElement();
     QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
@@ -123,7 +122,7 @@ void xmlSerializer::xmlAddTask(const QString& sprintName, const QString& storyNa
     _xmlSaveToFile();
 }
 
-void xmlSerializer::_xmlSaveToFile()
+void XmlSerializer::_xmlSaveToFile()
 {
     mFile.open(QIODevice::WriteOnly);
     QTextStream stream(&mFile);
@@ -131,7 +130,7 @@ void xmlSerializer::_xmlSaveToFile()
     mFile.close();
 }
 
-void xmlSerializer::xmlReadFile(SprintModel* sprintModel)
+void XmlSerializer::xmlReadFile(SprintModel* sprintModel)
 {
     QDomElement docElements = document.documentElement();
     QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);

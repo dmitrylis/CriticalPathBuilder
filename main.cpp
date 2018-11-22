@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
 
-    xmlSerializer xml;
+    XmlSerializer xml;
     xml.xmlReadFile(sprintManager.sprintModel());
 
     //connect section
-    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &xmlSerializer::xmlAddSprint);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &xmlSerializer::xmlAddStory);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &xmlSerializer::xmlChangeStoryRow);
-    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &xmlSerializer::xmlAddTask);
+    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &XmlSerializer::xmlAddSprint);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &XmlSerializer::xmlAddStory);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &XmlSerializer::xmlChangeStoryRow);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &XmlSerializer::xmlAddTask);
 
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("_sprintManager", &sprintManager);

@@ -7,15 +7,15 @@
 #include <QObject>
 #include "CpbSprintModel.h"
 
-using namespace CPB;
+namespace CPB {
 
-class xmlSerializer: public QObject
+class XmlSerializer: public QObject
 {
     Q_OBJECT
 
     //methods
 public:
-    xmlSerializer(QObject* parent = nullptr);
+    XmlSerializer(QObject* parent = nullptr);
     void xmlAddSprint(Sprint* sprint);
     void xmlAddStory(const QString& sprintName, Story* story);
     void xmlChangeStoryRow(const QString& sprintName, Story* story);
@@ -30,4 +30,6 @@ private:
     QFile mFile;
     QDomDocument document;
 };
+
+}
 #endif // XMLSERIALIZER_H
