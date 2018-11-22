@@ -35,3 +35,13 @@ int Task::column() const
 {
     return m_column;
 }
+
+int Task::setRow(int row)
+{
+    m_row = row;
+}
+
+int Task::setColumn(int column)
+{
+    m_column = column;
+}

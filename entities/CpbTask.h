@@ -20,6 +20,9 @@ public:
     int row() const;
     int column() const;
 
+    int setRow(int row);
+    int setColumn(int column);
+
 private:
     Story* m_parentStory;
     QString m_title;

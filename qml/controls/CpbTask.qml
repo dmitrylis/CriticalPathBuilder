@@ -13,9 +13,5 @@ Item {
         }
 
         color: CpbStyle.greenColor
-
-        MouseArea {
-
-        }
     }
 }

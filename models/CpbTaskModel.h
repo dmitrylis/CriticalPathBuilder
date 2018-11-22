@@ -12,7 +12,8 @@ class TaskModel : public EntityModel<Task>
 
 public:
     enum TaskRoles {
-        TitleRole = Qt::UserRole + 1,
+        TaskRole = Qt::UserRole + 1,
+        TitleRole,
         RowRole,
         ColumnRole,
         DaysRole
@@ -23,6 +24,7 @@ public:
     ~TaskModel() override;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     QHash<int, QByteArray> roleNames() const override;
 };
 

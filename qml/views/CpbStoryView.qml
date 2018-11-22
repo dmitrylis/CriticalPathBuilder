@@ -4,6 +4,7 @@ import QtQuick.Controls 2.4
 import "../controls"
 import "../components"
 import "../singletons"
+import "../effects"
 
 Item {
     id: root
@@ -66,7 +67,6 @@ Item {
             height: backLayout.height
             radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
             color: CpbStyle.lightGreyColor
-            clip: true
 
             Item {
                 id: backLayout
@@ -95,14 +95,80 @@ Item {
             Item {
                 id: content
 
-                width: childrenRect.width
-                height: childrenRect.height
+                width: backLayout.width
+                height: backLayout.height
+
+                Item {
+                    id: highlight
+
+                    x: _taskManager.highlight.x * CpbStyle.cellWidth
+                    y: _taskManager.highlight.y * CpbStyle.cellHeight
+                    width: _taskManager.highlight.width * CpbStyle.cellWidth
+                    height: _taskManager.highlight.height * CpbStyle.cellHeight
+                    visible: _taskManager.draggedTask !== null
+
+                    Rectangle {
+                        anchors {
+                            fill: parent
+                            margins: CpbStyle.marginSmall
+                        }
+                        color: "transparent"
+                        border.width: 2
+                        border.color: "red"
+                    }
+                }
 
                 Repeater {
                     model: taskModelRole
                     delegate: CpbTask {
+                        id: taskDelegate
+
+                        Behavior on x { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack; duration: 200 } }
+                        Behavior on y { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack; duration: 200 } }
+
                         x: columnRole * CpbStyle.cellWidth
                         y: rowRole * CpbStyle.cellHeight
+
+                        layer.enabled: _taskManager.draggedTask === taskRole
+                        layer.effect: CpbShadowEffect {
+                            alpha: 0.5
+                        }
+
+                        onXChanged: {
+                            _taskManager.updateHighlightColumn(x, CpbStyle.cellWidth)
+                        }
+
+                        onYChanged: {
+                            _taskManager.updateHighlightRow(y, CpbStyle.cellHeight)
+                        }
+
+                        MouseArea {
+                            id: dragArea
+
+                            anchors.fill: parent
+                            pressAndHoldInterval: 300
+                            cursorShape: _taskManager.draggedTask === taskRole ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+
+                            onPressAndHold: {
+                                drag.target = taskDelegate
+                                _taskManager.startDragTask(taskRole)
+                            }
+
+                            onReleased: {
+                                drag.target = null
+                                _taskManager.stopDragTask()
+                            }
+                        }
+
+                        states: State {
+                            name: "dragged"
+                            when: _taskManager.draggedTask === taskRole
+
+                            PropertyChanges {
+                                target: taskDelegate
+                                z: 1
+                            }
+                        }
                     }
                 }
             }
