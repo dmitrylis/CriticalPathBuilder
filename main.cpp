@@ -16,6 +16,8 @@ int main(int argc, char *argv[])
 
     // register section (when we want to use pointer from Q_PROPERTY)
     qRegisterMetaType<CPB::Sprint*>("Sprint*");
+    qRegisterMetaType<CPB::Story*>("Story*");
+    qRegisterMetaType<CPB::Task*>("Task*");
 
     // custom section
     CPB::SprintManager sprintManager;
