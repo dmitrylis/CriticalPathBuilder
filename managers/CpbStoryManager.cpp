@@ -36,6 +36,7 @@ void StoryManager::createStory(Sprint* sprint)
     // <<
 
     Story* newStory = new Story(newStoryName, sprint);
+    emit storyCreated(sprint->title(), newStory);
 
     if (!storyModel->append(newStory))
     {
@@ -92,4 +93,5 @@ void StoryManager::addRow(Story *story)
     }
 
     parentSprint->storyModel()->update(story, story->rowCount() + 1, StoryModel::RowCountRole);
+    emit storyRowChanged(story->parentSprint()->title(), story);
 }

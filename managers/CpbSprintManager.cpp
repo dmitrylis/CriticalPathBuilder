@@ -58,6 +58,7 @@ void SprintManager::createSprint()
     if (m_sprintModel->append(newSprint))
     {
         setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
     }
     else
     {
