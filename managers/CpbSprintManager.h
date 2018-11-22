@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "CpbSprintModel.h"
+#include "CpbXmlSerializer.h"
 
 namespace CPB {
 
@@ -27,6 +28,7 @@ public:
 
 signals:
     void currentSprintChanged(Sprint* sprint);
+    void sprintCreated(Sprint* sprint);
 
 private:
     SprintModel* m_sprintModel;

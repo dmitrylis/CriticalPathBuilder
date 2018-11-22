@@ -5,6 +5,7 @@
 #include <QRect>
 
 #include "CpbStory.h"
+#include "CpbSprint.h"
 
 namespace CPB {
 
@@ -33,6 +34,7 @@ public:
 signals:
     void draggedTaskChanged(Task* draggedTask);
     void highlightChanged(QRect highlight);
+    void taskCreated(const QString& sprintName, const QString& storyName, Task* task);
 
 private:
     Task* m_draggedTask;
