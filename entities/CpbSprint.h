@@ -16,14 +16,14 @@ class Sprint : public QObject
     Q_PROPERTY(DaysModel* daysModel READ daysModel CONSTANT)
 
 public:
-    explicit Sprint(const QString& title, const QDate& startDate, int weeksDuration, QObject *parent = nullptr);
+    explicit Sprint(const QString& title, const QDate& startDate, int weeksCount, QObject *parent = nullptr);
     explicit Sprint(const QString& title, const QDate& startDate, const QDate& endDate, QObject *parent = nullptr);
     virtual ~Sprint();
 
     QString title() const;
     QDate startDate() const;
     QDate endDate() const;
-    int daysDuration() const;
+    int daysCount() const;
 
     StoryModel* storyModel() const;
     DaysModel* daysModel() const;
@@ -32,7 +32,7 @@ private:
     QString m_title;
     QDate m_startDate;
     QDate m_endDate;
-    int m_daysDuration;
+    int m_daysCount;
 
     StoryModel* m_storyModel;
     DaysModel* m_daysModel;

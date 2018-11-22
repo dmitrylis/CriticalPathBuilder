@@ -1,106 +1,131 @@
 import QtQuick 2.11
+import QtQuick.Controls 2.4
 
 import "../controls"
 import "../singletons"
 import "../effects"
 
 Rectangle {
-    id: root
-
     clip: true
 
-    // list view with stories
-    ListView {
-        id: storyListView
+    Flickable {
+        id: hFlickable
 
-        width: storyListView.headerItem.width
-        height: parent.height
+        anchors.fill: parent
+        contentWidth: storyListView.width
+        ScrollBar.horizontal: hScrollbar
 
-        displaced: Transition {
-            NumberAnimation { properties: "x,y"; easing.type: Easing.OutQuad }
-        }
+        // list view with stories
+        ListView {
+            id: storyListView
 
-        headerPositioning: ListView.OverlayHeader
+            x: hFlickable.width > storyListView.width ? (hFlickable.width - storyListView.width) / 2 : 0
+            width: storyListView.headerItem.width
+            height: parent.height
+            ScrollBar.vertical: vScrollbar
 
-        // days in sprint
-        header: CpbDaysView {
-            z: 100
-            model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
-        }
+            displaced: Transition {
+                NumberAnimation { properties: "x, y"; easing.type: Easing.OutQuad }
+            }
 
-        model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
+            headerPositioning: ListView.OverlayHeader
 
-        delegate: Item {
-            id: delegateRoot
+            // days in sprint
+            header: CpbDaysView {
+                z: 100
+                model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
+            }
 
-            property int visualIndex: index
+            model: _sprintManager.currentSprint ? _sprintManager.currentSprint.storyModel : null
 
-            width: storyListView.width
-            height: mainView.height
+            delegate: Item {
+                id: delegateRoot
 
-            CpbStoryView {
-                id: mainView
+                property int visualIndex: index
 
-                anchors.horizontalCenter: delegateRoot.horizontalCenter
-                anchors.verticalCenter: delegateRoot.verticalCenter
-                width: delegateRoot.width
+                width: storyListView.width
+                height: mainView.height
 
-                titleMouseArea {
-                    cursorShape: mainView.Drag.active || titleMouseArea.pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-                    drag.target: mainView
-                    drag.axis: Drag.YAxis
-                }
+                CpbStoryView {
+                    id: mainView
 
-                layer.enabled: mainView.Drag.active || mainView.titleMouseArea.pressed
-                layer.effect: CpbShadowEffect {
-                    alpha: 0.5
-                }
+                    anchors.horizontalCenter: delegateRoot.horizontalCenter
+                    anchors.verticalCenter: delegateRoot.verticalCenter
+                    width: delegateRoot.width
 
-                Drag.active: titleMouseArea.drag.active
-                Drag.source: delegateRoot // to pass visualIndex
-                Drag.hotSpot.x: width / 2
-                Drag.hotSpot.y: height / 2
-
-                states: State {
-                    name: "dragged"
-                    when: mainView.Drag.active
-
-                    ParentChange {
-                        target: mainView
-                        parent: storyListView
+                    titleMouseArea {
+                        cursorShape: mainView.Drag.active || titleMouseArea.pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                        drag.target: mainView
+                        drag.axis: Drag.YAxis
                     }
 
-                    AnchorChanges {
-                        target: mainView
-                        anchors.horizontalCenter: undefined
-                        anchors.verticalCenter: undefined
+                    layer.enabled: mainView.Drag.active || mainView.titleMouseArea.pressed
+                    layer.effect: CpbShadowEffect {
+                        alpha: 0.5
                     }
 
-                    PropertyChanges {
-                        target: mainView
-                        z: 1
+                    Drag.active: titleMouseArea.drag.active
+                    Drag.source: delegateRoot // to pass visualIndex
+                    Drag.hotSpot.x: 0 // TODO: this point should be dynamic
+                    Drag.hotSpot.y: height / 2
+
+                    states: State {
+                        name: "dragged"
+                        when: mainView.Drag.active
+
+                        ParentChange {
+                            target: mainView
+                            parent: storyListView
+                        }
+
+                        AnchorChanges {
+                            target: mainView
+                            anchors.horizontalCenter: undefined
+                            anchors.verticalCenter: undefined
+                        }
+
+                        PropertyChanges {
+                            target: mainView
+                            z: 1
+                        }
+                    }
+                }
+
+                DropArea {
+                    anchors.fill: parent
+
+                    onEntered: {
+                        _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
                     }
                 }
             }
-
-            DropArea {
-                anchors.fill: parent
-
-                onEntered: {
-                    _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
-                }
-            }
         }
+    }
 
-        states: State {
-            name: "centered"
-            when: root.width > storyListView.width
+    // scroll bars
+    ScrollBar {
+        id: hScrollbar
 
-            AnchorChanges {
-                target: storyListView
-                anchors.horizontalCenter: root.horizontalCenter
-            }
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
         }
+        active: true
+        z: 1
+    }
+
+    ScrollBar {
+        id: vScrollbar
+
+        anchors {
+            right: parent.right
+            top: parent.top
+            bottom: parent.bottom
+            topMargin: storyListView.headerItem.height
+        }
+        active: true
+        z: 1
     }
 
     // text stubs

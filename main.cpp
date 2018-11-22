@@ -14,6 +14,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
+    // register section (when we want to use pointer from Q_PROPERTY)
+    qRegisterMetaType<CPB::Sprint*>("Sprint*");
+
     // custom section
     CPB::SprintManager sprintManager;
     CPB::StoryManager storyManager;

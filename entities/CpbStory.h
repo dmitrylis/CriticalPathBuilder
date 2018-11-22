@@ -12,8 +12,8 @@ class Sprint;
 class Story : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(Sprint* parentSprint READ parentSprint CONSTANT)
     Q_PROPERTY(QString title READ title CONSTANT)
-    Q_PROPERTY(TaskModel* taskModel READ taskModel CONSTANT)
 
 public:
     explicit Story(const QString& title, Sprint* parentSprint);
@@ -21,13 +21,17 @@ public:
 
     Sprint* parentSprint() const;
     QString title() const;
-    int row() const;
+    int rowCount() const;
+    int columnCount() const;
     TaskModel* taskModel() const;
+
+    void setRowCount(int rowCount);
 
 private:
     Sprint* m_parentSprint;
     QString m_title;
-    int m_row;
+    int m_rowCount;
+    int m_columnCount;
     TaskModel* m_taskModel;
 };
 

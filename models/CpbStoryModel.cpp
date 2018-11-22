@@ -24,8 +24,10 @@ QVariant StoryModel::data(const QModelIndex &index, int role) const
         return QVariant::fromValue(story);
     case StoryRoles::TitleRole:
         return story->title();
-    case StoryRoles::RowRole:
-        return story->row();
+    case StoryRoles::RowCountRole:
+        return story->rowCount();
+    case StoryRoles::ColumnCountRole:
+        return story->columnCount();
     case StoryRoles::TaskModelRole:
         return QVariant::fromValue(story->taskModel());
     default:
@@ -35,12 +37,33 @@ QVariant StoryModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool StoryModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+    {
+        return false;
+    }
+
+    Story* const story = m_entityList[index.row()];
+    switch(role) {
+    case StoryRoles::RowCountRole:
+        story->setRowCount(value.toInt());
+        break;
+    default:
+        QAbstractListModel::setData(index, value, role);
+        break;
+    }
+
+    return true;
+}
+
 QHash<int, QByteArray> StoryModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[StoryRoles::StoryRole] = "storyRole";
     roles[StoryRoles::TitleRole] = "titleRole";
-    roles[StoryRoles::RowRole] = "rowRole";
+    roles[StoryRoles::RowCountRole] = "rowCountRole";
+    roles[StoryRoles::ColumnCountRole] = "columnCountRole";
     roles[StoryRoles::TaskModelRole] = "taskModelRole";
     return roles;
 }

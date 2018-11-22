@@ -63,37 +63,55 @@ Item {
             id: background
 
             width: parent.width
-            height: flickableContent.height
+            height: backLayout.height
             radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
             color: CpbStyle.lightGreyColor
             clip: true
 
-            Flickable {
-                id: flickableContent
+            Item {
+                id: backLayout
 
-                width: parent.width
-                height: content.height
+                width: childrenRect.width
+                height: childrenRect.height
 
-                contentWidth: content.width
+                Repeater {
+                    id: addTaskRepeater
 
-                Item {
-                    id: content
+                    model: rowCountRole * columnCountRole
+                    delegate: CpbAddTask {
+                        property int column: index % columnCountRole
+                        property int row: index / columnCountRole
 
-                    width: childrenRect.width
-                    height: childrenRect.height
+                        x: column * CpbStyle.cellWidth
+                        y: row * CpbStyle.cellHeight
 
-                    Repeater {
-                        model: taskModelRole
-                        delegate: CpbTask {}
+                        onClicked: {
+                            _taskManager.createTask(row, column, storyRole)
+                        }
+                    }
+                }
+            }
+
+            Item {
+                id: content
+
+                width: childrenRect.width
+                height: childrenRect.height
+
+                Repeater {
+                    model: taskModelRole
+                    delegate: CpbTask {
+                        x: columnRole * CpbStyle.cellWidth
+                        y: rowRole * CpbStyle.cellHeight
                     }
                 }
             }
         }
 
         CpbTabButton {
-            text: "add task"
+            text: "add row"
             onClicked: {
-                _taskManager.createTask(storyRole)
+                _storyManager.addRow(storyRole)
             }
         }
     }

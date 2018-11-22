@@ -77,3 +77,19 @@ void StoryManager::moveStory(int first, int last, Story* story)
 
     parentSprint->storyModel()->move(first, last);
 }
+
+void StoryManager::addRow(Story *story)
+{
+    if (story == nullptr)
+    {
+        return;
+    }
+
+    Sprint* const parentSprint = story->parentSprint();
+    if (parentSprint == nullptr)
+    {
+        return;
+    }
+
+    parentSprint->storyModel()->update(story, story->rowCount() + 1, StoryModel::RowCountRole);
+}

@@ -12,7 +12,7 @@ TaskManager::TaskManager(QObject *parent) :
 
 }
 
-void TaskManager::createTask(Story* story)
+void TaskManager::createTask(int row, int column, Story* story)
 {
     if (story == nullptr)
     {
@@ -34,7 +34,7 @@ void TaskManager::createTask(Story* story)
         ++taskNumber;
     }
 
-    Task* newTask = new Task(newTaskName, story);
+    Task* newTask = new Task(newTaskName, row, column, story);
 
     if (!taskModel->append(newTask))
     {

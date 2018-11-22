@@ -10,35 +10,44 @@ Window {
     height: 480
     title: qsTr("Critical Path Builder")
 
-    Rectangle {
+    Item {
+        id: mainLayer
+
         anchors.fill: parent
-        color: CpbStyle.darkGreyColor
-    }
 
-    CpbSprintTabView {
-        id: sprintTabView
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
+        Rectangle {
+            anchors.fill: parent
+            color: CpbStyle.darkGreyColor
         }
-        height: 50
-    }
 
-    CpbSprintView {
-        id: sprintView
+        CpbSprintTabView {
+            id: sprintTabView
 
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: sprintTabView.bottom
-            bottom: parent.bottom
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+            height: 50
+        }
+
+        CpbSprintView {
+            id: sprintView
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: sprintTabView.bottom
+                bottom: parent.bottom
+            }
         }
     }
 
     CpbPopupView {
+        id: popupLayer
+
         anchors.fill: parent
+        blurSource: mainLayer
         visible: _popupManager.popupPath !== ""
     }
 }
