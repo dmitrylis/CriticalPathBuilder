@@ -71,10 +71,10 @@ void SprintManager::removeSprint(Sprint* sprint)
     Sprint* sprintToSelect = currentSprint();
     if (sprintToSelect == sprint)
     {
-        sprintToSelect = m_sprintModel->getPrevious(sprint);
+        sprintToSelect = m_sprintModel->previous(sprint);
         if (sprintToSelect == nullptr)
         {
-            sprintToSelect = m_sprintModel->getNext(sprint);
+            sprintToSelect = m_sprintModel->next(sprint);
         }
     }
 
@@ -89,4 +89,13 @@ void SprintManager::removeSprint(Sprint* sprint)
 void SprintManager::moveSprint(int from, int to)
 {
     m_sprintModel->move(from, to);
+}
+
+void SprintManager::onModelLoaded()
+{
+    Sprint* sprintToSelect = m_sprintModel->first();
+    if (sprintToSelect != nullptr)
+    {
+        setCurrentSprint(sprintToSelect);
+    }
 }

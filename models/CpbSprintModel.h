@@ -28,8 +28,9 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     // custom
-    Sprint *getPrevious(Sprint *sprint) const;
-    Sprint *getNext(Sprint *sprint) const;
+    Sprint* previous(Sprint *sprint) const;
+    Sprint* next(Sprint *sprint) const;
+    Sprint* first() const;
 
 protected:
     bool isValidIndex(int index) const;

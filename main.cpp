@@ -15,26 +15,29 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    // register section (when we want to use pointer from Q_PROPERTY)
+    // register types
     qRegisterMetaType<CPB::Sprint*>("Sprint*");
     qRegisterMetaType<CPB::Story*>("Story*");
     qRegisterMetaType<CPB::Task*>("Task*");
 
-    // custom section
+    // create instances
     CPB::SprintManager sprintManager;
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
+    CPB::XmlSerializer xmlSerializer;
 
-    XmlSerializer xml;
-    xml.xmlReadFile(sprintManager.sprintModel());
+    // connects
+    QObject::connect(&xmlSerializer, &CPB::XmlSerializer::modelLoaded, &sprintManager, &CPB::SprintManager::onModelLoaded);
+    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xmlSerializer, &CPB::XmlSerializer::createSprint);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xmlSerializer, &CPB::XmlSerializer::createStory);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xmlSerializer, &CPB::XmlSerializer::updateStoryRow);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xmlSerializer, &CPB::XmlSerializer::createTask);
 
-    //connect section
-    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &XmlSerializer::xmlAddSprint);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &XmlSerializer::xmlAddStory);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &XmlSerializer::xmlChangeStoryRow);
-    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &XmlSerializer::xmlAddTask);
+    // load model from xml
+    xmlSerializer.readFile(sprintManager.sprintModel());
 
+    // set context properties to qml root context
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("_sprintManager", &sprintManager);
     rootContext->setContextProperty("_storyManager", &storyManager);

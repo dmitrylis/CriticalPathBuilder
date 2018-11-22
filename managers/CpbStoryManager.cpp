@@ -36,8 +36,6 @@ void StoryManager::createStory(Sprint* sprint)
     // <<
 
     Story* newStory = new Story(newStoryName, sprint);
-    emit storyCreated(sprint->title(), newStory);
-
     if (storyModel->append(newStory))
     {
         emit storyCreated(sprint->title(), newStory);

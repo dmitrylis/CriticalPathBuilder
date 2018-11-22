@@ -26,6 +26,9 @@ public:
     Q_INVOKABLE void removeSprint(Sprint* sprint);
     Q_INVOKABLE void moveSprint(int from, int to);
 
+public slots:
+    void onModelLoaded();
+
 signals:
     void currentSprintChanged(Sprint* sprint);
     void sprintCreated(Sprint* sprint);

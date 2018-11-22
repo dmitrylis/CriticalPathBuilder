@@ -48,7 +48,7 @@ QHash<int, QByteArray> SprintModel::roleNames() const
     return roles;
 }
 
-Sprint *SprintModel::getPrevious(Sprint *sprint) const
+Sprint* SprintModel::previous(Sprint *sprint) const
 {
     if (sprint == nullptr || !m_entityList.contains(sprint))
     {
@@ -64,7 +64,7 @@ Sprint *SprintModel::getPrevious(Sprint *sprint) const
     return nullptr;
 }
 
-Sprint *SprintModel::getNext(Sprint *sprint) const
+Sprint* SprintModel::next(Sprint *sprint) const
 {
     if (sprint == nullptr || !m_entityList.contains(sprint))
     {
@@ -78,6 +78,16 @@ Sprint *SprintModel::getNext(Sprint *sprint) const
     }
 
     return nullptr;
+}
+
+Sprint *SprintModel::first() const
+{
+    if (m_entityList.isEmpty())
+    {
+        return nullptr;
+    }
+
+    return m_entityList.first();
 }
 
 bool SprintModel::isValidIndex(int index) const

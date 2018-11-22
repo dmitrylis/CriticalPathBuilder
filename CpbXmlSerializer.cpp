@@ -3,165 +3,229 @@
 using namespace CPB;
 
 namespace {
-const QString SPRINTS_TAG ("Sprints");
-const QString SPRINT_TAG ("Sprint");
-const QString STORIES_TAG ("Stories");
-const QString STORY_TAG ("Story");
-const QString TASKS_TAG ("Tasks");
-const QString TASK_TAG ("Task");
-const QString ATTRIBUTE_NAME ("name");
+const QString TAG_CPB ("CPB");
+const QString TAG_SPRINT ("Sprint");
+const QString TAG_STORY ("Story");
+const QString TAG_TASK ("Task");
+
+const QString ATTRIBUTE_TITLE ("title");
+const QString ATTRIBUTE_ROW_COUNT ("row_count");
 const QString ATTRIBUTE_ROW ("row");
 const QString ATTRIBUTE_COLUMN ("column");
 const QString ATTRIBUTE_START_DATE ("start_date");
 const QString ATTRIBUTE_END_DATE ("end_date");
+
+const QString DATE_FORMAT ("dd.MM.yyyy");
 }
 
 XmlSerializer::XmlSerializer(QObject* parent) : QObject(parent)
 {
-    mFile.setFileName("struct.xml");
-    mFile.open(QIODevice::ReadOnly);
-    if (!document.setContent(&mFile))
+    m_file.setFileName("struct.xml");
+    m_file.open(QIODevice::ReadOnly);
+    if (!m_document.setContent(&m_file))
     {
-        mFile.close();
-        QDomElement docEle = document.createElement(SPRINTS_TAG);
-        document.appendChild(docEle);
-        _xmlSaveToFile();
+        m_file.close();
+        QDomElement docEle = m_document.createElement(TAG_CPB);
+        m_document.appendChild(docEle);
+        writeFile();
     }
-    mFile.close();
+    m_file.close();
 }
 
-void XmlSerializer::xmlAddSprint(Sprint* sprint)
+XmlSerializer::~XmlSerializer()
 {
-    QDomElement docElement = document.documentElement();
-    QDomElement newSprint = document.createElement(SPRINT_TAG);
-    newSprint.setAttribute(ATTRIBUTE_NAME, sprint->title());
-    newSprint.setAttribute(ATTRIBUTE_START_DATE, sprint->startDate().toString("dd.MM.yyyy"));
-    newSprint.setAttribute(ATTRIBUTE_END_DATE, sprint->endDate().toString("dd.MM.yyyy"));
-    QDomElement storyElements = document.createElement(STORIES_TAG);
-    docElement.appendChild(newSprint);
-    newSprint.appendChild(storyElements);
-    _xmlSaveToFile();
 }
 
-void XmlSerializer::xmlAddStory(const QString& sprintName, Story* story)
+void XmlSerializer::readFile(SprintModel* sprintModel)
 {
-    QDomElement docElements = document.documentElement();
-    QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
-    for (int i = 0; i < elements.size(); ++i)
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
     {
-        QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attrName = domElement.attributeNode(ATTRIBUTE_NAME);
-        if (attrName.value() == sprintName)
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, &sprintModel] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        QDomAttr sprintStartDateAttr = sprintElement.attributeNode(ATTRIBUTE_START_DATE);
+        QDomAttr sprintEndDateAttr = sprintElement.attributeNode(ATTRIBUTE_END_DATE);
+
+        Sprint* newSprint = new Sprint(sprintTitleAttr.value(),
+                                       QDate::fromString(sprintStartDateAttr.value(), DATE_FORMAT),
+                                       QDate::fromString(sprintEndDateAttr.value(), DATE_FORMAT));
+        sprintModel->append(newSprint);
+
+        processNodeList(sprintElement, TAG_STORY, [this, &newSprint] (QDomElement storyElement) {
+            QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+            QDomAttr storyRowCountAttr = storyElement.attributeNode(ATTRIBUTE_ROW_COUNT);
+
+            Story* newStory = new Story(storyTitleAttr.value(), newSprint);
+            newStory->setRowCount(storyRowCountAttr.value().toInt());
+            newSprint->storyModel()->append(newStory);
+
+            processNodeList(storyElement, TAG_TASK, [&newStory] (QDomElement taskElement) {
+                QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                QDomAttr taskRowAttr = taskElement.attributeNode(ATTRIBUTE_ROW);
+                QDomAttr taskColumnAttr = taskElement.attributeNode(ATTRIBUTE_COLUMN);
+
+                Task* newTask = new Task(taskTitleAttr.value(), taskRowAttr.value().toInt(), taskColumnAttr.value().toInt(), newStory);
+                newStory->taskModel()->append(newTask);
+
+                return false; // no break
+            });
+
+            return false; // no break
+        });
+
+        return false; // no break
+    });
+
+    emit modelLoaded();
+}
+
+void XmlSerializer::createSprint(Sprint* sprint)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    QDomElement newSprintElement = m_document.createElement(TAG_SPRINT);
+    newSprintElement.setAttribute(ATTRIBUTE_TITLE, sprint->title());
+    newSprintElement.setAttribute(ATTRIBUTE_START_DATE, sprint->startDate().toString(DATE_FORMAT));
+    newSprintElement.setAttribute(ATTRIBUTE_END_DATE, sprint->endDate().toString(DATE_FORMAT));
+
+    rootElement.appendChild(newSprintElement);
+
+    writeFile();
+}
+
+void XmlSerializer::createStory(const QString& sprintTitle, Story* story)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, &story] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
         {
-            QDomElement stories = domElement.firstChildElement(STORIES_TAG);
-            QDomElement newStory = document.createElement(STORY_TAG);
-            newStory.setAttribute(ATTRIBUTE_NAME, story->title());
-            newStory.setAttribute(ATTRIBUTE_ROW, story->rowCount());
-            QDomElement tasksElements = document.createElement(TASKS_TAG);
-            stories.appendChild(newStory);
-            newStory.appendChild(tasksElements);
+            QDomElement newStoryElement = m_document.createElement(TAG_STORY);
+            newStoryElement.setAttribute(ATTRIBUTE_TITLE, story->title());
+            newStoryElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
+
+            sprintElement.appendChild(newStoryElement);
+
+            return true; // break from processing
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::updateStoryRow(const QString& sprintTitle, Story* story)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, &story] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [&story] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == story->title())
+                {
+                    storyElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
+
+                    return true; // break from processing
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyTitle, Task* task)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, &task] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, &task] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    QDomElement newTaskElement = m_document.createElement(TAG_TASK);
+                    newTaskElement.setAttribute(ATTRIBUTE_TITLE, task->title());
+                    newTaskElement.setAttribute(ATTRIBUTE_ROW, task->row());
+                    newTaskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
+
+                    storyElement.appendChild(newTaskElement);
+
+                    return true; // break from processing
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+QDomElement XmlSerializer::cpbRootElement() const
+{
+    QDomElement rootElement = m_document.documentElement();
+
+    if (rootElement.tagName() != TAG_CPB)
+    {
+        qWarning("File format is not applicable for CPB");
+        return QDomElement();
+    }
+
+    return rootElement;
+}
+
+void XmlSerializer::processNodeList(const QDomElement& parentElement,
+                                    const QString& tag,
+                                    const std::function<bool (QDomElement element)>& processFunction)
+{
+    QDomNodeList nodeList = parentElement.elementsByTagName(tag);
+    for (int i = 0; i < nodeList.size(); ++i)
+    {
+        bool exit = processFunction(nodeList.at(i).toElement());
+        if (exit)
+        {
             break;
         }
     }
-    _xmlSaveToFile();
 }
 
-void XmlSerializer::xmlChangeStoryRow(const QString& sprintName, Story* story)
+void XmlSerializer::writeFile()
 {
-    QDomElement docElements = document.documentElement();
-    QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
-    for (int i = 0; i < elements.size(); ++i)
-    {
-        QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attrName = domElement.attributeNode(ATTRIBUTE_NAME);
-        if (attrName.value() == sprintName)
-        {
-            QDomNodeList storyElements = domElement.elementsByTagName(STORY_TAG);
-            for (int i = 0; i < storyElements.size(); ++i)
-            {
-                QDomElement storyEle = storyElements.at(i).toElement();
-                QDomAttr attrStoryName = storyEle.attributeNode(ATTRIBUTE_NAME);
-                if (attrStoryName.value() == story->title())
-                {
-                    storyEle.setAttribute(ATTRIBUTE_ROW, story->rowCount());
-                }
-            }
-        }
-    }
-    _xmlSaveToFile();
-}
-
-void XmlSerializer::xmlAddTask(const QString& sprintName, const QString& storyName, Task* task)
-{
-    QDomElement docElements = document.documentElement();
-    QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
-    for (int i = 0; i < elements.size(); ++i)
-    {
-        QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attrSprintName = domElement.attributeNode(ATTRIBUTE_NAME);
-        if (attrSprintName.value() == sprintName)
-        {
-            QDomNodeList storyElements = domElement.elementsByTagName(STORY_TAG);
-            for (int i = 0; i < storyElements.size(); ++i)
-            {
-                QDomElement storyEle = storyElements.at(i).toElement();
-                QDomAttr attrStoryName = storyEle.attributeNode(ATTRIBUTE_NAME);
-                if (attrStoryName.value() == storyName)
-                {
-                    QDomElement tasks = storyEle.firstChildElement(TASKS_TAG);
-                    QDomElement newTask = document.createElement(TASK_TAG);
-                    newTask.setAttribute(ATTRIBUTE_NAME, task->title());
-                    newTask.setAttribute(ATTRIBUTE_ROW, task->row());
-                    newTask.setAttribute(ATTRIBUTE_COLUMN, task->column());
-                    tasks.appendChild(newTask);
-                    break;
-                }
-            }
-        }
-    }
-    _xmlSaveToFile();
-}
-
-void XmlSerializer::_xmlSaveToFile()
-{
-    mFile.open(QIODevice::WriteOnly);
-    QTextStream stream(&mFile);
-    stream << document.toString();
-    mFile.close();
-}
-
-void XmlSerializer::xmlReadFile(SprintModel* sprintModel)
-{
-    QDomElement docElements = document.documentElement();
-    QDomNodeList elements = docElements.elementsByTagName(SPRINT_TAG);
-    for (int i = 0; i < elements.size(); ++i)
-    {
-        QDomElement domElement = elements.at(i).toElement();
-        QDomAttr attrSprintName = domElement.attributeNode(ATTRIBUTE_NAME);
-        QDomAttr attrSprintStDate = domElement.attributeNode(ATTRIBUTE_START_DATE);
-        QDomAttr attrSprintEDate = domElement.attributeNode(ATTRIBUTE_END_DATE);
-        Sprint* newSprint = new Sprint(attrSprintName.value(), QDate::fromString(attrSprintStDate.value(), "dd.MM.yyyy"),
-                                       QDate::fromString(attrSprintEDate.value(), "dd.MM.yyyy"));
-        sprintModel->append(newSprint);
-        QDomNodeList storyElements = domElement.elementsByTagName(STORY_TAG);
-        for (int j = 0; j < storyElements.size(); ++j)
-        {
-            QDomElement storyElement = storyElements.at(j).toElement();
-            QDomAttr attrStoryName = storyElement.attributeNode(ATTRIBUTE_NAME);
-            Story* newStory = new Story(attrStoryName.value(), newSprint);
-            QDomAttr attrStoryRow = storyElement.attributeNode(ATTRIBUTE_ROW);
-            newStory->setRowCount(attrStoryRow.value().toInt());
-            newSprint->storyModel()->append(newStory);
-            QDomNodeList taskElements = storyElement.elementsByTagName(TASK_TAG);
-            for (int k = 0; k < taskElements.size(); ++k)
-            {
-                QDomElement taskElement = taskElements.at(k).toElement();
-                QDomAttr attrTaskName = taskElement.attributeNode(ATTRIBUTE_NAME);
-                QDomAttr attrTaskRow = taskElement.attributeNode(ATTRIBUTE_ROW);
-                QDomAttr attrTaskColumn = taskElement.attributeNode(ATTRIBUTE_COLUMN);
-                Task* newTask = new Task(attrTaskName.value(), attrTaskRow.value().toInt(), attrTaskColumn.value().toInt(), newStory);
-                newStory->taskModel()->append(newTask);
-            }
-        }
-    }
+    m_file.open(QIODevice::WriteOnly);
+    QTextStream stream(&m_file);
+    stream << m_document.toString();
+    m_file.close();
 }
