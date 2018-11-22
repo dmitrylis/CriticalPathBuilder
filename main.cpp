@@ -6,6 +6,7 @@
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
 #include "CpbPopupManager.h"
+#include "CpbXmlSerializer.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,15 @@ int main(int argc, char *argv[])
     CPB::StoryManager storyManager;
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
+
+    XmlSerializer xml;
+    xml.xmlReadFile(sprintManager.sprintModel());
+
+    //connect section
+    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &XmlSerializer::xmlAddSprint);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &XmlSerializer::xmlAddStory);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &XmlSerializer::xmlChangeStoryRow);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &XmlSerializer::xmlAddTask);
 
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("_sprintManager", &sprintManager);

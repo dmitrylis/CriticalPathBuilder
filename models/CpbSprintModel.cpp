@@ -29,7 +29,7 @@ QVariant SprintModel::data(const QModelIndex &index, int role) const
     case SprintRoles::EndDateRole:
         return sprint->title(); // TODO: need to update it
     case SprintRoles::StoryModelRole:
-        return sprint->title(); // TODO: need to update it
+        return QVariant::fromValue(sprint->storyModel());
     default:
         break;
     }

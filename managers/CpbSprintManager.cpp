@@ -58,11 +58,11 @@ void SprintManager::createSprint()
     if (m_sprintModel->append(newSprint))
     {
         setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
+        return;
     }
-    else
-    {
-        newSprint->deleteLater();
-    }
+
+    newSprint->deleteLater();
 }
 
 void SprintManager::removeSprint(Sprint* sprint)

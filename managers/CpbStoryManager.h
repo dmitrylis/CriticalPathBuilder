@@ -18,6 +18,10 @@ public:
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
     Q_INVOKABLE void addRow(Story* story);
+
+signals:
+    void storyCreated(const QString& sprintName, Story* story);
+    void storyRowChanged(const QString& sprintName, Story* story);
 };
 
 }
