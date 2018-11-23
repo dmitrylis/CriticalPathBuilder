@@ -1,13 +1,20 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
-import "../controls"
+import "../components"
+import "../singletons"
 
 Item {
     id: root
 
     ListView {
-        anchors.fill: parent
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
+        height: 50
+        spacing: CpbStyle.marginTiny
+
         orientation: Qt.Horizontal
         model: _sprintManager.sprintModel
         delegate: CpbTabButton {
@@ -18,19 +25,8 @@ Item {
                 _sprintManager.currentSprint = sprintRole
             }
 
-            Button {
-                anchors {
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                }
-
-                text: "x"
-                width: 20
-                height: 20
-
-                onClicked: {
-                    _popupManager.showRemoveSprintPopup(sprintRole)
-                }
+            onRemoveClicked: {
+                _popupManager.showRemoveSprintPopup(sprintRole)
             }
         }
     }

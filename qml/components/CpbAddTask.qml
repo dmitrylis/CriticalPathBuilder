@@ -10,20 +10,21 @@ Item {
     width: CpbStyle.cellWidth
     height: CpbStyle.cellHeight
 
-    Rectangle {
+    Image {
+        anchors.centerIn: parent
+        source: "qrc:/images/add_task.png"
+        opacity: clickArea.containsMouse ? 1.0 : 0.3
+    }
+
+    MouseArea {
+        id: clickArea
+
         anchors {
             fill: parent
             margins: CpbStyle.marginTiny
         }
+        hoverEnabled: true
 
-        color: CpbStyle.greyColor
-
-        MouseArea {
-            id: clickArea
-
-            anchors.fill: parent
-
-            onClicked: root.clicked()
-        }
+        onClicked: root.clicked()
     }
 }

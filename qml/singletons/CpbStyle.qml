@@ -15,6 +15,8 @@ Item {
     readonly property int fontMedium: 12
     readonly property int fontLarge: 14
     readonly property int fontHuge: 16
+    readonly property int fontGiant: 18
+    readonly property int fontEnormous: 20
 
     // colors section
     readonly property color whiteColor: "#FFFFFF"

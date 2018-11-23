@@ -1,7 +1,7 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
-import "../controls"
+import "../components"
+import "../singletons"
 import "../effects"
 
 Rectangle {
@@ -20,22 +20,25 @@ Rectangle {
     CpbText {
         anchors.horizontalCenter: parent.horizontalCenter
         text: sprintToRemove ? sprintToRemove.title : "" // to fix strage warning on application closing
-                                                         // TypeError: Cannot read property 'title' of null
+        // TypeError: Cannot read property 'title' of null
     }
 
     Row {
         anchors.centerIn: parent
+        spacing: CpbStyle.marginTiny
 
-        Button {
-            text: "OK"
+        CpbButton {
+            text: qsTr("OK")
+
             onClicked: {
                 _sprintManager.removeSprint(sprintToRemove)
                 _popupManager.hidePopup()
             }
         }
 
-        Button {
-            text: "CANCEL"
+        CpbButton {
+            text: qsTr("CANCEL")
+
             onClicked: {
                 _popupManager.hidePopup()
             }

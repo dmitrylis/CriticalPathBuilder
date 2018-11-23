@@ -1,7 +1,5 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
-import "../controls"
 import "../components"
 import "../singletons"
 import "../effects"
@@ -42,17 +40,15 @@ Item {
 
                 text: titleRole
                 color: CpbStyle.whiteColor
+                fontBold: true
             }
 
-            Button {
+            CpbRemoveButton {
                 anchors {
                     right: parent.right
+                    rightMargin: CpbStyle.marginTiny
                     verticalCenter: parent.verticalCenter
                 }
-
-                text: "x"
-                width: 20
-                height: 20
 
                 onClicked: {
                     _popupManager.showRemoveStoryPopup(storyRole)
@@ -115,6 +111,7 @@ Item {
                         color: "transparent"
                         border.width: 2
                         border.color: "red"
+                        radius: CpbStyle.marginTiny
                     }
                 }
 
@@ -175,8 +172,15 @@ Item {
             }
         }
 
-        CpbTabButton {
-            text: "add row"
+        // spacer
+        Item {
+            height: CpbStyle.marginTiny
+            width: CpbStyle.marginTiny
+        }
+
+        CpbButton {
+            text: qsTr("Add row")
+
             onClicked: {
                 _storyManager.addRow(storyRole)
             }

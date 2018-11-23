@@ -4,7 +4,7 @@ import QtGraphicalEffects 1.0
 GaussianBlur {
     id: root
 
-    radius: 100
+    radius: 30
     samples: radius * 2
     cached: true
 }

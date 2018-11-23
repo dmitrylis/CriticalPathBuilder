@@ -1,6 +1,6 @@
 import QtQuick 2.11
 
-import "../controls"
+import "../components"
 import "../singletons"
 import "../effects"
 

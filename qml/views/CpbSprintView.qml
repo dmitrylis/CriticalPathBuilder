@@ -1,7 +1,7 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
 
-import "../controls"
+import "../components"
 import "../singletons"
 import "../effects"
 
@@ -132,41 +132,45 @@ Rectangle {
     // text stubs
     CpbText {
         anchors.centerIn: parent
-        text: "Click \"Create sprint\" button to create new sprint"
-        fontSize: CpbStyle.fontHuge
+        text: qsTr("Click \"Create sprint\" button to create a new sprint")
+        fontSize: CpbStyle.fontEnormous
+        fontBold: true
         visible: _sprintManager.sprintModel.rowCount === 0
     }
 
     CpbText {
         anchors.centerIn: parent
-        text: "Click \"Create story\" button to create new story"
-        fontSize: CpbStyle.fontHuge
+        text: qsTr("Click \"Create story\" button to create a new story")
+        fontSize: CpbStyle.fontEnormous
+        fontBold: true
         visible: _sprintManager.currentSprint !== null &&
                  _sprintManager.currentSprint.storyModel.rowCount === 0
     }
 
     // temp buttons for testing
-    CpbTabButton {
-        id: cpdbutt
-
-        anchors.bottom: parent.bottom
-        text: "Create sprint"
-
-        onClicked: {
-            _sprintManager.createSprint()
-        }
-    }
-
-    CpbTabButton {
+    Row {
         anchors {
             bottom: parent.bottom
-            left: cpdbutt.right
+            left: parent.left
+            margins: CpbStyle.marginTiny
         }
-        text: "Create story"
-        visible: _sprintManager.currentSprint !== null
+        spacing: CpbStyle.marginTiny
 
-        onClicked: {
-            _storyManager.createStory(_sprintManager.currentSprint)
+        CpbButton {
+            text: qsTr("Create sprint")
+
+            onClicked: {
+                _sprintManager.createSprint()
+            }
+        }
+
+        CpbButton {
+            text: qsTr("Create story")
+            visible: _sprintManager.currentSprint !== null
+
+            onClicked: {
+                _storyManager.createStory(_sprintManager.currentSprint)
+            }
         }
     }
 }

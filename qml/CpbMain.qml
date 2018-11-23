@@ -28,7 +28,7 @@ Window {
                 right: parent.right
                 top: parent.top
             }
-            height: 50
+            height: 50 + CpbStyle.marginTiny
         }
 
         CpbSprintView {
