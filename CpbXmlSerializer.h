@@ -1,10 +1,13 @@
 #ifndef XMLSERIALIZER_H
 #define XMLSERIALIZER_H
 
-#include <QDomDocument>
-#include <QFile>
-#include <QTextStream>
 #include <QObject>
+#include <QFile>
+#include <QDomDocument>
+#include <QTextStream>
+
+#include <functional>
+
 #include "CpbSprintModel.h"
 
 namespace CPB {
@@ -13,22 +16,33 @@ class XmlSerializer: public QObject
 {
     Q_OBJECT
 
-    //methods
 public:
     XmlSerializer(QObject* parent = nullptr);
-    void xmlAddSprint(Sprint* sprint);
-    void xmlAddStory(const QString& sprintName, Story* story);
-    void xmlChangeStoryRow(const QString& sprintName, Story* story);
-    void xmlAddTask(const QString& sprintName, const QString& storyName, Task* task);
-    void xmlReadFile(SprintModel* sprintModel);
+    virtual ~XmlSerializer();
+
+    void readFile(SprintModel* sprintModel);
+
+public slots:
+    void createSprint(Sprint* sprint);
+    void createStory(const QString& sprintTitle, Story* story);
+    void updateStoryRow(const QString& sprintTitle, Story* story);
+    void createTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
+
+signals:
+    void modelLoaded() const;
 
 private:
-    void _xmlSaveToFile();
+    QDomElement cpbRootElement() const;
 
-    //variables
+    void processNodeList(const QDomElement& parentElement,
+                         const QString& tag,
+                         const std::function<bool (QDomElement element)>& processFunction);
+
+    void writeFile();
+
 private:
-    QFile mFile;
-    QDomDocument document;
+    QFile m_file;
+    QDomDocument m_document;
 };
 
 }

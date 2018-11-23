@@ -25,7 +25,8 @@ Rectangle {
             ScrollBar.vertical: vScrollbar
 
             displaced: Transition {
-                NumberAnimation { properties: "x, y"; easing.type: Easing.OutQuad }
+                NumberAnimation { properties: "x, y"; easing.overshoot: 1; easing.type: Easing.OutBack }
+
             }
 
             headerPositioning: ListView.OverlayHeader

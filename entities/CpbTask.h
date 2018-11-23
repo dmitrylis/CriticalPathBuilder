@@ -10,6 +10,7 @@ class Story;
 class Task : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(Story* parentStory READ parentStory CONSTANT)
 
 public:
     explicit Task(const QString& title, int row, int column, Story* parentStory);
@@ -20,8 +21,8 @@ public:
     int row() const;
     int column() const;
 
-    int setRow(int row);
-    int setColumn(int column);
+    void setRow(int row);
+    void setColumn(int column);
 
 private:
     Story* m_parentStory;

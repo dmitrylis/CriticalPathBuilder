@@ -105,7 +105,7 @@ Item {
                     y: _taskManager.highlight.y * CpbStyle.cellHeight
                     width: _taskManager.highlight.width * CpbStyle.cellWidth
                     height: _taskManager.highlight.height * CpbStyle.cellHeight
-                    visible: _taskManager.draggedTask !== null
+                    visible: _taskManager.draggedTask !== null && _taskManager.draggedTask.parentStory === storyRole
 
                     Rectangle {
                         anchors {
@@ -120,11 +120,12 @@ Item {
 
                 Repeater {
                     model: taskModelRole
+
                     delegate: CpbTask {
                         id: taskDelegate
 
-                        Behavior on x { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack; duration: 200 } }
-                        Behavior on y { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack; duration: 200 } }
+                        Behavior on x { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
+                        Behavior on y { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
 
                         x: columnRole * CpbStyle.cellWidth
                         y: rowRole * CpbStyle.cellHeight

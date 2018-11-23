@@ -12,7 +12,6 @@ class Sprint;
 class Story : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(Sprint* parentSprint READ parentSprint CONSTANT)
     Q_PROPERTY(QString title READ title CONSTANT)
 
 public:
