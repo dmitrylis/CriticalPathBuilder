@@ -20,15 +20,18 @@ public:
     QString title() const;
     int row() const;
     int column() const;
+    int daysCount() const;
 
     void setRow(int row);
     void setColumn(int column);
+    void setDaysCount(int daysCount);
 
 private:
     Story* m_parentStory;
     QString m_title;
     int m_row;
     int m_column;
+    int m_daysCount;
 };
 
 }

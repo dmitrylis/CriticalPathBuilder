@@ -11,6 +11,8 @@ Item {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
+            leftMargin: CpbStyle.marginTiny
+            rightMargin: CpbStyle.marginTiny
         }
         height: 50
         spacing: CpbStyle.marginTiny

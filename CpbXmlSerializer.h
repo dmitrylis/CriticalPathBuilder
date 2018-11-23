@@ -31,6 +31,7 @@ public slots:
     void createTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
     void moveTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
     void removeTask(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle);
+    void updateDaysCount(const QString& sprintTitle, const QString& storyTitle, Task* task);
 
 signals:
     void modelLoaded() const;

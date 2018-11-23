@@ -1,15 +1,22 @@
 #include "CpbTaskManager.h"
 
+#include <QGuiApplication>
+#include <QCursor>
+
 using namespace CPB;
 
 namespace  {
-const QString TASK_NAME_TEMPLATE ("Task %0");
+const QString TASK_TITLE_TEMPLATE ("Task %0");
 }
 
 TaskManager::TaskManager(QObject *parent) :
     QObject(parent),
-    m_draggedTask(nullptr)
+    m_draggedTask(nullptr),
+    m_gestureType(TaskManager::GestureNone),
+    m_highlight(QRect())
 {
+    // need to move it somewhere outside this class... or no
+    connect(this, &TaskManager::gestureTypeChanged, this, &TaskManager::changeCursorShape);
 }
 
 TaskManager::~TaskManager()
@@ -19,6 +26,11 @@ TaskManager::~TaskManager()
 Task *TaskManager::draggedTask() const
 {
     return m_draggedTask;
+}
+
+TaskManager::GestureType TaskManager::gestureType() const
+{
+    return m_gestureType;
 }
 
 QRect TaskManager::highlight() const
@@ -35,6 +47,17 @@ void TaskManager::setDraggedTask(Task* task)
 
     m_draggedTask = task;
     emit draggedTaskChanged(m_draggedTask);
+}
+
+void TaskManager::setGestureType(TaskManager::GestureType gestureType)
+{
+    if (m_gestureType == gestureType)
+    {
+        return;
+    }
+
+    m_gestureType = gestureType;
+    emit gestureTypeChanged(m_gestureType);
 }
 
 void TaskManager::setHighlight(const QRect& rect)
@@ -55,37 +78,37 @@ void TaskManager::createTask(int row, int column, Story* parentStory)
         return;
     }
 
-    QString newTaskName, tempTaskName;
+    QString newTaskTitle, tempTaskTitle;
     int taskNumber = 1;
     TaskModel* taskModel = parentStory->taskModel();
 
     while (taskNumber <= (taskModel->rowCount() + 1))
     {
-        tempTaskName = TASK_NAME_TEMPLATE.arg(taskNumber);
-        if (taskModel->titleValid(tempTaskName))
+        tempTaskTitle = TASK_TITLE_TEMPLATE.arg(taskNumber);
+        if (taskModel->titleValid(tempTaskTitle))
         {
-            newTaskName = tempTaskName;
+            newTaskTitle = tempTaskTitle;
             break;
         }
         ++taskNumber;
     }
 
-    Task* newTask = new Task(newTaskName, row, column, parentStory);
-    Sprint* parentSprint = parentStory->parentSprint();
+    Task* newTask = new Task(newTaskTitle, row, column, parentStory);
 
     if (taskModel->append(newTask))
     {
-        emit taskCreated(parentSprint->title(), parentStory->title(), newTask);
+        emit taskCreated(parentStory->parentSprint()->title(), parentStory->title(), newTask);
         return;
     }
 
     newTask->deleteLater();
 }
 
-void TaskManager::startDragTask(Task* task)
+void TaskManager::startDragTask(Task* task, GestureType gestureType)
 {
     setDraggedTask(task);
-    setHighlight(QRect(task->column(), task->row(), 1, 1));
+    setGestureType(gestureType);
+    setHighlight(QRect(task->column(), task->row(), task->daysCount(), 1));
 }
 
 void TaskManager::updateHighlightRow(int mouseY, int cellHeight)
@@ -97,13 +120,13 @@ void TaskManager::updateHighlightRow(int mouseY, int cellHeight)
 
     int storyRowCount = m_draggedTask->parentStory()->rowCount();
 
-    // minimax
-    int newY = qMax(0, qMin(mouseY, storyRowCount * cellHeight - cellHeight));
-
     // descretization
-    newY = (newY + cellHeight / 2) / cellHeight;
+    int newRow = (mouseY + cellHeight / 2) / cellHeight;
 
-    m_highlight.moveTo(m_highlight.x(), newY);
+    // minimax
+    newRow = qMax(0, qMin(newRow, storyRowCount - 1));
+
+    m_highlight.moveTo(m_highlight.x(), newRow);
     emit highlightChanged(m_highlight);
 }
 
@@ -116,13 +139,32 @@ void TaskManager::updateHighlightColumn(int mouseX, int cellWidth)
 
     int storyColumnCount = m_draggedTask->parentStory()->columnCount();
 
+    // descretization
+    int newColumn = (mouseX + cellWidth / 2) / cellWidth;
+
     // minimax
-    int newX = qMax(0, qMin(mouseX, storyColumnCount * cellWidth - cellWidth));
+    newColumn = qMax(0, qMin(newColumn, storyColumnCount - m_draggedTask->daysCount()));
+
+    m_highlight.moveTo(newColumn, m_highlight.y());
+    emit highlightChanged(m_highlight);
+}
+
+void TaskManager::updateHighlightDaysCount(int mouseX, int cellWidth)
+{
+    if (m_draggedTask == nullptr)
+    {
+        return;
+    }
+
+    int storyColumnCount = m_draggedTask->parentStory()->columnCount();
 
     // descretization
-    newX = (newX + cellWidth / 2) / cellWidth;
+    int newDaysCount = (mouseX + cellWidth / 2) / cellWidth;
 
-    m_highlight.moveTo(newX, m_highlight.y());
+    // minimax
+    newDaysCount = qMax(1, qMin(newDaysCount, storyColumnCount - m_draggedTask->column()));
+
+    m_highlight.setWidth(newDaysCount);
     emit highlightChanged(m_highlight);
 }
 
@@ -133,12 +175,48 @@ void TaskManager::stopDragTask()
         return;
     }
 
+    // store pointers for correct animation of resizing
+    Task* draggedTask = m_draggedTask;
     TaskModel* taskModel = m_draggedTask->parentStory()->taskModel();
-    taskModel->update(m_draggedTask, m_highlight.y(), TaskModel::RowRole);
-    taskModel->update(m_draggedTask, m_highlight.x(), TaskModel::ColumnRole);
 
-    emit taskMoved(m_draggedTask->parentStory()->parentSprint()->title(), m_draggedTask->parentStory()->title(), m_draggedTask);
-
+    // reset dragged task pointer
     setDraggedTask(nullptr);
+
+    // update it in model from stored pointer
+    switch (gestureType()) {
+    case TaskManager::GestureMove:
+        taskModel->update(draggedTask, m_highlight.y(), TaskModel::RowRole);
+        taskModel->update(draggedTask, m_highlight.x(), TaskModel::ColumnRole);
+        emit taskMoved(draggedTask->parentStory()->parentSprint()->title(),
+                       draggedTask->parentStory()->title(),
+                       draggedTask);
+        break;
+    case TaskManager::GestureResizeX:
+        taskModel->update(draggedTask, m_highlight.width(), TaskModel::DaysCountRole);
+        emit taskDaysCountChanged(draggedTask->parentStory()->parentSprint()->title(),
+                                  draggedTask->parentStory()->title(),
+                                  draggedTask);
+        break;
+    case TaskManager::GestureNone:
+        break;
+    }
+
+    // reset highlight
+    setGestureType(TaskManager::GestureNone);
     setHighlight(QRect());
+}
+
+void TaskManager::changeCursorShape(GestureType gestureType)
+{
+    switch (gestureType) {
+    case TaskManager::GestureNone:
+        QGuiApplication::restoreOverrideCursor();
+        return;
+    case TaskManager::GestureMove:
+        QGuiApplication::setOverrideCursor(Qt::ClosedHandCursor);
+        return;
+    case TaskManager::GestureResizeX:
+        QGuiApplication::setOverrideCursor(Qt::SizeHorCursor);
+        return;
+    }
 }

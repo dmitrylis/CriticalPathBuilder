@@ -28,8 +28,8 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
         return task->row();
     case TaskRoles::ColumnRole:
         return task->column();
-    case TaskRoles::DaysRole:
-        return task->title(); // TODO: need to update it
+    case TaskRoles::DaysCountRole:
+        return task->daysCount();
     default:
         break;
     }
@@ -52,6 +52,9 @@ bool TaskModel::setData(const QModelIndex &index, const QVariant &value, int rol
     case TaskRoles::ColumnRole:
         task->setColumn(value.toInt());
         break;
+    case TaskRoles::DaysCountRole:
+        task->setDaysCount(value.toInt());
+        break;
     default:
         QAbstractListModel::setData(index, value, role);
         break;
@@ -67,6 +70,6 @@ QHash<int, QByteArray> TaskModel::roleNames() const
     roles[TaskRoles::TitleRole] = "titleRole";
     roles[TaskRoles::RowRole] = "rowRole";
     roles[TaskRoles::ColumnRole] = "columnRole";
-    roles[TaskRoles::DaysRole] = "daysRole";
+    roles[TaskRoles::DaysCountRole] = "daysCountRole";
     return roles;
 }

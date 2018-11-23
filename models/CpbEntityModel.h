@@ -36,7 +36,7 @@ public:
     bool remove(T *entity);
     void update(T *entity, const QVariant &value, int role = Qt::EditRole);
     void move(int from, int to);
-    bool titleValid(const QString& name);
+    bool titleValid(const QString& title);
 
 protected:
     QList<T*> m_entityList;
@@ -139,15 +139,15 @@ void EntityModel<T>::move(int from, int to)
 }
 
 template<class T>
-bool EntityModel<T>::titleValid(const QString &name)
+bool EntityModel<T>::titleValid(const QString &title)
 {
-    if (name.isNull() || name.isEmpty())
+    if (title.isNull() || title.isEmpty())
     {
         return false;
     }
 
-    auto result = std::find_if(m_entityList.begin(), m_entityList.end(), [name] (const T* const entity) {
-        return entity->title().compare(name, Qt::CaseInsensitive) == 0;
+    auto result = std::find_if(m_entityList.begin(), m_entityList.end(), [title] (const T* const entity) {
+        return entity->title().compare(title, Qt::CaseInsensitive) == 0;
     });
 
     return result == m_entityList.end();

@@ -21,8 +21,8 @@ public:
     Sprint* currentSprint() const;
     void setCurrentSprint(Sprint* sprint);
 
-    Q_INVOKABLE void createSprint(const QString& sprintName, const QString& startDate, const QString& endDate);
-    Q_INVOKABLE void createSprint(const QString& sprintName, const QString& startDate, const qint32& duration);
+    Q_INVOKABLE void createSprint(const QString& sprintTitle, const QString& startDate, const QString& endDate);
+    Q_INVOKABLE void createSprint(const QString& sprintTitle, const QString& startDate, const qint32& duration);
     Q_INVOKABLE void removeSprint(Sprint* sprint);
     Q_INVOKABLE void moveSprint(int from, int to);
 
@@ -32,7 +32,7 @@ public slots:
 signals:
     void currentSprintChanged(Sprint* sprint);
     void sprintCreated(Sprint* sprint);
-    void sprintRemoved(const QString& sprintName);
+    void sprintRemoved(const QString& sprintTitle);
 
 private:
     SprintModel* m_sprintModel;
