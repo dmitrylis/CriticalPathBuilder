@@ -1,10 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/CpbMain.qml</file>
-        <file>qml/controls/CpbTabButton.qml</file>
-        <file>qml/controls/CpbText.qml</file>
-        <file>qml/controls/CpbTask.qml</file>
-        <file>qml/controls/CpbAddTask.qml</file>
+        <file>qml/controls/CpbBaseButton.qml</file>
+        <file>qml/components/CpbRectangle.qml</file>
+        <file>qml/components/CpbButton.qml</file>
+        <file>qml/components/CpbTabButton.qml</file>
+        <file>qml/components/CpbText.qml</file>
+        <file>qml/components/CpbTask.qml</file>
+        <file>qml/components/CpbAddTask.qml</file>
+        <file>qml/components/CpbRemoveButton.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>
@@ -13,10 +17,13 @@
         <file>qml/views/CpbDaysView.qml</file>
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
-        <file>qml/components/CpbRectangle.qml</file>
         <file>qml/effects/CpbShadowEffect.qml</file>
         <file>qml/effects/CpbBlurEffect.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="add_task.png">images/add_task.png</file>
+        <file alias="remove_icon_tiny.png">images/remove_icon_tiny.png</file>
     </qresource>
 </RCC>

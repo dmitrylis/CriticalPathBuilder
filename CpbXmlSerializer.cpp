@@ -214,8 +214,7 @@ void XmlSerializer::processNodeList(const QDomElement& parentElement,
     QDomNodeList nodeList = parentElement.elementsByTagName(tag);
     for (int i = 0; i < nodeList.size(); ++i)
     {
-        bool exit = processFunction(nodeList.at(i).toElement());
-        if (exit)
+        if (processFunction(nodeList.at(i).toElement()))
         {
             break;
         }

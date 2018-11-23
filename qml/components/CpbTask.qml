@@ -13,5 +13,6 @@ Item {
         }
 
         color: CpbStyle.greenColor
+        radius: CpbStyle.marginTiny
     }
 }
