@@ -26,14 +26,14 @@ int main(int argc, char *argv[])
     CPB::TaskManager taskManager;
     CPB::PopupManager popupManager;
 
-    XmlSerializer xml;
+    CPB::XmlSerializer xml;
     xml.xmlReadFile(sprintManager.sprintModel());
 
     //connect section
-    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &XmlSerializer::xmlAddSprint);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &XmlSerializer::xmlAddStory);
-    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &XmlSerializer::xmlChangeStoryRow);
-    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &XmlSerializer::xmlAddTask);
+    QObject::connect(&sprintManager, &CPB::SprintManager::sprintCreated, &xml, &CPB::XmlSerializer::xmlAddSprint);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyCreated, &xml, &CPB::XmlSerializer::xmlAddStory);
+    QObject::connect(&storyManager, &CPB::StoryManager::storyRowChanged, &xml, &CPB::XmlSerializer::xmlChangeStoryRow);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xml, &CPB::XmlSerializer::xmlAddTask);
 
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("_sprintManager", &sprintManager);

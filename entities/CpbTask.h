@@ -20,8 +20,8 @@ public:
     int row() const;
     int column() const;
 
-    int setRow(int row);
-    int setColumn(int column);
+    void setRow(int row);
+    void setColumn(int column);
 
 private:
     Story* m_parentStory;
