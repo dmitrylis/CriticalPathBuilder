@@ -152,7 +152,7 @@ Rectangle {
         text: "Create sprint"
 
         onClicked: {
-            _sprintManager.createSprint()
+            _popupManager.showAddSprintPopup()
         }
     }
 

@@ -18,5 +18,6 @@
         <file>qml/effects/CpbBlurEffect.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
+        <file>qml/popups/CpbAddSprintPopup.qml</file>
     </qresource>
 </RCC>

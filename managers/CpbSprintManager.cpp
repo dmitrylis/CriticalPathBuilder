@@ -65,6 +65,20 @@ void SprintManager::createSprint()
     newSprint->deleteLater();
 }
 
+void SprintManager::createSprint(const QString& sprintName)
+{
+    Sprint* newSprint = new Sprint(sprintName, QDate::currentDate(), 3, this);
+
+    if (m_sprintModel->append(newSprint))
+    {
+        setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
+        return;
+    }
+
+    newSprint->deleteLater();
+}
+
 void SprintManager::removeSprint(Sprint* sprint)
 {
     // detect sprint to select after removing
