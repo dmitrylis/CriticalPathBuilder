@@ -26,31 +26,56 @@ Rectangle {
             text: "Create Sprint"
         }
 
-        Controls24.TextField {
-            id: sprintName
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: qsTr("Enter name")
+
+            CpbText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Name"
+            }
+            Controls24.TextField {
+                id: sprintName
+                placeholderText: qsTr("Enter name")
+            }
         }
 
-        Controls24.ComboBox {
-            id: sprintDuration
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
+            CpbText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Duration"
+            }
+            Controls24.ComboBox {
+                id: sprintDuration
+                model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
+            }
         }
 
-        Controls24.TextField {
-            id: sprintStartDate
-            inputMask: "00.00.0000"
-            maximumLength: 8
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
+            CpbText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Start Date"
+            }
+            Controls24.TextField {
+                id: sprintStartDate
+                inputMask: "00.00.0000"
+                maximumLength: 8
+            }
         }
 
-        Controls24.TextField {
-            id: sprintEndDate
-            inputMask: "00.00.0000"
-            maximumLength: 8
+        Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            enabled: sprintDuration.currentIndex == 0 ? true : false
+            CpbText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "End Date"
+            }
+            Controls24.TextField {
+                id: sprintEndDate
+                inputMask: "00.00.0000"
+                maximumLength: 8
+                enabled: sprintDuration.currentIndex == 0 ? true : false
+            }
         }
 
         Row {

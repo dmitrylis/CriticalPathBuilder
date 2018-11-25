@@ -20,9 +20,11 @@ public:
     QVariant popupData() const;
 
     Q_INVOKABLE void showCreateSprintPopup();
+    Q_INVOKABLE void showCreateStoryPopup();
     Q_INVOKABLE void showPopup(const QString& popupPath, const QVariant& popupData = QVariant());
     Q_INVOKABLE void showRemoveSprintPopup(const QVariant& sprintToRemove);
     Q_INVOKABLE void showRemoveStoryPopup(const QVariant& storyToRemove);
+    Q_INVOKABLE void showRemoveTaskPopup(const QVariant& taskToRemove);
     Q_INVOKABLE void hidePopup();
 
 signals:

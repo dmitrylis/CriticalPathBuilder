@@ -12,7 +12,36 @@ Item {
             margins: CpbStyle.marginTiny
         }
 
+        CpbText {
+            anchors {
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+                leftMargin: CpbStyle.marginSmall
+            }
+
+            text: titleRole
+            color: CpbStyle.whiteColor
+            fontBold: true
+        }
+
+
+
+
         color: CpbStyle.greenColor
         radius: CpbStyle.marginTiny
+    }
+
+    CpbRemoveButton {
+        anchors {
+            top: parent.top
+            right: parent.right
+        }
+
+        width: parent.height / 3
+        height: parent.height / 3
+
+        onClicked: {
+            _popupManager.showRemoveTaskPopup(taskRole)
+        }
     }
 }

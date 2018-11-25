@@ -4,8 +4,10 @@ using namespace CPB;
 
 namespace  {
 const QString CREATE_SPRINT_POPUP ("qrc:/qml/popups/CpbCreateSprintPopup.qml");
+const QString CREATE_STORY_POPUP ("qrc:/qml/popups/CpbCreateStoryPopup.qml");
 const QString REMOVE_SPRINT_POPUP ("qrc:/qml/popups/CpbRemoveSprintPopup.qml");
 const QString REMOVE_STORY_POPUP ("qrc:/qml/popups/CpbRemoveStoryPopup.qml");
+const QString REMOVE_TASK_POPUP ("qrc:/qml/popups/CpbRemoveTaskPopup.qml");
 }
 
 PopupManager::PopupManager(QObject *parent) : QObject(parent)
@@ -62,4 +64,14 @@ void PopupManager::hidePopup()
 void PopupManager::showCreateSprintPopup()
 {
     showPopup(CREATE_SPRINT_POPUP);
+}
+
+void PopupManager::showCreateStoryPopup()
+{
+    showPopup(CREATE_STORY_POPUP);
+}
+
+void PopupManager::showRemoveTaskPopup(const QVariant& taskToRemove)
+{
+    showPopup(REMOVE_TASK_POPUP);
 }

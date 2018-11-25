@@ -11,31 +11,35 @@ StoryManager::StoryManager(QObject *parent) :
 {
 }
 
-void StoryManager::createStory(Sprint* sprint)
+void StoryManager::createStory(Sprint* sprint, QString storyName = "")
 {
     if (sprint == nullptr)
     {
         return;
     }
 
-    // >> TODO: move to separate class?
-    int storyNumber = 1;
-    QString newStoryName, tempStoryName;
     StoryModel* const storyModel = sprint->storyModel();
 
-    while (storyNumber <= (storyModel->rowCount() + 1))
+
+    if (storyName == "")
     {
-        tempStoryName = STORY_NAME_TEMPLATE.arg(storyNumber);
-        if (storyModel->titleValid(tempStoryName))
+        // >> TODO: move to separate class?
+        int storyNumber = 1;
+        QString tempStoryName;
+        while (storyNumber <= (storyModel->rowCount() + 1))
         {
-            newStoryName = tempStoryName;
-            break;
+            tempStoryName = STORY_NAME_TEMPLATE.arg(storyNumber);
+            if (storyModel->titleValid(tempStoryName))
+            {
+                storyName = tempStoryName;
+                break;
+            }
+            ++storyNumber;
         }
-        ++storyNumber;
     }
     // <<
 
-    Story* newStory = new Story(newStoryName, sprint);
+    Story* newStory = new Story(storyName, sprint);
     if (storyModel->append(newStory))
     {
         emit storyCreated(sprint->title(), newStory);
