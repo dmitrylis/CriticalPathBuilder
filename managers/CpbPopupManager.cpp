@@ -3,6 +3,7 @@
 using namespace CPB;
 
 namespace  {
+const QString CREATE_SPRINT_POPUP ("qrc:/qml/popups/CpbCreateSprintPopup.qml");
 const QString REMOVE_SPRINT_POPUP ("qrc:/qml/popups/CpbRemoveSprintPopup.qml");
 const QString REMOVE_STORY_POPUP ("qrc:/qml/popups/CpbRemoveStoryPopup.qml");
 }
@@ -56,4 +57,9 @@ void PopupManager::showRemoveStoryPopup(const QVariant &storyToRemove)
 void PopupManager::hidePopup()
 {
     showPopup("");
+}
+
+void PopupManager::showCreateSprintPopup()
+{
+    showPopup(CREATE_SPRINT_POPUP);
 }

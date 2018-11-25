@@ -35,6 +35,8 @@ signals:
     void draggedTaskChanged(Task* draggedTask);
     void highlightChanged(QRect highlight);
     void taskCreated(const QString& sprintName, const QString& storyName, Task* task);
+    void taskMoved(const QString& sprintName, const QString& storyName, Task* task);
+    void taskRemoved(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle);
 
 private:
     Task* m_draggedTask;

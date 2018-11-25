@@ -21,6 +21,7 @@ public:
 
 signals:
     void storyCreated(const QString& sprintName, Story* story);
+    void storyRemoved(const QString& sprintTitle, const QString& storyTitle);
     void storyRowChanged(const QString& sprintName, Story* story);
 };
 

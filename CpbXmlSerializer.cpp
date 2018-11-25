@@ -100,6 +100,27 @@ void XmlSerializer::createSprint(Sprint* sprint)
     writeFile();
 }
 
+void XmlSerializer::removeSprint(const QString& sprintTitle)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [sprintTitle] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            sprintElement.parentNode().removeChild(sprintElement);
+            return true;
+        }
+        return false;
+    });
+
+    writeFile();
+}
+
 void XmlSerializer::createStory(const QString& sprintTitle, Story* story)
 {
     QDomElement rootElement = cpbRootElement();
@@ -119,6 +140,36 @@ void XmlSerializer::createStory(const QString& sprintTitle, Story* story)
             sprintElement.appendChild(newStoryElement);
 
             return true; // break from processing
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::removeStory(const QString& sprintTitle, const QString& storyTitle)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [storyTitle] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    storyElement.parentNode().removeChild(storyElement);
+                    return true;
+                }
+
+                return false; // no break
+            });
         }
 
         return false; // no break
@@ -182,6 +233,86 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
                     storyElement.appendChild(newTaskElement);
 
                     return true; // break from processing
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::moveTask(const QString& sprintTitle, const QString& storyTitle, Task* task)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, task] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, task] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    processNodeList(storyElement, TAG_TASK, [task] (QDomElement taskElement)
+                    {
+                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                        if (taskTitleAttr.value() == task->title())
+                        {
+                            taskElement.setAttribute(ATTRIBUTE_ROW, task->row());
+                            taskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
+
+                            return true;
+                        }
+
+                        return false; // break from processing
+                    });
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::removeTask(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, taskTitle] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, taskTitle] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    processNodeList(storyElement, TAG_TASK, [taskTitle] (QDomElement taskElement)
+                    {
+                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                        if (taskTitleAttr.value() == taskTitle)
+                        {
+                            taskElement.parentNode().removeChild(taskElement);
+                            return true;
+                        }
+
+                        return false; // break from processing
+                    });
                 }
 
                 return false; // no break

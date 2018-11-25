@@ -160,7 +160,7 @@ Rectangle {
             text: qsTr("Create sprint")
 
             onClicked: {
-                _sprintManager.createSprint()
+                _popupManager.showCreateSprintPopup()
             }
         }
 

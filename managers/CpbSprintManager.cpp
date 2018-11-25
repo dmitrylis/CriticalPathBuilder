@@ -65,6 +65,36 @@ void SprintManager::createSprint()
     newSprint->deleteLater();
 }
 
+void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const QString& endDate)
+{
+    Sprint* newSprint = new Sprint(sprintName,
+                                   QDate::fromString(startDate, "dd.MM.yyyy"),
+                                   QDate::fromString(endDate, "dd.MM.yyyy"),
+                                   this);
+     if (m_sprintModel->append(newSprint))
+    {
+        setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
+        return;
+    }
+     newSprint->deleteLater();
+}
+
+void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const qint32& duration)
+{
+    Sprint* newSprint = new Sprint(sprintName,
+                                   QDate::fromString(startDate, "dd.MM.yyyy"),
+                                   duration,
+                                   this);
+     if (m_sprintModel->append(newSprint))
+    {
+        setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
+        return;
+    }
+     newSprint->deleteLater();
+}
+
 void SprintManager::removeSprint(Sprint* sprint)
 {
     // detect sprint to select after removing
@@ -81,6 +111,7 @@ void SprintManager::removeSprint(Sprint* sprint)
     // remove sprint and select detected
     if (m_sprintModel->remove(sprint))
     {
+        emit sprintRemoved(sprint->title());
         setCurrentSprint(sprintToSelect);
         sprint->deleteLater();
     }

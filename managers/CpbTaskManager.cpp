@@ -137,6 +137,8 @@ void TaskManager::stopDragTask()
     taskModel->update(m_draggedTask, m_highlight.y(), TaskModel::RowRole);
     taskModel->update(m_draggedTask, m_highlight.x(), TaskModel::ColumnRole);
 
+    emit taskMoved(m_draggedTask->parentStory()->parentSprint()->title(), m_draggedTask->parentStory()->title(), m_draggedTask);
+
     setDraggedTask(nullptr);
     setHighlight(QRect());
 }

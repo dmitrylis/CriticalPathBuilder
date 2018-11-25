@@ -24,9 +24,13 @@ public:
 
 public slots:
     void createSprint(Sprint* sprint);
+    void removeSprint(const QString& sprintTitle);
     void createStory(const QString& sprintTitle, Story* story);
     void updateStoryRow(const QString& sprintTitle, Story* story);
+    void removeStory(const QString& sprintTitle, const QString& storyTitle);
     void createTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
+    void moveTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
+    void removeTask(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle);
 
 signals:
     void modelLoaded() const;

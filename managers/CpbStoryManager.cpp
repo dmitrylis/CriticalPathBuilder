@@ -60,6 +60,7 @@ void StoryManager::removeStory(Story* story)
 
     if (parentSprint->storyModel()->remove(story))
     {
+        emit storyRemoved(story->parentSprint()->title(), story->title());
         story->deleteLater();
     }
 }
