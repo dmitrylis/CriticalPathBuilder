@@ -12,6 +12,7 @@ const QString ATTRIBUTE_TITLE ("title");
 const QString ATTRIBUTE_ROW_COUNT ("row_count");
 const QString ATTRIBUTE_ROW ("row");
 const QString ATTRIBUTE_COLUMN ("column");
+const QString ATTRIBUTE_DAYS_COUNT ("days_count");
 const QString ATTRIBUTE_START_DATE ("start_date");
 const QString ATTRIBUTE_END_DATE ("end_date");
 
@@ -66,8 +67,10 @@ void XmlSerializer::readFile(SprintModel* sprintModel)
                 QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
                 QDomAttr taskRowAttr = taskElement.attributeNode(ATTRIBUTE_ROW);
                 QDomAttr taskColumnAttr = taskElement.attributeNode(ATTRIBUTE_COLUMN);
+                QDomAttr taskDaysCountAttr = taskElement.attributeNode(ATTRIBUTE_DAYS_COUNT);
 
                 Task* newTask = new Task(taskTitleAttr.value(), taskRowAttr.value().toInt(), taskColumnAttr.value().toInt(), newStory);
+                newTask->setDaysCount(taskDaysCountAttr.value().toInt());
                 newStory->taskModel()->append(newTask);
 
                 return false; // no break
@@ -232,6 +235,7 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
                     newTaskElement.setAttribute(ATTRIBUTE_TITLE, task->title());
                     newTaskElement.setAttribute(ATTRIBUTE_ROW, task->row());
                     newTaskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
+                    newTaskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());
 
                     storyElement.appendChild(newTaskElement);
 
@@ -313,6 +317,45 @@ void XmlSerializer::removeTask(const QString& sprintTitle, const QString& storyT
                             taskElement.parentNode().removeChild(taskElement);
 
                             return true;  // break
+                        }
+
+                        return false; // no break
+                    });
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::updateDaysCount(const QString &sprintTitle, const QString &storyTitle, Task *task)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, &task] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, &task] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    processNodeList(storyElement, TAG_TASK, [&task] (QDomElement taskElement) {
+                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                        if (taskTitleAttr.value() == task->title())
+                        {
+                            taskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());
+
+                            return true; // break from processing
                         }
 
                         return false; // no break

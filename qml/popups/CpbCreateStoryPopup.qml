@@ -33,13 +33,13 @@ Rectangle {
             CpbText
             {
                 anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Name")
+                text: qsTr("Title")
             }
 
             TextField {
-                id: storyName
+                id: storyTitle
 
-                placeholderText: qsTr("Enter name")
+                placeholderText: qsTr("Enter title")
             }
         }
 
@@ -50,7 +50,7 @@ Rectangle {
                 text: qsTr("OK")
 
                 onClicked: {
-                    _storyManager.createStory(storyName.text, root.parentSprint)
+                    _storyManager.createStory(storyTitle.text, root.parentSprint)
                     _popupManager.hidePopup()
                 }
             }

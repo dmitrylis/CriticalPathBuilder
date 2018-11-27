@@ -14,15 +14,15 @@ class StoryManager : public QObject
 public:
     explicit StoryManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE void createStory(const QString& storyName, Sprint* parentSprint);
+    Q_INVOKABLE void createStory(const QString& storyTitle, Sprint* parentSprint);
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
     Q_INVOKABLE void addRow(Story* story);
 
 signals:
-    void storyCreated(const QString& sprintName, Story* story);
+    void storyCreated(const QString& sprintTitle, Story* story);
     void storyRemoved(const QString& sprintTitle, const QString& storyTitle);
-    void storyRowChanged(const QString& sprintName, Story* story);
+    void storyRowChanged(const QString& sprintTitle, Story* story);
 };
 
 }

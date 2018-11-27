@@ -16,7 +16,7 @@ public:
         TitleRole,
         RowRole,
         ColumnRole,
-        DaysRole
+        DaysCountRole
     };
     Q_ENUM(TaskRoles)
 

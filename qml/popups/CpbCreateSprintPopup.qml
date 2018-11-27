@@ -30,13 +30,13 @@ Rectangle {
 
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Name")
+                text: qsTr("Title")
             }
 
             TextField {
-                id: sprintName
+                id: sprintTitle
 
-                placeholderText: qsTr("Enter name")
+                placeholderText: qsTr("Enter title")
             }
         }
 
@@ -96,10 +96,10 @@ Rectangle {
 
                 onClicked: {
                     if (sprintDuration.currentIndex == 0) {
-                        _sprintManager.createSprint(sprintName.text, sprintStartDate.text, sprintEndDate.text)
+                        _sprintManager.createSprint(sprintTitle.text, sprintStartDate.text, sprintEndDate.text)
                     }
                     else {
-                        _sprintManager.createSprint(sprintName.text, sprintStartDate.text, sprintDuration.currentIndex)
+                        _sprintManager.createSprint(sprintTitle.text, sprintStartDate.text, sprintDuration.currentIndex)
                     }
 
                     _popupManager.hidePopup()

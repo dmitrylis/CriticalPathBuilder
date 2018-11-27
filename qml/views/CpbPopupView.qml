@@ -8,6 +8,12 @@ MouseArea {
 
     property alias blurSource: blurEffect.source
 
+    // blocks propagation of some mouse events
+    hoverEnabled: true
+
+    // blocks propagation of some mouse events
+    onWheel: { /* do nothing */ }
+
     // click on dimmed area leads to closing this popup
     onClicked: {
         _popupManager.hidePopup()

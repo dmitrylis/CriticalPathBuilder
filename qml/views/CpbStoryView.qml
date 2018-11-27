@@ -1,5 +1,7 @@
 import QtQuick 2.11
 
+import com.cpb 1.0
+
 import "../components"
 import "../singletons"
 import "../effects"
@@ -121,16 +123,23 @@ Item {
                     delegate: CpbTask {
                         id: taskDelegate
 
-                        Behavior on x { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
-                        Behavior on y { NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
-
                         x: columnRole * CpbStyle.cellWidth
                         y: rowRole * CpbStyle.cellHeight
+
+                        Binding {
+                            target: taskDelegate
+                            property: "width"
+                            value: daysCountRole * CpbStyle.cellWidth
+                        }
 
                         layer.enabled: _taskManager.draggedTask === taskRole
                         layer.effect: CpbShadowEffect {
                             alpha: 0.5
                         }
+
+                        Behavior on x { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
+                        Behavior on y { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
+                        Behavior on width { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
 
                         onXChanged: {
                             _taskManager.updateHighlightColumn(x, CpbStyle.cellWidth)
@@ -144,16 +153,45 @@ Item {
                             id: dragArea
 
                             anchors.fill: parent
-                            pressAndHoldInterval: 300
-                            cursorShape: _taskManager.draggedTask === taskRole ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                            cursorShape: Qt.OpenHandCursor
+                            drag.target: taskDelegate
 
-                            onPressAndHold: {
-                                drag.target = taskDelegate
-                                _taskManager.startDragTask(taskRole)
+                            onPressed: {
+                                _taskManager.startDragTask(taskRole, TaskManager.GestureMove)
                             }
 
                             onReleased: {
-                                drag.target = null
+                                _taskManager.stopDragTask()
+                            }
+                        }
+
+                        MouseArea {
+                            id: resArea
+
+                            x: parent.width - width
+                            width: 15
+                            height: parent.height
+                            cursorShape: Qt.SizeHorCursor
+
+                            drag.axis: Drag.XAxis
+                            drag.target: resArea
+
+                            onPressed: {
+                                _taskManager.startDragTask(taskRole, TaskManager.GestureResizeX)
+                            }
+
+                            onXChanged: {
+                                if (_taskManager.draggedTask === null) {
+                                    return
+                                }
+
+                                var rightEdge = Math.max(resArea.x + resArea.width, CpbStyle.cellWidth / 2)
+                                taskDelegate.width = rightEdge
+
+                                _taskManager.updateHighlightDaysCount(rightEdge, CpbStyle.cellWidth)
+                            }
+
+                            onReleased: {
                                 _taskManager.stopDragTask()
                             }
                         }

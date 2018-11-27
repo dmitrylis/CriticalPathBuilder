@@ -3,7 +3,7 @@
 using namespace CPB;
 
 namespace  {
-const QString SPRINT_NAME_TEMPLATE ("Sprint %0");
+const QString SPRINT_TITLE_TEMPLATE ("Sprint %0");
 const QString DATE_FORMAT ("dd.MM.yyyy");
 }
 
@@ -36,14 +36,14 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
     emit currentSprintChanged(m_currentSprint);
 }
 
-void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const QString& endDate)
+void SprintManager::createSprint(const QString& sprintTitle, const QString& startDate, const QString& endDate)
 {
-    if (sprintName.isNull() || sprintName.isEmpty())
+    if (sprintTitle.isNull() || sprintTitle.isEmpty())
     {
         return;
     }
 
-    Sprint* newSprint = new Sprint(sprintName,
+    Sprint* newSprint = new Sprint(sprintTitle,
                                    QDate::fromString(startDate, DATE_FORMAT),
                                    QDate::fromString(endDate, DATE_FORMAT),
                                    this);
@@ -57,14 +57,14 @@ void SprintManager::createSprint(const QString& sprintName, const QString& start
     newSprint->deleteLater();
 }
 
-void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const qint32& duration)
+void SprintManager::createSprint(const QString& sprintTitle, const QString& startDate, const qint32& duration)
 {
-    if (sprintName.isNull() || sprintName.isEmpty())
+    if (sprintTitle.isNull() || sprintTitle.isEmpty())
     {
         return;
     }
 
-    Sprint* newSprint = new Sprint(sprintName,
+    Sprint* newSprint = new Sprint(sprintTitle,
                                    QDate::fromString(startDate, DATE_FORMAT),
                                    duration,
                                    this);

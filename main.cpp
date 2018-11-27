@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQmlEngine>
 
 #include "CpbSprintManager.h"
 #include "CpbStoryManager.h"
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
     qRegisterMetaType<CPB::Story*>("Story*");
     qRegisterMetaType<CPB::Task*>("Task*");
 
+    qmlRegisterUncreatableType<CPB::TaskManager>("com.cpb", 1, 0, "TaskManager", "TaskManager can't be instantiated directly");
+
     // create instances
     CPB::SprintManager sprintManager;
     CPB::StoryManager storyManager;
@@ -37,6 +40,7 @@ int main(int argc, char *argv[])
     QObject::connect(&taskManager, &CPB::TaskManager::taskCreated, &xmlSerializer, &CPB::XmlSerializer::createTask);
     QObject::connect(&taskManager, &CPB::TaskManager::taskMoved, &xmlSerializer, &CPB::XmlSerializer::moveTask);
     QObject::connect(&taskManager, &CPB::TaskManager::taskRemoved, &xmlSerializer, &CPB::XmlSerializer::removeTask);
+    QObject::connect(&taskManager, &CPB::TaskManager::taskDaysCountChanged, &xmlSerializer, &CPB::XmlSerializer::updateDaysCount);
 
     // load model from xml
     xmlSerializer.readFile(sprintManager.sprintModel());

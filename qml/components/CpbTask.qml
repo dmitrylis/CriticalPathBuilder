@@ -3,8 +3,8 @@ import QtQuick 2.11
 import "../singletons"
 
 Item {
-    width: CpbStyle.cellWidth
-    height: CpbStyle.cellHeight
+    implicitWidth: CpbStyle.cellWidth
+    implicitHeight: CpbStyle.cellHeight
 
     Rectangle {
         anchors {

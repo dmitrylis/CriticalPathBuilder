@@ -3,7 +3,7 @@
 using namespace CPB;
 
 namespace  {
-const QString STORY_NAME_TEMPLATE ("Story %0");
+const QString STORY_TITLE_TEMPLATE ("Story %0");
 }
 
 StoryManager::StoryManager(QObject *parent) :
@@ -11,9 +11,9 @@ StoryManager::StoryManager(QObject *parent) :
 {
 }
 
-void StoryManager::createStory(const QString& storyName, Sprint* parentSprint)
+void StoryManager::createStory(const QString& storyTitle, Sprint* parentSprint)
 {
-    if (parentSprint == nullptr || storyName.isNull() || storyName.isEmpty())
+    if (parentSprint == nullptr || storyTitle.isNull() || storyTitle.isEmpty())
     {
         return;
     }
@@ -22,19 +22,19 @@ void StoryManager::createStory(const QString& storyName, Sprint* parentSprint)
 
 //    // TODO move to separate class
 //    int storyNumber = 1;
-//    QString tempStoryName;
+//    QString tempStoryTitle;
 //    while (storyNumber <= (storyModel->rowCount() + 1))
 //    {
-//        tempStoryName = STORY_NAME_TEMPLATE.arg(storyNumber);
-//        if (storyModel->titleValid(tempStoryName))
+//        tempStoryTitle = STORY_TITLE_TEMPLATE.arg(storyNumber);
+//        if (storyModel->titleValid(tempStoryTitle))
 //        {
-//            storyName = tempStoryName;
+//            storyTitle = tempStoryTitle;
 //            break;
 //        }
 //        ++storyNumber;
 //    }
 
-    Story* newStory = new Story(storyName, parentSprint);
+    Story* newStory = new Story(storyTitle, parentSprint);
     if (storyModel->append(newStory))
     {
         emit storyCreated(parentSprint->title(), newStory);
