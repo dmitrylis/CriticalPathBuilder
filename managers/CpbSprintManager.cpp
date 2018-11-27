@@ -4,6 +4,7 @@ using namespace CPB;
 
 namespace  {
 const QString SPRINT_NAME_TEMPLATE ("Sprint %0");
+const QString DATE_FORMAT ("dd.MM.yyyy");
 }
 
 SprintManager::SprintManager(QObject *parent) :
@@ -35,25 +36,17 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
     emit currentSprintChanged(m_currentSprint);
 }
 
-void SprintManager::createSprint()
+void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const QString& endDate)
 {
-    // >> TODO: move to separate class?
-    int sprintNumber = 1;
-    QString newSprintName, tempSprintName;
-
-    while (sprintNumber <= (m_sprintModel->rowCount() + 1))
+    if (sprintName.isNull() || sprintName.isEmpty())
     {
-        tempSprintName = SPRINT_NAME_TEMPLATE.arg(sprintNumber);
-        if (m_sprintModel->titleValid(tempSprintName))
-        {
-            newSprintName = tempSprintName;
-            break;
-        }
-        ++sprintNumber;
+        return;
     }
-    // <<
 
-    Sprint* newSprint = new Sprint(newSprintName, QDate::currentDate(), 3, this);
+    Sprint* newSprint = new Sprint(sprintName,
+                                   QDate::fromString(startDate, DATE_FORMAT),
+                                   QDate::fromString(endDate, DATE_FORMAT),
+                                   this);
 
     if (m_sprintModel->append(newSprint))
     {
@@ -61,7 +54,27 @@ void SprintManager::createSprint()
         emit sprintCreated(newSprint);
         return;
     }
+    newSprint->deleteLater();
+}
 
+void SprintManager::createSprint(const QString& sprintName, const QString& startDate, const qint32& duration)
+{
+    if (sprintName.isNull() || sprintName.isEmpty())
+    {
+        return;
+    }
+
+    Sprint* newSprint = new Sprint(sprintName,
+                                   QDate::fromString(startDate, DATE_FORMAT),
+                                   duration,
+                                   this);
+
+    if (m_sprintModel->append(newSprint))
+    {
+        setCurrentSprint(newSprint);
+        emit sprintCreated(newSprint);
+        return;
+    }
     newSprint->deleteLater();
 }
 
@@ -81,6 +94,7 @@ void SprintManager::removeSprint(Sprint* sprint)
     // remove sprint and select detected
     if (m_sprintModel->remove(sprint))
     {
+        emit sprintRemoved(sprint->title());
         setCurrentSprint(sprintToSelect);
         sprint->deleteLater();
     }

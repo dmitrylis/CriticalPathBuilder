@@ -25,7 +25,7 @@ public:
     void setDraggedTask(Task* task);
     void setHighlight(const QRect& rect);
 
-    Q_INVOKABLE void createTask(int row, int column, Story* story);
+    Q_INVOKABLE void createTask(int row, int column, Story* parentStory);
     Q_INVOKABLE void startDragTask(Task* task);
     Q_INVOKABLE void updateHighlightRow(int mouseX, int cellWidth);
     Q_INVOKABLE void updateHighlightColumn(int mouseY, int cellHeight);
@@ -35,6 +35,8 @@ signals:
     void draggedTaskChanged(Task* draggedTask);
     void highlightChanged(QRect highlight);
     void taskCreated(const QString& sprintName, const QString& storyName, Task* task);
+    void taskMoved(const QString& sprintName, const QString& storyName, Task* task);
+    void taskRemoved(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle);
 
 private:
     Task* m_draggedTask;

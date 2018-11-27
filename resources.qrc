@@ -21,6 +21,9 @@
         <file>qml/effects/CpbBlurEffect.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
+        <file>qml/popups/CpbCreateSprintPopup.qml</file>
+        <file>qml/popups/CpbRemoveTaskPopup.qml</file>
+        <file>qml/popups/CpbCreateStoryPopup.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="add_task.png">images/add_task.png</file>

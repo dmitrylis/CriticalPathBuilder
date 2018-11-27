@@ -160,7 +160,7 @@ Rectangle {
             text: qsTr("Create sprint")
 
             onClicked: {
-                _sprintManager.createSprint()
+                _popupManager.showCreateSprintPopup()
             }
         }
 
@@ -169,7 +169,7 @@ Rectangle {
             visible: _sprintManager.currentSprint !== null
 
             onClicked: {
-                _storyManager.createStory(_sprintManager.currentSprint)
+                _popupManager.showCreateStoryPopup(_sprintManager.currentSprint)
             }
         }
     }

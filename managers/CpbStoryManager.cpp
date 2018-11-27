@@ -11,34 +11,33 @@ StoryManager::StoryManager(QObject *parent) :
 {
 }
 
-void StoryManager::createStory(Sprint* sprint)
+void StoryManager::createStory(const QString& storyName, Sprint* parentSprint)
 {
-    if (sprint == nullptr)
+    if (parentSprint == nullptr || storyName.isNull() || storyName.isEmpty())
     {
         return;
     }
 
-    // >> TODO: move to separate class?
-    int storyNumber = 1;
-    QString newStoryName, tempStoryName;
-    StoryModel* const storyModel = sprint->storyModel();
+    StoryModel* const storyModel = parentSprint->storyModel();
 
-    while (storyNumber <= (storyModel->rowCount() + 1))
-    {
-        tempStoryName = STORY_NAME_TEMPLATE.arg(storyNumber);
-        if (storyModel->titleValid(tempStoryName))
-        {
-            newStoryName = tempStoryName;
-            break;
-        }
-        ++storyNumber;
-    }
-    // <<
+//    // TODO move to separate class
+//    int storyNumber = 1;
+//    QString tempStoryName;
+//    while (storyNumber <= (storyModel->rowCount() + 1))
+//    {
+//        tempStoryName = STORY_NAME_TEMPLATE.arg(storyNumber);
+//        if (storyModel->titleValid(tempStoryName))
+//        {
+//            storyName = tempStoryName;
+//            break;
+//        }
+//        ++storyNumber;
+//    }
 
-    Story* newStory = new Story(newStoryName, sprint);
+    Story* newStory = new Story(storyName, parentSprint);
     if (storyModel->append(newStory))
     {
-        emit storyCreated(sprint->title(), newStory);
+        emit storyCreated(parentSprint->title(), newStory);
         return;
     }
 
@@ -52,14 +51,9 @@ void StoryManager::removeStory(Story* story)
         return;
     }
 
-    Sprint* const parentSprint = story->parentSprint();
-    if (parentSprint == nullptr)
+    if (story->parentSprint()->storyModel()->remove(story))
     {
-        return;
-    }
-
-    if (parentSprint->storyModel()->remove(story))
-    {
+        emit storyRemoved(story->parentSprint()->title(), story->title());
         story->deleteLater();
     }
 }
@@ -71,13 +65,7 @@ void StoryManager::moveStory(int first, int last, Story* story)
         return;
     }
 
-    Sprint* const parentSprint = story->parentSprint();
-    if (parentSprint == nullptr)
-    {
-        return;
-    }
-
-    parentSprint->storyModel()->move(first, last);
+    story->parentSprint()->storyModel()->move(first, last);
 }
 
 void StoryManager::addRow(Story *story)
@@ -87,12 +75,6 @@ void StoryManager::addRow(Story *story)
         return;
     }
 
-    Sprint* const parentSprint = story->parentSprint();
-    if (parentSprint == nullptr)
-    {
-        return;
-    }
-
-    parentSprint->storyModel()->update(story, story->rowCount() + 1, StoryModel::RowCountRole);
+    story->parentSprint()->storyModel()->update(story, story->rowCount() + 1, StoryModel::RowCountRole);
     emit storyRowChanged(story->parentSprint()->title(), story);
 }
