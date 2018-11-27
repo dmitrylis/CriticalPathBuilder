@@ -18,7 +18,7 @@ class Sprint : public QObject
 public:
     explicit Sprint(const QString& title, const QDate& startDate, int weeksCount, QObject *parent = nullptr);
     explicit Sprint(const QString& title, const QDate& startDate, const QDate& endDate, QObject *parent = nullptr);
-    virtual ~Sprint();
+    ~Sprint();
 
     QString title() const;
     QDate startDate() const;

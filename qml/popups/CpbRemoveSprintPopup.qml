@@ -1,32 +1,23 @@
 import QtQuick 2.11
 
-import "../components"
 import "../singletons"
-import "../effects"
+import "../components"
 
-Rectangle {
+CpbBasePopup {
     id: root
 
     property var sprintToRemove: _popupManager.popupData
 
-    width: 300
-    height: 200
+    title: qsTr("Remove sprint")
 
-    layer.enabled: true
-    layer.effect: CpbShadowEffect {
-        alpha: 0.5
-    }
-
-    CpbText {
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: sprintToRemove ? sprintToRemove.title : "" // to fix strage warning on application closing
+    content: CpbText {
+        anchors.fill: parent
+        text: sprintToRemove ? sprintToRemove.title : ""
+        // to fix strage warning on application closing
         // TypeError: Cannot read property 'title' of null
     }
 
-    Row {
-        anchors.centerIn: parent
-        spacing: CpbStyle.marginTiny
-
+    buttons: [
         CpbButton {
             text: qsTr("OK")
 
@@ -34,8 +25,7 @@ Rectangle {
                 _sprintManager.removeSprint(sprintToRemove)
                 _popupManager.hidePopup()
             }
-        }
-
+        },
         CpbButton {
             text: qsTr("CANCEL")
 
@@ -43,5 +33,5 @@ Rectangle {
                 _popupManager.hidePopup()
             }
         }
-    }
+    ]
 }

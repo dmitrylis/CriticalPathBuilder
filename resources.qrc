@@ -19,6 +19,7 @@
         <file>qml/singletons/qmldir</file>
         <file>qml/effects/CpbShadowEffect.qml</file>
         <file>qml/effects/CpbBlurEffect.qml</file>
+        <file>qml/popups/CpbBasePopup.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
         <file>qml/popups/CpbCreateSprintPopup.qml</file>

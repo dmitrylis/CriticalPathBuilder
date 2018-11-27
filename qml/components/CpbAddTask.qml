@@ -1,30 +1,49 @@
 import QtQuick 2.11
 
+import "../controls"
 import "../singletons"
 
-Item {
+CpbBaseButton {
     id: root
 
-    signal clicked()
+    implicitWidth: CpbStyle.cellWidth
+    implicitHeight: CpbStyle.cellHeight
 
-    width: CpbStyle.cellWidth
-    height: CpbStyle.cellHeight
+    background: Image {
+        id: buttonBg
 
-    Image {
-        anchors.centerIn: parent
         source: "qrc:/images/add_task.png"
-        opacity: clickArea.containsMouse ? 1.0 : 0.3
     }
 
-    MouseArea {
-        id: clickArea
+    StateGroup {
+        states: [
+            State {
+                name: "normal"
+                when: root.state === "normal"
 
-        anchors {
-            fill: parent
-            margins: CpbStyle.marginTiny
-        }
-        hoverEnabled: true
+                PropertyChanges {
+                    target: buttonBg
+                    opacity: 0.3
+                }
+            },
+            State {
+                name: "normal_hovered"
+                when: root.state === "normal_hovered"
 
-        onClicked: root.clicked()
+                PropertyChanges {
+                    target: buttonBg
+                    opacity: 1.0
+                }
+            },
+            State {
+                name: "normal_down"
+                when: root.state === "normal_down"
+
+                PropertyChanges {
+                    target: buttonBg
+                    opacity: 0.6
+                }
+            }
+        ]
     }
 }

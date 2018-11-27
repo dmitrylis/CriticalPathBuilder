@@ -1,5 +1,7 @@
 #include "CpbStoryManager.h"
 
+#include "CpbUtils.h"
+
 using namespace CPB;
 
 namespace  {
@@ -11,6 +13,15 @@ StoryManager::StoryManager(QObject *parent) :
 {
 }
 
+StoryManager::~StoryManager()
+{
+}
+
+QString StoryManager::newStoryName(Sprint* parentSprint)
+{
+    return Utils::generateEntityName<StoryModel>(STORY_TITLE_TEMPLATE, parentSprint->storyModel());
+}
+
 void StoryManager::createStory(const QString& storyTitle, Sprint* parentSprint)
 {
     if (parentSprint == nullptr || storyTitle.isNull() || storyTitle.isEmpty())
@@ -18,24 +29,8 @@ void StoryManager::createStory(const QString& storyTitle, Sprint* parentSprint)
         return;
     }
 
-    StoryModel* const storyModel = parentSprint->storyModel();
-
-//    // TODO move to separate class
-//    int storyNumber = 1;
-//    QString tempStoryTitle;
-//    while (storyNumber <= (storyModel->rowCount() + 1))
-//    {
-//        tempStoryTitle = STORY_TITLE_TEMPLATE.arg(storyNumber);
-//        if (storyModel->titleValid(tempStoryTitle))
-//        {
-//            storyTitle = tempStoryTitle;
-//            break;
-//        }
-//        ++storyNumber;
-//    }
-
     Story* newStory = new Story(storyTitle, parentSprint);
-    if (storyModel->append(newStory))
+    if (parentSprint->storyModel()->append(newStory))
     {
         emit storyCreated(parentSprint->title(), newStory);
         return;
