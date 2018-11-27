@@ -14,7 +14,7 @@ class StoryManager : public QObject
 public:
     explicit StoryManager(QObject *parent = nullptr);
 
-    Q_INVOKABLE void createStory(Sprint* sprint, QString storyName);
+    Q_INVOKABLE void createStory(const QString& storyName, Sprint* parentSprint);
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
     Q_INVOKABLE void addRow(Story* story);

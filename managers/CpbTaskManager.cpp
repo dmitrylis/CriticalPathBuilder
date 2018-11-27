@@ -48,16 +48,16 @@ void TaskManager::setHighlight(const QRect& rect)
     emit highlightChanged(m_highlight);
 }
 
-void TaskManager::createTask(int row, int column, Story* story)
+void TaskManager::createTask(int row, int column, Story* parentStory)
 {
-    if (story == nullptr)
+    if (parentStory == nullptr)
     {
         return;
     }
 
     QString newTaskName, tempTaskName;
     int taskNumber = 1;
-    TaskModel* taskModel = story->taskModel();
+    TaskModel* taskModel = parentStory->taskModel();
 
     while (taskNumber <= (taskModel->rowCount() + 1))
     {
@@ -70,12 +70,12 @@ void TaskManager::createTask(int row, int column, Story* story)
         ++taskNumber;
     }
 
-    Task* newTask = new Task(newTaskName, row, column, story);
-    Sprint* parentSprint = story->parentSprint();
+    Task* newTask = new Task(newTaskName, row, column, parentStory);
+    Sprint* parentSprint = parentStory->parentSprint();
 
     if (taskModel->append(newTask))
     {
-        emit taskCreated(parentSprint->title(), story->title(), newTask);
+        emit taskCreated(parentSprint->title(), parentStory->title(), newTask);
         return;
     }
 

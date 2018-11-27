@@ -169,7 +169,7 @@ Rectangle {
             visible: _sprintManager.currentSprint !== null
 
             onClicked: {
-                _popupManager.showCreateStoryPopup()
+                _popupManager.showCreateStoryPopup(_sprintManager.currentSprint)
             }
         }
     }

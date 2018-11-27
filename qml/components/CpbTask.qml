@@ -12,6 +12,9 @@ Item {
             margins: CpbStyle.marginTiny
         }
 
+        color: CpbStyle.greenColor
+        radius: CpbStyle.marginTiny
+
         CpbText {
             anchors {
                 left: parent.left
@@ -23,12 +26,6 @@ Item {
             color: CpbStyle.whiteColor
             fontBold: true
         }
-
-
-
-
-        color: CpbStyle.greenColor
-        radius: CpbStyle.marginTiny
     }
 
     CpbRemoveButton {
@@ -36,9 +33,6 @@ Item {
             top: parent.top
             right: parent.right
         }
-
-        width: parent.height / 3
-        height: parent.height / 3
 
         onClicked: {
             _popupManager.showRemoveTaskPopup(taskRole)

@@ -113,9 +113,11 @@ void XmlSerializer::removeSprint(const QString& sprintTitle)
         if (sprintTitleAttr.value() == sprintTitle)
         {
             sprintElement.parentNode().removeChild(sprintElement);
-            return true;
+
+            return true; // break
         }
-        return false;
+
+        return false; // no break
     });
 
     writeFile();
@@ -139,7 +141,7 @@ void XmlSerializer::createStory(const QString& sprintTitle, Story* story)
 
             sprintElement.appendChild(newStoryElement);
 
-            return true; // break from processing
+            return true; // break
         }
 
         return false; // no break
@@ -165,7 +167,8 @@ void XmlSerializer::removeStory(const QString& sprintTitle, const QString& story
                 if (storyTitleAttr.value() == storyTitle)
                 {
                     storyElement.parentNode().removeChild(storyElement);
-                    return true;
+
+                    return true; // break
                 }
 
                 return false; // no break
@@ -196,7 +199,7 @@ void XmlSerializer::updateStoryRow(const QString& sprintTitle, Story* story)
                 {
                     storyElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
 
-                    return true; // break from processing
+                    return true; // break
                 }
 
                 return false; // no break
@@ -232,7 +235,7 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
 
                     storyElement.appendChild(newTaskElement);
 
-                    return true; // break from processing
+                    return true; // break
                 }
 
                 return false; // no break
@@ -269,10 +272,10 @@ void XmlSerializer::moveTask(const QString& sprintTitle, const QString& storyTit
                             taskElement.setAttribute(ATTRIBUTE_ROW, task->row());
                             taskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
 
-                            return true;
+                            return true; // break
                         }
 
-                        return false; // break from processing
+                        return false; // no break
                     });
                 }
 
@@ -308,10 +311,11 @@ void XmlSerializer::removeTask(const QString& sprintTitle, const QString& storyT
                         if (taskTitleAttr.value() == taskTitle)
                         {
                             taskElement.parentNode().removeChild(taskElement);
-                            return true;
+
+                            return true;  // break
                         }
 
-                        return false; // break from processing
+                        return false; // no break
                     });
                 }
 

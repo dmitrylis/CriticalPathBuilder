@@ -18,11 +18,9 @@ public:
     explicit SprintManager(QObject *parent = nullptr);
 
     SprintModel *sprintModel() const;
-
     Sprint* currentSprint() const;
     void setCurrentSprint(Sprint* sprint);
 
-    Q_INVOKABLE void createSprint();
     Q_INVOKABLE void createSprint(const QString& sprintName, const QString& startDate, const QString& endDate);
     Q_INVOKABLE void createSprint(const QString& sprintName, const QString& startDate, const qint32& duration);
     Q_INVOKABLE void removeSprint(Sprint* sprint);

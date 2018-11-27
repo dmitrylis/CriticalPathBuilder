@@ -1,14 +1,13 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4 as Controls24
-import QtQuick.Controls 1.4 as Controls14
+import QtQuick.Controls 2.4
 
-import "../controls"
 import "../singletons"
 import "../effects"
 import "../components"
 
 Rectangle {
     id: root
+
     width: 300
     height: 300
     layer.enabled: true
@@ -23,7 +22,7 @@ Rectangle {
 
         CpbText {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Create Sprint"
+            text: qsTr("Create Sprint")
         }
 
         Row {
@@ -31,34 +30,42 @@ Rectangle {
 
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
-                text: "Name"
+                text: qsTr("Name")
             }
-            Controls24.TextField {
+
+            TextField {
                 id: sprintName
+
                 placeholderText: qsTr("Enter name")
             }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
+
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
-                text: "Duration"
+                text: qsTr("Duration")
             }
-            Controls24.ComboBox {
+
+            ComboBox {
                 id: sprintDuration
+
                 model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
             }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
+
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
-                text: "Start Date"
+                text: qsTr("Start Date")
             }
-            Controls24.TextField {
+
+            TextField {
                 id: sprintStartDate
+
                 inputMask: "00.00.0000"
                 maximumLength: 8
             }
@@ -66,34 +73,42 @@ Rectangle {
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
+
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
-                text: "End Date"
+                text: qsTr("End Date")
             }
-            Controls24.TextField {
+
+            TextField {
                 id: sprintEndDate
+
                 inputMask: "00.00.0000"
                 maximumLength: 8
-                enabled: sprintDuration.currentIndex == 0 ? true : false
+                enabled: sprintDuration.currentIndex == 0
             }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
 
-            Controls24.Button {
-                text: "OK"
+            CpbButton {
+                text: qsTr("OK")
+
                 onClicked: {
-                    if (sprintDuration.currentIndex == 0)
+                    if (sprintDuration.currentIndex == 0) {
                         _sprintManager.createSprint(sprintName.text, sprintStartDate.text, sprintEndDate.text)
-                    else
+                    }
+                    else {
                         _sprintManager.createSprint(sprintName.text, sprintStartDate.text, sprintDuration.currentIndex)
+                    }
+
                     _popupManager.hidePopup()
                 }
             }
 
-            Controls24.Button {
-                text: "CANCEL"
+            CpbButton {
+                text: qsTr("CANCEL")
+
                 onClicked: {
                     _popupManager.hidePopup()
                 }

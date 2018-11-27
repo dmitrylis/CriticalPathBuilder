@@ -46,6 +46,16 @@ void PopupManager::showPopup(const QString& popupPath, const QVariant& popupData
     }
 }
 
+void PopupManager::showCreateSprintPopup()
+{
+    showPopup(CREATE_SPRINT_POPUP);
+}
+
+void PopupManager::showCreateStoryPopup(const QVariant& parentSprint)
+{
+    showPopup(CREATE_STORY_POPUP, parentSprint);
+}
+
 void PopupManager::showRemoveSprintPopup(const QVariant& sprintToRemove)
 {
     showPopup(REMOVE_SPRINT_POPUP, sprintToRemove);
@@ -61,17 +71,7 @@ void PopupManager::hidePopup()
     showPopup("");
 }
 
-void PopupManager::showCreateSprintPopup()
-{
-    showPopup(CREATE_SPRINT_POPUP);
-}
-
-void PopupManager::showCreateStoryPopup()
-{
-    showPopup(CREATE_STORY_POPUP);
-}
-
 void PopupManager::showRemoveTaskPopup(const QVariant& taskToRemove)
 {
-    showPopup(REMOVE_TASK_POPUP);
+    showPopup(REMOVE_TASK_POPUP, taskToRemove);
 }
