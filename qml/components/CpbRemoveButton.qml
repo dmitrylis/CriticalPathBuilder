@@ -31,12 +31,21 @@ CpbBaseButton {
                 }
             },
             State {
+                name: "normal_hovered"
+                when: root.state === "normal_hovered"
+
+                PropertyChanges {
+                    target: buttonBg
+                    color: CpbStyle.greyColor
+                }
+            },
+            State {
                 name: "normal_down"
                 when: root.state === "normal_down"
 
                 PropertyChanges {
                     target: buttonBg
-                    color: CpbStyle.greyColor
+                    color: CpbStyle.darkGreyColor
                 }
             }
         ]

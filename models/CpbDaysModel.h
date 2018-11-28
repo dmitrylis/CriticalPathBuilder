@@ -20,7 +20,7 @@ public:
     Q_ENUM(DaysModelRoles)
 
     explicit DaysModel(const QDate& startDate, const QDate& endDate, QObject *parent = nullptr);
-    virtual ~DaysModel() override;
+    ~DaysModel() override;
 
     // overrides
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;

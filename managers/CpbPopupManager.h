@@ -15,6 +15,7 @@ class PopupManager : public QObject
 
 public:
     explicit PopupManager(QObject *parent = nullptr);
+    ~PopupManager();
 
     QString popupPath() const;
     QVariant popupData() const;

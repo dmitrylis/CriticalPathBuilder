@@ -14,6 +14,10 @@ PopupManager::PopupManager(QObject *parent) : QObject(parent)
 {
 }
 
+PopupManager::~PopupManager()
+{
+}
+
 QString PopupManager::popupPath() const
 {
     return m_popupPath;

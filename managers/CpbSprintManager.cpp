@@ -1,5 +1,7 @@
 #include "CpbSprintManager.h"
 
+#include "CpbUtils.h"
+
 using namespace CPB;
 
 namespace  {
@@ -13,6 +15,10 @@ SprintManager::SprintManager(QObject *parent) :
     m_currentSprint(nullptr)
 {
     m_sprintModel = new SprintModel(this);
+}
+
+SprintManager::~SprintManager()
+{
 }
 
 SprintModel *SprintManager::sprintModel() const
@@ -34,6 +40,11 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
 
     m_currentSprint = sprint;
     emit currentSprintChanged(m_currentSprint);
+}
+
+QString SprintManager::newSprintName()
+{
+    return Utils::generateEntityName<SprintModel>(SPRINT_TITLE_TEMPLATE, sprintModel());
 }
 
 void SprintManager::createSprint(const QString& sprintTitle, const QString& startDate, const QString& endDate)

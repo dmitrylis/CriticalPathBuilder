@@ -78,6 +78,7 @@ void TaskManager::createTask(int row, int column, Story* parentStory)
         return;
     }
 
+    // TODO: it will be removed from here
     QString newTaskTitle, tempTaskTitle;
     int taskNumber = 1;
     TaskModel* taskModel = parentStory->taskModel();

@@ -66,18 +66,32 @@ CpbBaseButton {
                 }
             },
             State {
-                name: "normal_down"
-                extend: "checked"
-                when: root.state === "normal_down"
+                name: "normal_hovered"
+                when: root.state === "normal_hovered"
+
+                PropertyChanges {
+                    target: buttonBg
+                    color: CpbStyle.lightGreyColor
+                }
             },
             State {
-                name: "checked"
-                when: root.state === "checked"
+                name: "normal_down"
+                when: root.state === "normal_down"
 
                 PropertyChanges {
                     target: buttonBg
                     color: CpbStyle.whiteColor
                 }
+            },
+            State {
+                name: "checked"
+                extend: "normal_down"
+                when: root.state === "checked"
+            },
+            State {
+                name: "checked_hovered"
+                extend: "normal_hovered"
+                when: root.state === "checked_hovered"
             },
             State {
                 name: "checked_down"

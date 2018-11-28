@@ -16,7 +16,7 @@ class Story : public QObject
 
 public:
     explicit Story(const QString& title, Sprint* parentSprint);
-    virtual ~Story();
+    ~Story();
 
     Sprint* parentSprint() const;
     QString title() const;
