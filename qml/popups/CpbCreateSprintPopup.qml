@@ -1,11 +1,16 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.4
+import QtQml 2.2
 
 import "../singletons"
 import "../components"
 
 CpbBasePopup {
     id: root
+
+    property var locale: Qt.locale()
+    property date currentDate: new Date()
+    property string dateString
 
     title: qsTr("Create sprint")
 
@@ -56,8 +61,10 @@ CpbBasePopup {
             TextField {
                 id: sprintStartDate
 
-                inputMask: "00.00.0000"
-                maximumLength: 8
+                //inputMask: "00.00.0000"
+                maximumLength: 10
+                text:  currentDate.toLocaleDateString(locale, Locale.ShortFormat)
+                //text: Date.fromLocaleDateString(dateString)
             }
         }
 
@@ -72,8 +79,8 @@ CpbBasePopup {
             TextField {
                 id: sprintEndDate
 
-                inputMask: "00.00.0000"
-                maximumLength: 8
+                //inputMask: "00.00.0000"
+                maximumLength: 10
                 enabled: sprintDuration.currentIndex == 0
             }
         }
