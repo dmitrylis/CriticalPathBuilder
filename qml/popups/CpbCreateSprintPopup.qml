@@ -1,5 +1,5 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick.Controls 1.4
 import QtQml 2.2
 
 import "../singletons"
@@ -61,11 +61,17 @@ CpbBasePopup {
             TextField {
                 id: sprintStartDate
 
-                //inputMask: "00.00.0000"
                 maximumLength: 10
-                text:  currentDate.toLocaleDateString(locale, Locale.ShortFormat)
-                //text: Date.fromLocaleDateString(dateString)
+                //text: currentDate.toLocaleDateString(locale , Locale.ShortFormat)
+                text: sprintStartCalendar.selectedDate
             }
+            Calendar {
+                id: sprintStartCalendar
+                locale: Qt.locale()
+                weekNumbersVisible: true
+                minimumDate: currentDate
+            }
+
         }
 
         Row {
@@ -79,9 +85,16 @@ CpbBasePopup {
             TextField {
                 id: sprintEndDate
 
-                //inputMask: "00.00.0000"
                 maximumLength: 10
+                //text:  currentDate.toLocaleDateString(locale, Locale.ShortFormat)
+                text: sprintEndCalendar.selectedDate
                 enabled: sprintDuration.currentIndex == 0
+            }
+            Calendar {
+                id: sprintEndCalendar
+                locale: Qt.locale()
+                weekNumbersVisible: true
+                minimumDate: currentDate
             }
         }
     }
@@ -89,6 +102,7 @@ CpbBasePopup {
     buttons: [
         CpbButton {
             text: qsTr("OK")
+            enabled: sprintTitle.text != "" && sprintStartDate.text != "" && (sprintEndDate.text != "" || sprintDuration.currentIndex != 0)
 
             onClicked: {
                 if (sprintDuration.currentIndex == 0) {
@@ -110,3 +124,4 @@ CpbBasePopup {
         }
     ]
 }
+

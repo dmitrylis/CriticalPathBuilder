@@ -29,6 +29,7 @@ Item {
     }
 
     CpbRemoveButton {
+        z: 2
         anchors {
             top: parent.top
             right: parent.right
