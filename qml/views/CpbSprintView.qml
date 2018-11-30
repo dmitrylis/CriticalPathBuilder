@@ -26,7 +26,6 @@ Rectangle {
 
             displaced: Transition {
                 NumberAnimation { properties: "x, y"; easing.overshoot: 1; easing.type: Easing.OutBack }
-
             }
 
             headerPositioning: ListView.OverlayHeader

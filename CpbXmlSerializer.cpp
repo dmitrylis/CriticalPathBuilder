@@ -37,7 +37,7 @@ XmlSerializer::~XmlSerializer()
 {
 }
 
-void XmlSerializer::readFile(SprintModel* sprintModel)
+void XmlSerializer::readFile(SprintModel* sprintModel) const
 {
     QDomElement rootElement = cpbRootElement();
     if (rootElement.isNull())
@@ -387,7 +387,7 @@ QDomElement XmlSerializer::cpbRootElement() const
 
 void XmlSerializer::processNodeList(const QDomElement& parentElement,
                                     const QString& tag,
-                                    const std::function<bool (QDomElement element)>& processFunction)
+                                    const std::function<bool (QDomElement element)>& processFunction) const
 {
     QDomNodeList nodeList = parentElement.elementsByTagName(tag);
     for (int i = 0; i < nodeList.size(); ++i)

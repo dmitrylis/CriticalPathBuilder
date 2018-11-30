@@ -20,7 +20,7 @@ public:
     XmlSerializer(QObject* parent = nullptr);
     ~XmlSerializer();
 
-    void readFile(SprintModel* sprintModel);
+    void readFile(SprintModel* sprintModel) const;
 
 public slots:
     void createSprint(Sprint* sprint);
@@ -41,7 +41,7 @@ private:
 
     void processNodeList(const QDomElement& parentElement,
                          const QString& tag,
-                         const std::function<bool (QDomElement element)>& processFunction);
+                         const std::function<bool (QDomElement element)>& processFunction) const;
 
     void writeFile();
 

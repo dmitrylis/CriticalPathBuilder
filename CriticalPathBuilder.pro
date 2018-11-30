@@ -18,7 +18,10 @@ INCLUDEPATH += \
     $$PWD/models
 
 SOURCES += \
-    main.cpp \
+    CpbMain.cpp \
+    CpbApplication.cpp \
+    CpbXmlSerializer.cpp \
+    CpbUtils.cpp \
     entities/CpbSprint.cpp \
     entities/CpbStory.cpp \
     entities/CpbTask.cpp \
@@ -29,9 +32,7 @@ SOURCES += \
     managers/CpbSprintManager.cpp \
     managers/CpbStoryManager.cpp \
     managers/CpbTaskManager.cpp \
-    managers/CpbPopupManager.cpp \
-    CpbXmlSerializer.cpp \
-    CpbUtils.cpp
+    managers/CpbPopupManager.cpp
 
 RESOURCES += resources.qrc
 
@@ -47,6 +48,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    CpbApplication.h \
+    CpbXmlSerializer.h \
+    CpbUtils.h \
     entities/CpbSprint.h \
     entities/CpbStory.h \
     entities/CpbTask.h \
@@ -58,6 +62,4 @@ HEADERS += \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
     managers/CpbTaskManager.h \
-    managers/CpbPopupManager.h \
-    CpbXmlSerializer.h \
-    CpbUtils.h
+    managers/CpbPopupManager.h

@@ -17,6 +17,10 @@ Item {
         height: 50
         spacing: CpbStyle.marginTiny
 
+        displaced: Transition {
+            NumberAnimation { properties: "x, y"; easing.overshoot: 1; easing.type: Easing.OutBack }
+        }
+
         orientation: Qt.Horizontal
         model: _sprintManager.sprintModel
         delegate: CpbTabButton {
