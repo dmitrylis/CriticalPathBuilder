@@ -36,6 +36,7 @@ public:
     void setHighlight(const QRect& rect);
 
     Q_INVOKABLE void createTask(int row, int column, Story* parentStory);
+    Q_INVOKABLE void removeTask(Task* task);
     Q_INVOKABLE void startDragTask(Task* task, GestureType gestureType);
     Q_INVOKABLE void updateHighlightRow(int mouseX, int cellWidth);
     Q_INVOKABLE void updateHighlightColumn(int mouseY, int cellHeight);
