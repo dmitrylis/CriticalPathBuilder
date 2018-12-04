@@ -112,7 +112,7 @@ Item {
                         }
                         color: "transparent"
                         border.width: 2
-                        border.color: "red"
+                        border.color: _taskManager.dropPossible ? "green" : "red"
                         radius: CpbStyle.marginTiny
                     }
                 }
@@ -194,6 +194,10 @@ Item {
                             onReleased: {
                                 _taskManager.stopDragTask()
                             }
+
+                            onCanceled: {
+                                _taskManager.stopDragTask()
+                            }
                         }
 
                         states: State {
@@ -201,8 +205,14 @@ Item {
                             when: _taskManager.draggedTask === taskRole
 
                             PropertyChanges {
-                                target: taskDelegate
+                                target: highlight
                                 z: 1
+                            }
+
+                            PropertyChanges {
+                                target: taskDelegate
+                                opacity: 0.7
+                                z: 2
                             }
                         }
                     }

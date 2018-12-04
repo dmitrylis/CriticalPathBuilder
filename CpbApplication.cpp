@@ -28,15 +28,18 @@ void Application::registerTypes() const
 void Application::createBindings() const
 {
     connect(&m_xmlSerializer, &XmlSerializer::modelLoaded, &m_sprintManager, &SprintManager::onModelLoaded);
+
     connect(&m_sprintManager, &SprintManager::sprintCreated, &m_xmlSerializer, &XmlSerializer::createSprint);
     connect(&m_sprintManager, &SprintManager::sprintRemoved, &m_xmlSerializer, &XmlSerializer::removeSprint);
+
     connect(&m_storyManager, &StoryManager::storyCreated, &m_xmlSerializer, &XmlSerializer::createStory);
     connect(&m_storyManager, &StoryManager::storyRemoved, &m_xmlSerializer, &XmlSerializer::removeStory);
     connect(&m_storyManager, &StoryManager::storyRowChanged, &m_xmlSerializer, &XmlSerializer::updateStoryRow);
+
     connect(&m_taskManager, &TaskManager::taskCreated, &m_xmlSerializer, &XmlSerializer::createTask);
-    connect(&m_taskManager, &TaskManager::taskMoved, &m_xmlSerializer, &XmlSerializer::moveTask);
     connect(&m_taskManager, &TaskManager::taskRemoved, &m_xmlSerializer, &XmlSerializer::removeTask);
-    connect(&m_taskManager, &TaskManager::taskDaysCountChanged, &m_xmlSerializer, &XmlSerializer::updateDaysCount);
+    connect(&m_taskManager, &TaskManager::taskMoved, &m_xmlSerializer, &XmlSerializer::updateTaskPosition);
+    connect(&m_taskManager, &TaskManager::taskDaysCountChanged, &m_xmlSerializer, &XmlSerializer::updateTaskDaysCount);
 }
 
 void Application::loadResources() const
