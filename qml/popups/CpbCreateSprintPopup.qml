@@ -7,6 +7,9 @@ import "../components"
 CpbBasePopup {
     id: root
 
+    property var locale: Qt.locale()
+    property date currentDate: new Date()
+
     title: qsTr("Create sprint")
 
     content: Column {
@@ -56,8 +59,8 @@ CpbBasePopup {
             TextField {
                 id: sprintStartDate
 
-                inputMask: "00.00.0000"
-                maximumLength: 8
+                maximumLength: 10
+                text: currentDate.toLocaleDateString(locale , Locale.ShortFormat)
             }
         }
 
@@ -72,8 +75,8 @@ CpbBasePopup {
             TextField {
                 id: sprintEndDate
 
-                inputMask: "00.00.0000"
-                maximumLength: 8
+                text:  currentDate.toLocaleDateString(locale, Locale.ShortFormat)
+                maximumLength: 10
                 enabled: sprintDuration.currentIndex == 0
             }
         }
@@ -82,6 +85,7 @@ CpbBasePopup {
     buttons: [
         CpbButton {
             text: qsTr("OK")
+            enabled: sprintTitle.text != "" && sprintStartDate.text != "" && (sprintEndDate.text != "" || sprintDuration.currentIndex != 0)
 
             onClicked: {
                 if (sprintDuration.currentIndex == 0) {

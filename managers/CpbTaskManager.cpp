@@ -105,6 +105,20 @@ void TaskManager::createTask(int row, int column, Story* parentStory)
     newTask->deleteLater();
 }
 
+void TaskManager::removeTask(Task* task)
+{
+    if (task == nullptr)
+    {
+        return;
+    }
+
+    if (task->parentStory()->taskModel()->remove(task))
+    {
+        emit taskRemoved(task->parentStory()->parentSprint()->title(), task->parentStory()->title(), task->title());
+        task->deleteLater();
+    }
+}
+
 void TaskManager::startDragTask(Task* task, GestureType gestureType)
 {
     setDraggedTask(task);
