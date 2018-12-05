@@ -6,7 +6,7 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var storyToRemove: _popupManager.popupData
+    property var storyToRemove: _popupManager.popupData[0]
 
     title: qsTr("Remove story")
 

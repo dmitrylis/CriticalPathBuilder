@@ -11,6 +11,7 @@ class Task : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Story* parentStory READ parentStory CONSTANT)
+    Q_PROPERTY(QString title READ title CONSTANT)
 
 public:
     explicit Task(const QString& title, int row, int column, Story* parentStory);

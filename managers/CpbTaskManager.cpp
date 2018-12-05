@@ -1,5 +1,7 @@
 #include "CpbTaskManager.h"
 
+#include "CpbUtils.h"
+
 #include <QGuiApplication>
 #include <QCursor>
 
@@ -89,32 +91,21 @@ void TaskManager::setDropPossible(bool dropPossible)
     emit dropPossibleChanged();
 }
 
-void TaskManager::createTask(int row, int column, Story* parentStory)
+QString TaskManager::newTaskName(Story* parentStory)
 {
-    if (parentStory == nullptr)
+    return Utils::generateEntityName<TaskModel>(TASK_TITLE_TEMPLATE, parentStory->taskModel());
+}
+
+void TaskManager::createTask(const QString& taskTitle, int row, int column, Story* parentStory)
+{
+    if (parentStory == nullptr || taskTitle.isNull() || taskTitle.isEmpty())
     {
         return;
     }
 
-    // TODO: it will be removed from here
-    QString newTaskTitle, tempTaskTitle;
-    int taskNumber = 1;
-    TaskModel* taskModel = parentStory->taskModel();
+    Task* newTask = new Task(taskTitle, row, column, parentStory);
 
-    while (taskNumber <= (taskModel->rowCount() + 1))
-    {
-        tempTaskTitle = TASK_TITLE_TEMPLATE.arg(taskNumber);
-        if (taskModel->titleValid(tempTaskTitle))
-        {
-            newTaskTitle = tempTaskTitle;
-            break;
-        }
-        ++taskNumber;
-    }
-
-    Task* newTask = new Task(newTaskTitle, row, column, parentStory);
-
-    if (taskModel->append(newTask))
+    if (parentStory->taskModel()->append(newTask))
     {
         emit taskCreated(parentStory->parentSprint()->title(), parentStory->title(), newTask);
         return;

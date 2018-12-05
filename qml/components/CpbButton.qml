@@ -16,6 +16,8 @@ CpbBaseButton {
     }
 
     contentItem: CpbText {
+        id: buttonContent
+
         leftPadding: CpbStyle.marginSmall
         rightPadding: CpbStyle.marginSmall
         text: root.text
@@ -48,6 +50,20 @@ CpbBaseButton {
                 PropertyChanges {
                     target: buttonBg
                     color: CpbStyle.whiteColor
+                }
+            },
+            State {
+                name: "normal_disabled"
+                when: root.state === "normal_disabled"
+
+                PropertyChanges {
+                    target: buttonContent
+                    color: CpbStyle.greyColor
+                }
+
+                PropertyChanges {
+                    target: buttonBg
+                    color: CpbStyle.lightGreyColor
                 }
             }
         ]

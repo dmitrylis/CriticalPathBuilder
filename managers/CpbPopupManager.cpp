@@ -5,6 +5,7 @@ using namespace CPB;
 namespace  {
 const QString CREATE_SPRINT_POPUP ("qrc:/qml/popups/CpbCreateSprintPopup.qml");
 const QString CREATE_STORY_POPUP ("qrc:/qml/popups/CpbCreateStoryPopup.qml");
+const QString CREATE_TASK_POPUP ("qrc:/qml/popups/CpbCreateTaskPopup.qml");
 const QString REMOVE_SPRINT_POPUP ("qrc:/qml/popups/CpbRemoveSprintPopup.qml");
 const QString REMOVE_STORY_POPUP ("qrc:/qml/popups/CpbRemoveStoryPopup.qml");
 const QString REMOVE_TASK_POPUP ("qrc:/qml/popups/CpbRemoveTaskPopup.qml");
@@ -23,12 +24,12 @@ QString PopupManager::popupPath() const
     return m_popupPath;
 }
 
-QVariant PopupManager::popupData() const
+QVariantList PopupManager::popupData() const
 {
     return m_popupData;
 }
 
-void PopupManager::showPopup(const QString& popupPath, const QVariant& popupData)
+void PopupManager::showPopup(const QString& popupPath, const QVariantList& popupData)
 {
     bool updateNeeded = false;
 
@@ -57,25 +58,30 @@ void PopupManager::showCreateSprintPopup()
 
 void PopupManager::showCreateStoryPopup(const QVariant& parentSprint)
 {
-    showPopup(CREATE_STORY_POPUP, parentSprint);
+    showPopup(CREATE_STORY_POPUP, QVariantList() << parentSprint);
+}
+
+void PopupManager::showCreateTaskPopup(int row, int column, const QVariant& parentStory)
+{
+    showPopup(CREATE_TASK_POPUP, QVariantList() << row << column << parentStory);
 }
 
 void PopupManager::showRemoveSprintPopup(const QVariant& sprintToRemove)
 {
-    showPopup(REMOVE_SPRINT_POPUP, sprintToRemove);
+    showPopup(REMOVE_SPRINT_POPUP, QVariantList() << sprintToRemove);
 }
 
 void PopupManager::showRemoveStoryPopup(const QVariant &storyToRemove)
 {
-    showPopup(REMOVE_STORY_POPUP, storyToRemove);
+    showPopup(REMOVE_STORY_POPUP, QVariantList() << storyToRemove);
+}
+
+void PopupManager::showRemoveTaskPopup(const QVariant& taskToRemove)
+{
+    showPopup(REMOVE_TASK_POPUP, QVariantList() << taskToRemove);
 }
 
 void PopupManager::hidePopup()
 {
     showPopup("");
-}
-
-void PopupManager::showRemoveTaskPopup(const QVariant& taskToRemove)
-{
-    showPopup(REMOVE_TASK_POPUP, taskToRemove);
 }

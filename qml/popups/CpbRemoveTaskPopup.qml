@@ -6,7 +6,7 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var taskToRemove: _popupManager.popupData
+    property var taskToRemove: _popupManager.popupData[0]
 
     title: qsTr("Remove task")
 

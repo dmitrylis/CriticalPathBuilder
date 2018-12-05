@@ -85,7 +85,7 @@ CpbBasePopup {
     buttons: [
         CpbButton {
             text: qsTr("OK")
-            enabled: sprintTitle.text != "" && sprintStartDate.text != "" && (sprintEndDate.text != "" || sprintDuration.currentIndex != 0)
+            enabled: sprintTitle.text !== "" && sprintStartDate.text !== "" && (sprintEndDate.text !== "" || sprintDuration.currentIndex !== 0)
 
             onClicked: {
                 if (sprintDuration.currentIndex == 0) {
