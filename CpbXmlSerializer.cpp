@@ -184,37 +184,6 @@ void XmlSerializer::removeStory(const QString& sprintTitle, const QString& story
     writeFile();
 }
 
-void XmlSerializer::updateStoryRow(const QString& sprintTitle, Story* story)
-{
-    QDomElement rootElement = cpbRootElement();
-    if (rootElement.isNull())
-    {
-        return;
-    }
-
-    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, &story] (QDomElement sprintElement) {
-        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
-        if (sprintTitleAttr.value() == sprintTitle)
-        {
-            processNodeList(sprintElement, TAG_STORY, [&story] (QDomElement storyElement) {
-                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
-                if (storyTitleAttr.value() == story->title())
-                {
-                    storyElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
-
-                    return true; // break
-                }
-
-                return false; // no break
-            });
-        }
-
-        return false; // no break
-    });
-
-    writeFile();
-}
-
 void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyTitle, Task* task)
 {
     QDomElement rootElement = cpbRootElement();
@@ -252,45 +221,11 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
     writeFile();
 }
 
-void XmlSerializer::moveTask(const QString& sprintTitle, const QString& storyTitle, Task* task)
+void XmlSerializer::updateStoryRow(const QString& sprintTitle, Story* story)
 {
-    QDomElement rootElement = cpbRootElement();
-    if (rootElement.isNull())
-    {
-        return;
-    }
-
-    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, task] (QDomElement sprintElement) {
-        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
-        if (sprintTitleAttr.value() == sprintTitle)
-        {
-            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, task] (QDomElement storyElement) {
-                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
-                if (storyTitleAttr.value() == storyTitle)
-                {
-                    processNodeList(storyElement, TAG_TASK, [task] (QDomElement taskElement)
-                    {
-                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
-                        if (taskTitleAttr.value() == task->title())
-                        {
-                            taskElement.setAttribute(ATTRIBUTE_ROW, task->row());
-                            taskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
-
-                            return true; // break
-                        }
-
-                        return false; // no break
-                    });
-                }
-
-                return false; // no break
-            });
-        }
-
-        return false; // no break
+    updateStory(sprintTitle, story->title(), [&story] (QDomElement storyElement) {
+        storyElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
     });
-
-    writeFile();
 }
 
 void XmlSerializer::removeTask(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle)
@@ -333,43 +268,21 @@ void XmlSerializer::removeTask(const QString& sprintTitle, const QString& storyT
     writeFile();
 }
 
-void XmlSerializer::updateDaysCount(const QString &sprintTitle, const QString &storyTitle, Task *task)
+void XmlSerializer::updateTaskPosition(const QString& sprintTitle, const QString& storyTitle, Task* task)
 {
-    QDomElement rootElement = cpbRootElement();
-    if (rootElement.isNull())
+    updateTask(sprintTitle, storyTitle, task->title(), [&task] (QDomElement taskElement)
     {
-        return;
-    }
-
-    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, &task] (QDomElement sprintElement) {
-        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
-        if (sprintTitleAttr.value() == sprintTitle)
-        {
-            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, &task] (QDomElement storyElement) {
-                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
-                if (storyTitleAttr.value() == storyTitle)
-                {
-                    processNodeList(storyElement, TAG_TASK, [&task] (QDomElement taskElement) {
-                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
-                        if (taskTitleAttr.value() == task->title())
-                        {
-                            taskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());
-
-                            return true; // break from processing
-                        }
-
-                        return false; // no break
-                    });
-                }
-
-                return false; // no break
-            });
-        }
-
-        return false; // no break
+        taskElement.setAttribute(ATTRIBUTE_ROW, task->row());
+        taskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
     });
+}
 
-    writeFile();
+void XmlSerializer::updateTaskDaysCount(const QString &sprintTitle, const QString &storyTitle, Task *task)
+{
+    updateTask(sprintTitle, storyTitle, task->title(), [&task] (QDomElement taskElement)
+    {
+        taskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());
+    });
 }
 
 QDomElement XmlSerializer::cpbRootElement() const
@@ -397,6 +310,82 @@ void XmlSerializer::processNodeList(const QDomElement& parentElement,
             break;
         }
     }
+}
+
+void XmlSerializer::updateStory(const QString& sprintTitle,
+                                const QString& storyTitle,
+                                const std::function<void (QDomElement element)>& updateFunction)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, &storyTitle, &updateFunction] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [&storyTitle, &updateFunction] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    updateFunction(storyElement);
+
+                    return true; // break
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
+}
+
+void XmlSerializer::updateTask(const QString &sprintTitle,
+                               const QString &storyTitle,
+                               const QString &taskTitle,
+                               const std::function<void (QDomElement)> &updateFunction)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    processNodeList(rootElement, TAG_SPRINT, [this, sprintTitle, storyTitle, taskTitle, &updateFunction] (QDomElement sprintElement) {
+        QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
+        if (sprintTitleAttr.value() == sprintTitle)
+        {
+            processNodeList(sprintElement, TAG_STORY, [this, storyTitle, taskTitle, &updateFunction] (QDomElement storyElement) {
+                QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+                if (storyTitleAttr.value() == storyTitle)
+                {
+                    processNodeList(storyElement, TAG_TASK, [taskTitle, &updateFunction] (QDomElement taskElement)
+                    {
+                        QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                        if (taskTitleAttr.value() == taskTitle)
+                        {
+                            updateFunction(taskElement);
+
+                            return true; // break
+                        }
+
+                        return false; // no break
+                    });
+                }
+
+                return false; // no break
+            });
+        }
+
+        return false; // no break
+    });
+
+    writeFile();
 }
 
 void XmlSerializer::writeFile()

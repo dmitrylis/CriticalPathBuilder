@@ -73,3 +73,16 @@ QHash<int, QByteArray> TaskModel::roleNames() const
     roles[TaskRoles::DaysCountRole] = "daysCountRole";
     return roles;
 }
+
+Task* TaskModel::task(int row, int column) const
+{
+    // need to check row and column
+
+    // check that row and column are placed inside of task body
+    auto result = std::find_if(m_entityList.begin(), m_entityList.end(), [row, column] (const Task* const task) {
+        return task->row() <= row && row < task->row() + 1 &&
+                task->column() <= column && column < task->column() + task->daysCount();
+    });
+
+    return (result != m_entityList.end()) ? *result : nullptr;
+}

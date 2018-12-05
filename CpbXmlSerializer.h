@@ -25,13 +25,15 @@ public:
 public slots:
     void createSprint(Sprint* sprint);
     void removeSprint(const QString& sprintTitle);
+
     void createStory(const QString& sprintTitle, Story* story);
-    void updateStoryRow(const QString& sprintTitle, Story* story);
     void removeStory(const QString& sprintTitle, const QString& storyTitle);
+    void updateStoryRow(const QString& sprintTitle, Story* story);
+
     void createTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
-    void moveTask(const QString& sprintTitle, const QString& storyTitle, Task* task);
     void removeTask(const QString& sprintTitle, const QString& storyTitle, const QString& taskTitle);
-    void updateDaysCount(const QString& sprintTitle, const QString& storyTitle, Task* task);
+    void updateTaskPosition(const QString& sprintTitle, const QString& storyTitle, Task* task);
+    void updateTaskDaysCount(const QString& sprintTitle, const QString& storyTitle, Task* task);
 
 signals:
     void modelLoaded() const;
@@ -42,6 +44,15 @@ private:
     void processNodeList(const QDomElement& parentElement,
                          const QString& tag,
                          const std::function<bool (QDomElement element)>& processFunction) const;
+
+    void updateStory(const QString& sprintTitle,
+                     const QString& storyTitle,
+                     const std::function<void (QDomElement element)>& updateFunction);
+
+    void updateTask(const QString& sprintTitle,
+                    const QString& storyTitle,
+                    const QString& taskTitle,
+                    const std::function<void (QDomElement element)>& updateFunction);
 
     void writeFile();
 

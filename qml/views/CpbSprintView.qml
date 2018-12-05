@@ -32,7 +32,7 @@ Rectangle {
 
             // days in sprint
             header: CpbDaysView {
-                z: 100
+                z: 3
                 model: _sprintManager.currentSprint ? _sprintManager.currentSprint.daysModel : null
             }
 
@@ -96,6 +96,16 @@ Rectangle {
 
                     onEntered: {
                         _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
+                    }
+                }
+
+                states: State {
+                    name: "hasDraggedTask"
+                    when: _taskManager.draggedTask !== null && _taskManager.draggedTask.parentStory === storyRole
+
+                    PropertyChanges {
+                        target: delegateRoot
+                        z: 2
                     }
                 }
             }
