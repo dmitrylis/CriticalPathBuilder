@@ -38,7 +38,7 @@ public:
     void setHighlight(const QRect& rect);
     void setDropPossible(bool dropPossible);
 
-    Q_INVOKABLE QString newTaskName(Story* parentStory);
+    Q_INVOKABLE QString newTaskName(Story* parentStory) const;
     Q_INVOKABLE void createTask(const QString& taskTitle, int row, int column, Story* parentStory);
     Q_INVOKABLE void removeTask(Task* task);
     Q_INVOKABLE void startDragTask(Task* task, GestureType gestureType);

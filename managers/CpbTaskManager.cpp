@@ -91,7 +91,7 @@ void TaskManager::setDropPossible(bool dropPossible)
     emit dropPossibleChanged();
 }
 
-QString TaskManager::newTaskName(Story* parentStory)
+QString TaskManager::newTaskName(Story* parentStory) const
 {
     return Utils::generateEntityName<TaskModel>(TASK_TITLE_TEMPLATE, parentStory->taskModel());
 }
