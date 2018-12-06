@@ -7,9 +7,11 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var parentSprint: _popupManager.popupData[0]
+    property var row: _popupManager.popupData[0]
+    property var column: _popupManager.popupData[1]
+    property var parentStory: _popupManager.popupData[2]
 
-    title: qsTr("Create story")
+    title: qsTr("Create task")
 
     content: Column {
         anchors.centerIn: parent
@@ -26,10 +28,10 @@ CpbBasePopup {
             }
 
             TextField {
-                id: storyTitle
+                id: taskTitle
 
                 placeholderText: qsTr("Enter title")
-                text: _storyManager.newStoryName(root.parentSprint)
+                text: _taskManager.newTaskName(root.parentStory)
             }
         }
     }
@@ -37,10 +39,10 @@ CpbBasePopup {
     buttons: [
         CpbButton {
             text: qsTr("OK")
-            enabled: storyTitle.text !== ""
+            enabled: taskTitle.text !== ""
 
             onClicked: {
-                _storyManager.createStory(storyTitle.text, root.parentSprint)
+                _taskManager.createTask(taskTitle.text, root.row, root.column, root.parentStory)
                 _popupManager.hidePopup()
             }
         },

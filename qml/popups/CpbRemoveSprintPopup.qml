@@ -6,7 +6,7 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var sprintToRemove: _popupManager.popupData
+    property var sprintToRemove: _popupManager.popupData[0]
 
     title: qsTr("Remove sprint")
 

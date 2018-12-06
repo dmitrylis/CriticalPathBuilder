@@ -6,8 +6,10 @@ import "singletons"
 
 Window {
     visible: true
-    width: 640
-    height: 480
+    minimumWidth: 400
+    minimumHeight: 300
+    width: 800
+    height: 600
     title: qsTr("Critical Path Builder")
 
     Item {

@@ -84,7 +84,7 @@ Item {
                         y: row * CpbStyle.cellHeight
 
                         onClicked: {
-                            _taskManager.createTask(row, column, storyRole)
+                            _popupManager.showCreateTaskPopup(row, column, storyRole)
                         }
                     }
                 }
@@ -147,6 +147,10 @@ Item {
 
                         onYChanged: {
                             _taskManager.updateHighlightRow(y, CpbStyle.cellHeight)
+                        }
+
+                        onRemoveClicked: {
+                            _popupManager.showRemoveTaskPopup(taskRole)
                         }
 
                         MouseArea {

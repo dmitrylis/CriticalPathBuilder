@@ -3,6 +3,10 @@ import QtQuick 2.11
 import "../singletons"
 
 Item {
+    id: root
+
+    signal removeClicked()
+
     implicitWidth: CpbStyle.cellWidth
     implicitHeight: CpbStyle.cellHeight
 
@@ -12,7 +16,7 @@ Item {
             margins: CpbStyle.marginTiny
         }
 
-        color: CpbStyle.greenColor
+        color: CpbStyle.blueColor
         radius: CpbStyle.marginTiny
 
         CpbText {
@@ -29,14 +33,14 @@ Item {
     }
 
     CpbRemoveButton {
-        z: 2
         anchors {
             top: parent.top
             right: parent.right
         }
+        z: 2
 
         onClicked: {
-            _popupManager.showRemoveTaskPopup(taskRole)
+            root.removeClicked()
         }
     }
 }
