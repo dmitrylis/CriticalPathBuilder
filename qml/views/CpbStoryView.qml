@@ -65,6 +65,7 @@ Item {
             height: backLayout.height
             radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
             color: CpbStyle.lightGreyColor
+            z: 1
 
             Item {
                 id: backLayout
@@ -125,6 +126,7 @@ Item {
 
                         x: columnRole * CpbStyle.cellWidth
                         y: rowRole * CpbStyle.cellHeight
+                        visible: rowRole < rowCountRole
 
                         Binding {
                             target: taskDelegate
@@ -159,6 +161,7 @@ Item {
                             anchors.fill: parent
                             cursorShape: Qt.OpenHandCursor
                             drag.target: taskDelegate
+                            hoverEnabled: true
 
                             onPressed: {
                                 _taskManager.startDragTask(taskRole, TaskManager.GestureMove)
@@ -230,11 +233,28 @@ Item {
             width: CpbStyle.marginTiny
         }
 
-        CpbButton {
-            text: qsTr("Add row")
+        Row {
+            anchors.right: parent.right
+            spacing: CpbStyle.marginTiny
 
-            onClicked: {
-                _storyManager.addRow(storyRole)
+            CpbButton {
+                width: 50
+                text: "+"
+                enabled: rowCountRole !== _storyManager.maxRowCount()
+
+                onClicked: {
+                    _storyManager.addRow(storyRole)
+                }
+            }
+
+            CpbButton {
+                width: 50
+                text: "-"
+                enabled: rowCountRole !== _storyManager.minRowCount()
+
+                onClicked: {
+                    _storyManager.removeRow(storyRole)
+                }
             }
         }
     }

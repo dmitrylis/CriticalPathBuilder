@@ -15,11 +15,14 @@ public:
     explicit StoryManager(QObject *parent = nullptr);
     ~StoryManager();
 
-    Q_INVOKABLE QString newStoryName(Sprint* parentSprint);
+    Q_INVOKABLE QString newStoryName(Sprint* parentSprint) const;
     Q_INVOKABLE void createStory(const QString& storyTitle, Sprint* parentSprint);
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
     Q_INVOKABLE void addRow(Story* story);
+    Q_INVOKABLE void removeRow(Story* story);
+    Q_INVOKABLE int minRowCount() const;
+    Q_INVOKABLE int maxRowCount() const;
 
 signals:
     void storyCreated(const QString& sprintTitle, Story* story);

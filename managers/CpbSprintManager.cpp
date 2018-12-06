@@ -42,7 +42,7 @@ void SprintManager::setCurrentSprint(Sprint* sprint)
     emit currentSprintChanged(m_currentSprint);
 }
 
-QString SprintManager::newSprintName()
+QString SprintManager::newSprintName() const
 {
     return Utils::generateEntityName<SprintModel>(SPRINT_TITLE_TEMPLATE, sprintModel());
 }

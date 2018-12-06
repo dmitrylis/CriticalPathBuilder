@@ -6,6 +6,8 @@ using namespace CPB;
 
 namespace  {
 const QString STORY_TITLE_TEMPLATE ("Story %0");
+const int MIN_ROW_COUNT = 1;
+const int MAX_ROW_COUNT = 10;
 }
 
 StoryManager::StoryManager(QObject *parent) :
@@ -17,7 +19,7 @@ StoryManager::~StoryManager()
 {
 }
 
-QString StoryManager::newStoryName(Sprint* parentSprint)
+QString StoryManager::newStoryName(Sprint* parentSprint) const
 {
     return Utils::generateEntityName<StoryModel>(STORY_TITLE_TEMPLATE, parentSprint->storyModel());
 }
@@ -65,11 +67,32 @@ void StoryManager::moveStory(int first, int last, Story* story)
 
 void StoryManager::addRow(Story *story)
 {
-    if (story == nullptr)
+    if (story == nullptr || story->rowCount() == MAX_ROW_COUNT)
     {
         return;
     }
 
     story->parentSprint()->storyModel()->update(story, story->rowCount() + 1, StoryModel::RowCountRole);
     emit storyRowChanged(story->parentSprint()->title(), story);
+}
+
+void StoryManager::removeRow(Story *story)
+{
+    if (story == nullptr || story->rowCount() == MIN_ROW_COUNT)
+    {
+        return;
+    }
+
+    story->parentSprint()->storyModel()->update(story, story->rowCount() - 1, StoryModel::RowCountRole);
+    emit storyRowChanged(story->parentSprint()->title(), story);
+}
+
+int StoryManager::minRowCount() const
+{
+    return MIN_ROW_COUNT;
+}
+
+int StoryManager::maxRowCount() const
+{
+    return MAX_ROW_COUNT;
 }
