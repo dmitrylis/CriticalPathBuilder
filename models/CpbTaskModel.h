@@ -28,6 +28,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     Task* task(int row, int column) const;
+    int maxRow() const;
 };
 
 }

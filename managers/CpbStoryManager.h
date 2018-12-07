@@ -23,6 +23,7 @@ public:
     Q_INVOKABLE void removeRow(Story* story);
     Q_INVOKABLE int minRowCount() const;
     Q_INVOKABLE int maxRowCount() const;
+    Q_INVOKABLE int maxTaskRow(Story* story) const;
 
 signals:
     void storyCreated(const QString& sprintTitle, Story* story);
