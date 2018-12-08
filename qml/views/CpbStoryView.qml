@@ -237,6 +237,12 @@ Item {
             anchors.right: parent.right
             spacing: CpbStyle.marginTiny
 
+            CpbText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: rowCountRole <= _storyManager.maxTaskRow(storyRole) ? qsTr("some tasks are hidden") : ""
+                color: "blue"
+            }
+
             CpbButton {
                 width: 50
                 text: "+"

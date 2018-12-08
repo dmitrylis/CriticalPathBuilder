@@ -96,3 +96,13 @@ int StoryManager::maxRowCount() const
 {
     return MAX_ROW_COUNT;
 }
+
+int StoryManager::maxTaskRow(Story *story) const
+{
+    if (story == nullptr)
+    {
+        return false;
+    }
+
+    return story->taskModel()->maxRow();
+}

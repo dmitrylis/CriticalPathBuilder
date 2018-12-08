@@ -86,3 +86,18 @@ Task* TaskModel::task(int row, int column) const
 
     return (result != m_entityList.end()) ? *result : nullptr;
 }
+
+int TaskModel::maxRow() const
+{
+    int maxRow = 0;
+
+    std::for_each(m_entityList.begin(), m_entityList.end(), [&maxRow] (const Task* const task) {
+        const int row = task->row();
+        if (row > maxRow)
+        {
+            maxRow = row;
+        }
+    });
+
+    return maxRow;
+}
