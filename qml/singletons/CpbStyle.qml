@@ -19,14 +19,14 @@ Item {
     readonly property int fontEnormous: 20
 
     // colors section
-    readonly property color colorTransparent: "#FFFFFF00"
-    readonly property color whiteColor: "#FFFFFF"
-    readonly property color blackColor: "#000000"
-    readonly property color lightGreyColor: "#F5F5F5"
-    readonly property color greyColor: "#BEBEBE"
-    readonly property color darkGreyColor: "#808080"
-    readonly property color greenColor: "#67ab49" // color from Jira
-    readonly property color blueColor: "#3b7fc4" // color from Jira
+    readonly property color colorTransparent: "#00FFFFFF"
+    readonly property color colorWhite: "#FFFFFF"
+    readonly property color colorBlack: "#000000"
+    readonly property color colorLightGrey: "#F5F5F5"
+    readonly property color colorGrey: "#BEBEBE"
+    readonly property color colorDarkGrey: "#808080"
+    readonly property color colorGreen: "#67ab49" // color from Jira
+    readonly property color colorBlue: "#3b7fc4" // color from Jira
 
     // grid
     readonly property int cellWidth: 70

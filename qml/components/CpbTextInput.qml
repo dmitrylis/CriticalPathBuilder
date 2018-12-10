@@ -43,14 +43,14 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                     fontSize: CpbStyle.fontMedium
                 }
 
                 PropertyChanges {
                     target: stroke
                     height: 1
-                    color: CpbStyle.blueColor
+                    color: CpbStyle.colorBlue
                 }
             },
             State {
@@ -59,7 +59,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: root
-                    color: CpbStyle.blackColor
+                    color: CpbStyle.colorBlack
                 }
 
                 AnchorChanges {
@@ -69,14 +69,14 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                     fontSize: CpbStyle.fontTiny
                 }
 
                 PropertyChanges {
                     target: stroke
                     height: 1
-                    color: CpbStyle.blueColor
+                    color: CpbStyle.colorBlue
                 }
             },
             State {
@@ -87,7 +87,7 @@ CpbBaseTextInput {
                 PropertyChanges {
                     target: stroke
                     height: 2
-                    color: CpbStyle.blueColor
+                    color: CpbStyle.colorBlue
                 }
             },
             State {
@@ -97,13 +97,13 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.greyColor
+                    color: CpbStyle.colorGrey
                 }
 
                 PropertyChanges {
                     target: stroke
                     height: 1
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                 }
             },
             State {
@@ -113,18 +113,18 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: root
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                 }
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.greyColor
+                    color: CpbStyle.colorGrey
                 }
 
                 PropertyChanges {
                     target: stroke
                     height: 1
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                 }
             }
         ]

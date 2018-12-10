@@ -13,8 +13,8 @@ DropShadow {
     radius: 15
     samples: 2 * radius + 1
     cached: true
-    color: Qt.rgba(CpbStyle.blackColor.r,
-                   CpbStyle.blackColor.g,
-                   CpbStyle.blackColor.b,
+    color: Qt.rgba(CpbStyle.colorBlack.r,
+                   CpbStyle.colorBlack.g,
+                   CpbStyle.colorBlack.b,
                    root.alpha)
 }

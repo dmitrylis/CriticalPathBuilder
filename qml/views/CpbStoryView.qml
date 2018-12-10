@@ -24,7 +24,7 @@ Item {
 
             height: 40
             width: parent.width
-            color: CpbStyle.greenColor
+            color: CpbStyle.colorGreen
             radius: [CpbStyle.marginTiny, CpbStyle.marginTiny, 0, 0]
 
             MouseArea {
@@ -44,13 +44,13 @@ Item {
 
                 CpbText {
                     text: titleRole
-                    color: CpbStyle.whiteColor
+                    color: CpbStyle.colorWhite
                     fontBold: true
                 }
 
                 CpbText {
                     text: ownerRole
-                    color: CpbStyle.lightGreyColor
+                    color: CpbStyle.colorLightGrey
                 }
             }
 
@@ -73,7 +73,7 @@ Item {
             width: parent.width
             height: backLayout.height
             radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
-            color: CpbStyle.lightGreyColor
+            color: CpbStyle.colorLightGrey
             z: 1
 
             Item {
@@ -120,7 +120,7 @@ Item {
                             fill: parent
                             margins: CpbStyle.marginSmall
                         }
-                        color: "transparent"
+                        color: CpbStyle.colorTransparent
                         border.width: 2
                         border.color: _taskManager.dropPossible ? "green" : "red"
                         radius: CpbStyle.marginTiny
@@ -249,7 +249,7 @@ Item {
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter
                 text: rowCountRole <= _storyManager.maxTaskRow(storyRole) ? qsTr("some tasks are hidden") : ""
-                color: CpbStyle.blueColor
+                color: CpbStyle.colorBlue
             }
 
             CpbButton {

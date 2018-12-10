@@ -27,7 +27,7 @@ CpbBaseButton {
 
                 PropertyChanges {
                     target: buttonBg
-                    color: CpbStyle.lightGreyColor
+                    color: CpbStyle.colorLightGrey
                 }
             },
             State {
@@ -36,7 +36,7 @@ CpbBaseButton {
 
                 PropertyChanges {
                     target: buttonBg
-                    color: CpbStyle.greyColor
+                    color: CpbStyle.colorGrey
                 }
             },
             State {
@@ -45,7 +45,7 @@ CpbBaseButton {
 
                 PropertyChanges {
                     target: buttonBg
-                    color: CpbStyle.darkGreyColor
+                    color: CpbStyle.colorDarkGrey
                 }
             }
         ]
