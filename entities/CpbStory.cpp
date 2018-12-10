@@ -3,7 +3,7 @@
 
 using namespace CPB;
 
-Story::Story(const QString& title, Sprint* parentSprint)
+Story::Story(Sprint* parentSprint, const QString& title)
     : QObject(parentSprint),
       m_parentSprint(parentSprint),
       m_title(title),
@@ -28,6 +28,11 @@ QString Story::title() const
     return m_title;
 }
 
+QString Story::owner() const
+{
+    return m_owner;
+}
+
 int Story::rowCount() const
 {
     return m_rowCount;
@@ -41,6 +46,11 @@ int Story::columnCount() const
 TaskModel* Story::taskModel() const
 {
     return m_taskModel;
+}
+
+void Story::setOwner(const QString &owner)
+{
+    m_owner = owner;
 }
 
 void Story::setRowCount(int rowCount)

@@ -15,20 +15,23 @@ class Story : public QObject
     Q_PROPERTY(QString title READ title CONSTANT)
 
 public:
-    explicit Story(const QString& title, Sprint* parentSprint);
+    explicit Story(Sprint* parentSprint, const QString& title);
     ~Story();
 
     Sprint* parentSprint() const;
     QString title() const;
+    QString owner() const;
     int rowCount() const;
     int columnCount() const;
     TaskModel* taskModel() const;
 
+    void setOwner(const QString& owner);
     void setRowCount(int rowCount);
 
 private:
     Sprint* m_parentSprint;
     QString m_title;
+    QString m_owner;
     int m_rowCount;
     int m_columnCount;
     TaskModel* m_taskModel;
