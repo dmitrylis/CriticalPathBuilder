@@ -14,23 +14,13 @@ CpbBasePopup {
 
     content: Column {
         anchors.centerIn: parent
-        width: parent.width
-        spacing: CpbStyle.marginTiny
+        spacing: CpbStyle.marginMedium
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        CpbTextInput {
+            id: sprintTitle
 
-            CpbText {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Title")
-            }
-
-            TextField {
-                id: sprintTitle
-
-                placeholderText: qsTr("Enter title")
-                text: _sprintManager.newSprintName()
-            }
+            placeholderText: qsTr("Sprint title")
+            text: _sprintManager.newSprintName()
         }
 
         Row {
@@ -48,37 +38,21 @@ CpbBasePopup {
             }
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        CpbTextInput {
+            id: sprintStartDate
 
-            CpbText {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Start Date")
-            }
-
-            TextField {
-                id: sprintStartDate
-
-                maximumLength: 10
-                text: currentDate.toLocaleDateString(locale , Locale.ShortFormat)
-            }
+            maximumLength: 10
+            placeholderText: qsTr("Start Date")
+            text: currentDate.toLocaleDateString(locale , Locale.ShortFormat)
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        CpbTextInput {
+            id: sprintEndDate
 
-            CpbText {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("End Date")
-            }
-
-            TextField {
-                id: sprintEndDate
-
-                text:  currentDate.toLocaleDateString(locale, Locale.ShortFormat)
-                maximumLength: 10
-                enabled: sprintDuration.currentIndex == 0
-            }
+            placeholderText: qsTr("End date")
+            text: currentDate.toLocaleDateString(locale, Locale.ShortFormat)
+            maximumLength: 10
+            enabled: sprintDuration.currentIndex == 0
         }
     }
 

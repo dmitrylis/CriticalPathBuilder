@@ -19,6 +19,7 @@ Item {
     readonly property int fontEnormous: 20
 
     // colors section
+    readonly property color colorTransparent: "#FFFFFF00"
     readonly property color whiteColor: "#FFFFFF"
     readonly property color blackColor: "#000000"
     readonly property color lightGreyColor: "#F5F5F5"
