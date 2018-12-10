@@ -14,6 +14,7 @@ public:
     enum StoryRoles {
         StoryRole = Qt::UserRole + 1,
         TitleRole,
+        OwnerRole,
         RowCountRole,
         ColumnCountRole,
         TaskModelRole

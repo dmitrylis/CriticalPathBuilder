@@ -24,6 +24,8 @@ QVariant StoryModel::data(const QModelIndex &index, int role) const
         return QVariant::fromValue(story);
     case StoryRoles::TitleRole:
         return story->title();
+    case StoryRoles::OwnerRole:
+        return story->owner();
     case StoryRoles::RowCountRole:
         return story->rowCount();
     case StoryRoles::ColumnCountRole:
@@ -46,6 +48,9 @@ bool StoryModel::setData(const QModelIndex &index, const QVariant &value, int ro
 
     Story* const story = m_entityList[index.row()];
     switch(role) {
+    case StoryRoles::OwnerRole:
+        story->setOwner(value.toString());
+        break;
     case StoryRoles::RowCountRole:
         story->setRowCount(value.toInt());
         break;
@@ -62,6 +67,7 @@ QHash<int, QByteArray> StoryModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[StoryRoles::StoryRole] = "storyRole";
     roles[StoryRoles::TitleRole] = "titleRole";
+    roles[StoryRoles::OwnerRole] = "ownerRole";
     roles[StoryRoles::RowCountRole] = "rowCountRole";
     roles[StoryRoles::ColumnCountRole] = "columnCountRole";
     roles[StoryRoles::TaskModelRole] = "taskModelRole";

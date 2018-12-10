@@ -33,16 +33,25 @@ Item {
                 anchors.fill: parent
             }
 
-            CpbText {
+            Row {
                 anchors {
                     left: parent.left
                     verticalCenter: parent.verticalCenter
                     leftMargin: CpbStyle.marginMedium
                 }
 
-                text: titleRole
-                color: CpbStyle.whiteColor
-                fontBold: true
+                spacing: CpbStyle.marginSmall
+
+                CpbText {
+                    text: titleRole
+                    color: CpbStyle.whiteColor
+                    fontBold: true
+                }
+
+                CpbText {
+                    text: ownerRole
+                    color: CpbStyle.lightGreyColor
+                }
             }
 
             CpbRemoveButton {

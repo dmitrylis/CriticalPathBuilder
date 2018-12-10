@@ -16,20 +16,38 @@ CpbBasePopup {
         width: parent.width
         spacing: CpbStyle.marginTiny
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        Column {
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
 
-            CpbText
-            {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Title")
+                CpbText
+                {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Title")
+                }
+
+                TextField {
+                    id: storyTitle
+
+                    placeholderText: qsTr("Enter title")
+                    text: _storyManager.newStoryName(root.parentSprint)
+                }
             }
 
-            TextField {
-                id: storyTitle
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
 
-                placeholderText: qsTr("Enter title")
-                text: _storyManager.newStoryName(root.parentSprint)
+                CpbText
+                {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Owner")
+                }
+
+                TextField {
+                    id: storyOwner
+
+                    placeholderText: qsTr("Enter owner")
+                }
             }
         }
     }
@@ -40,7 +58,7 @@ CpbBasePopup {
             enabled: storyTitle.text !== ""
 
             onClicked: {
-                _storyManager.createStory(storyTitle.text, root.parentSprint)
+                _storyManager.createStory(root.parentSprint, storyTitle.text, storyOwner.text)
                 _popupManager.hidePopup()
             }
         },

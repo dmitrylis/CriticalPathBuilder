@@ -24,16 +24,17 @@ QString StoryManager::newStoryName(Sprint* parentSprint) const
     return Utils::generateEntityName<StoryModel>(STORY_TITLE_TEMPLATE, parentSprint->storyModel());
 }
 
-void StoryManager::createStory(const QString& storyTitle, Sprint* parentSprint)
+void StoryManager::createStory(Sprint* parentSprint, const QString& storyTitle, const QString& storyOwner)
 {
     if (parentSprint == nullptr || storyTitle.isNull() || storyTitle.isEmpty())
     {
         return;
     }
 
-    Story* newStory = new Story(storyTitle, parentSprint);
+    Story* newStory = new Story(parentSprint, storyTitle);
     if (parentSprint->storyModel()->append(newStory))
     {
+        newStory->setOwner(storyOwner);
         emit storyCreated(parentSprint->title(), newStory);
         return;
     }

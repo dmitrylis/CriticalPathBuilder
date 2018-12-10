@@ -16,7 +16,7 @@ public:
     ~StoryManager();
 
     Q_INVOKABLE QString newStoryName(Sprint* parentSprint) const;
-    Q_INVOKABLE void createStory(const QString& storyTitle, Sprint* parentSprint);
+    Q_INVOKABLE void createStory(Sprint* parentSprint, const QString& storyTitle, const QString& storyOwner);
     Q_INVOKABLE void removeStory(Story* story);
     Q_INVOKABLE void moveStory(int first, int last, Story* story);
     Q_INVOKABLE void addRow(Story* story);

@@ -9,6 +9,7 @@ const QString TAG_STORY ("Story");
 const QString TAG_TASK ("Task");
 
 const QString ATTRIBUTE_TITLE ("title");
+const QString ATTRIBUTE_OWNER ("owner");
 const QString ATTRIBUTE_ROW_COUNT ("row_count");
 const QString ATTRIBUTE_ROW ("row");
 const QString ATTRIBUTE_COLUMN ("column");
@@ -57,9 +58,11 @@ void XmlSerializer::readFile(SprintModel* sprintModel) const
 
         processNodeList(sprintElement, TAG_STORY, [this, &newSprint] (QDomElement storyElement) {
             QDomAttr storyTitleAttr = storyElement.attributeNode(ATTRIBUTE_TITLE);
+            QDomAttr storyOwnerAttr = storyElement.attributeNode(ATTRIBUTE_OWNER);
             QDomAttr storyRowCountAttr = storyElement.attributeNode(ATTRIBUTE_ROW_COUNT);
 
-            Story* newStory = new Story(storyTitleAttr.value(), newSprint);
+            Story* newStory = new Story(newSprint, storyTitleAttr.value());
+            newStory->setOwner(storyOwnerAttr.value());
             newStory->setRowCount(storyRowCountAttr.value().toInt());
             newSprint->storyModel()->append(newStory);
 
@@ -140,6 +143,7 @@ void XmlSerializer::createStory(const QString& sprintTitle, Story* story)
         {
             QDomElement newStoryElement = m_document.createElement(TAG_STORY);
             newStoryElement.setAttribute(ATTRIBUTE_TITLE, story->title());
+            newStoryElement.setAttribute(ATTRIBUTE_OWNER, story->owner());
             newStoryElement.setAttribute(ATTRIBUTE_ROW_COUNT, story->rowCount());
 
             sprintElement.appendChild(newStoryElement);
