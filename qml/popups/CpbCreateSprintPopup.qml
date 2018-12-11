@@ -10,6 +10,7 @@ CpbBasePopup {
     property var locale: Qt.locale()
     property date currentDate: new Date()
 
+    height: 400
     title: qsTr("Create sprint")
 
     content: Column {

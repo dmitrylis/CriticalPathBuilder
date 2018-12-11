@@ -15,8 +15,8 @@ CpbBaseTextInput {
         CpbText {
             id: placeholder
 
-            anchors.verticalCenter: parent.verticalCenter
             text: root.placeholderText
+            transformOrigin: Item.Left
         }
 
         Rectangle {
@@ -44,7 +44,7 @@ CpbBaseTextInput {
                 PropertyChanges {
                     target: placeholder
                     color: CpbStyle.colorDarkGrey
-                    fontSize: CpbStyle.fontMedium
+                    scale: 1.0
                 }
 
                 PropertyChanges {
@@ -70,7 +70,7 @@ CpbBaseTextInput {
                 PropertyChanges {
                     target: placeholder
                     color: CpbStyle.colorDarkGrey
-                    fontSize: CpbStyle.fontTiny
+                    scale: 0.8
                 }
 
                 PropertyChanges {
@@ -87,7 +87,6 @@ CpbBaseTextInput {
                 PropertyChanges {
                     target: stroke
                     height: 2
-                    color: CpbStyle.colorBlue
                 }
             },
             State {
@@ -102,7 +101,6 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: stroke
-                    height: 1
                     color: CpbStyle.colorDarkGrey
                 }
             },
@@ -123,7 +121,6 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: stroke
-                    height: 1
                     color: CpbStyle.colorDarkGrey
                 }
             }
@@ -135,7 +132,7 @@ CpbBaseTextInput {
             reversible: true
 
             AnchorAnimation {}
-            PropertyAnimation { properties: "fontSize"}
+            NumberAnimation { property: "scale" }
         }
     }
 }
