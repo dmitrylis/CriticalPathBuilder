@@ -19,7 +19,7 @@ Window {
 
         Rectangle {
             anchors.fill: parent
-            color: CpbStyle.darkGreyColor
+            color: CpbStyle.colorDarkGrey
         }
 
         CpbSprintTabView {

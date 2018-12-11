@@ -1,5 +1,4 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
 import "../singletons"
 import "../components"
@@ -13,42 +12,19 @@ CpbBasePopup {
 
     content: Column {
         anchors.centerIn: parent
-        width: parent.width
-        spacing: CpbStyle.marginTiny
+        spacing: CpbStyle.marginMedium
 
-        Column {
-            Row {
-                anchors.horizontalCenter: parent.horizontalCenter
+        CpbTextInput {
+            id: storyTitle
 
-                CpbText
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Title")
-                }
+            placeholderText: qsTr("Task title")
+            text: _storyManager.newStoryName(root.parentSprint)
+        }
 
-                TextField {
-                    id: storyTitle
+        CpbTextInput {
+            id: storyOwner
 
-                    placeholderText: qsTr("Enter title")
-                    text: _storyManager.newStoryName(root.parentSprint)
-                }
-            }
-
-            Row {
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                CpbText
-                {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Owner")
-                }
-
-                TextField {
-                    id: storyOwner
-
-                    placeholderText: qsTr("Enter owner")
-                }
-            }
+            placeholderText: qsTr("Task owner")
         }
     }
 

@@ -27,7 +27,7 @@ MouseArea {
 
     Rectangle {
         anchors.fill: parent
-        color: CpbStyle.blackColor
+        color: CpbStyle.colorBlack
         opacity: 0.2
     }
 

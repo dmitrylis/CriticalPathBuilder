@@ -18,7 +18,7 @@ Item {
         anchors.centerIn: parent
         width: daysRow.width
         height: daysRow.height
-        color: CpbStyle.lightGreyColor
+        color: CpbStyle.colorLightGrey
         radius: CpbStyle.marginTiny
 
         layer.enabled: true
@@ -53,14 +53,14 @@ Item {
                             text: dayNumberRole
                             fontSize: CpbStyle.fontLarge
                             fontBold: true
-                            color: holidayRole ? "red" : CpbStyle.blackColor
+                            color: holidayRole ? "red" : CpbStyle.colorBlack
                         }
 
                         CpbText {
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width
                             text: monthNameRole
-                            color: CpbStyle.darkGreyColor
+                            color: CpbStyle.colorDarkGrey
                         }
                     }
                 }

@@ -16,7 +16,7 @@ Item {
             margins: CpbStyle.marginTiny
         }
 
-        color: CpbStyle.blueColor
+        color: CpbStyle.colorBlue
         radius: CpbStyle.marginTiny
 
         CpbText {
@@ -27,7 +27,7 @@ Item {
             }
 
             text: titleRole
-            color: CpbStyle.whiteColor
+            color: CpbStyle.colorWhite
             fontBold: true
         }
     }

@@ -10,7 +10,7 @@ Text {
 
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
-    color: CpbStyle.blackColor
+    color: CpbStyle.colorBlack
     elide: Text.ElideRight
 
     font {
