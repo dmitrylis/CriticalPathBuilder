@@ -67,5 +67,12 @@ CpbBaseButton {
                 }
             }
         ]
+
+        transitions: Transition {
+            from: "normal, normal_hovered, normal_down, normal_disabled"
+            to: "normal, normal_hovered, normal_down, normal_disabled"
+
+            ColorAnimation { duration: 130 }
+        }
     }
 }
