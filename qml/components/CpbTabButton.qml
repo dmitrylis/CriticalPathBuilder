@@ -99,5 +99,12 @@ CpbBaseButton {
                 when: root.state === "checked_down"
             }
         ]
+
+        transitions: Transition {
+            from: "normal, normal_hovered, normal_down, checked, checked_hovered, checked_down"
+            to: "normal, normal_hovered, normal_down, checked, checked_hovered, checked_down"
+
+            ColorAnimation { duration: 130 }
+        }
     }
 }
