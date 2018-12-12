@@ -14,6 +14,7 @@ public:
     enum TaskRoles {
         TaskRole = Qt::UserRole + 1,
         TitleRole,
+        OwnerRole,
         RowRole,
         ColumnRole,
         DaysCountRole

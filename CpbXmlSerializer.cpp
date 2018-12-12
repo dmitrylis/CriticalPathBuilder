@@ -61,18 +61,18 @@ void XmlSerializer::readFile(SprintModel* sprintModel) const
             QDomAttr storyOwnerAttr = storyElement.attributeNode(ATTRIBUTE_OWNER);
             QDomAttr storyRowCountAttr = storyElement.attributeNode(ATTRIBUTE_ROW_COUNT);
 
-            Story* newStory = new Story(newSprint, storyTitleAttr.value());
-            newStory->setOwner(storyOwnerAttr.value());
+            Story* newStory = new Story(newSprint, storyTitleAttr.value(), storyOwnerAttr.value());
             newStory->setRowCount(storyRowCountAttr.value().toInt());
             newSprint->storyModel()->append(newStory);
 
             processNodeList(storyElement, TAG_TASK, [&newStory] (QDomElement taskElement) {
                 QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
+                QDomAttr taskOwnerAttr = taskElement.attributeNode(ATTRIBUTE_OWNER);
                 QDomAttr taskRowAttr = taskElement.attributeNode(ATTRIBUTE_ROW);
                 QDomAttr taskColumnAttr = taskElement.attributeNode(ATTRIBUTE_COLUMN);
                 QDomAttr taskDaysCountAttr = taskElement.attributeNode(ATTRIBUTE_DAYS_COUNT);
 
-                Task* newTask = new Task(taskTitleAttr.value(), taskRowAttr.value().toInt(), taskColumnAttr.value().toInt(), newStory);
+                Task* newTask = new Task(newStory, taskTitleAttr.value(), taskOwnerAttr.value(), taskRowAttr.value().toInt(), taskColumnAttr.value().toInt());
                 newTask->setDaysCount(taskDaysCountAttr.value().toInt());
                 newStory->taskModel()->append(newTask);
 
@@ -206,6 +206,7 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
                 {
                     QDomElement newTaskElement = m_document.createElement(TAG_TASK);
                     newTaskElement.setAttribute(ATTRIBUTE_TITLE, task->title());
+                    newTaskElement.setAttribute(ATTRIBUTE_OWNER, task->owner());
                     newTaskElement.setAttribute(ATTRIBUTE_ROW, task->row());
                     newTaskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
                     newTaskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());

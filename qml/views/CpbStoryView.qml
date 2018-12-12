@@ -11,10 +11,10 @@ Item {
 
     property alias titleMouseArea: titleMouseArea
 
-    height: column.height + CpbStyle.marginMedium
+    height: columnPositioner.height + CpbStyle.marginMedium
 
     Column {
-        id: column
+        id: columnPositioner
 
         anchors.centerIn: parent
         width: parent.width - CpbStyle.marginMedium
@@ -94,7 +94,7 @@ Item {
                         y: row * CpbStyle.cellHeight
 
                         onClicked: {
-                            _popupManager.showCreateTaskPopup(row, column, storyRole)
+                            _popupManager.showCreateTaskPopup(storyRole, row, column)
                         }
                     }
                 }
@@ -250,6 +250,7 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 text: rowCountRole <= _storyManager.maxTaskRow(storyRole) ? qsTr("some tasks are hidden") : ""
                 color: CpbStyle.colorBlue
+                fontBold: true
             }
 
             CpbButton {

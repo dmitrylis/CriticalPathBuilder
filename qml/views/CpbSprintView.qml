@@ -121,7 +121,6 @@ Rectangle {
             right: parent.right
             bottom: parent.bottom
         }
-        active: true
         z: 1
     }
 
@@ -129,12 +128,11 @@ Rectangle {
         id: vScrollbar
 
         anchors {
-            right: parent.right
             top: parent.top
             bottom: parent.bottom
             topMargin: storyListView.headerItem.height
         }
-        active: true
+        x: (hFlickable.width > storyListView.width) ? (storyListView.x + storyListView.width) : (hFlickable.width - width)
         z: 1
     }
 

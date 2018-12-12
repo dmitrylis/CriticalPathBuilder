@@ -39,12 +39,12 @@ public:
     void setDropPossible(bool dropPossible);
 
     Q_INVOKABLE QString newTaskName(Story* parentStory) const;
-    Q_INVOKABLE void createTask(const QString& taskTitle, int row, int column, Story* parentStory);
+    Q_INVOKABLE void createTask(Story* parentStory, const QString& taskTitle, const QString& taskOwner, int row, int column);
     Q_INVOKABLE void removeTask(Task* task);
     Q_INVOKABLE void startDragTask(Task* task, GestureType gestureType);
     Q_INVOKABLE void updateHighlightRow(int mouseX, int cellWidth);
     Q_INVOKABLE void updateHighlightColumn(int mouseY, int cellHeight);
-    Q_INVOKABLE void updateHighlightDaysCount(int mouseX, int cellWidth);
+    Q_INVOKABLE void updateHighlightDaysCount(int mouseX, int celTitlelWidth);
     Q_INVOKABLE void stopDragTask();
 
 signals:

@@ -31,10 +31,9 @@ void StoryManager::createStory(Sprint* parentSprint, const QString& storyTitle, 
         return;
     }
 
-    Story* newStory = new Story(parentSprint, storyTitle);
+    Story* newStory = new Story(parentSprint, storyTitle, storyOwner);
     if (parentSprint->storyModel()->append(newStory))
     {
-        newStory->setOwner(storyOwner);
         emit storyCreated(parentSprint->title(), newStory);
         return;
     }

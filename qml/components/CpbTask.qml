@@ -19,16 +19,30 @@ Item {
         color: CpbStyle.colorBlue
         radius: CpbStyle.marginTiny
 
-        CpbText {
+        Column {
             anchors {
                 left: parent.left
+                right: parent.right
                 verticalCenter: parent.verticalCenter
-                leftMargin: CpbStyle.marginSmall
+                margins: CpbStyle.marginSmall
+            }
+            spacing: CpbStyle.marginTiny
+
+            CpbText {
+                horizontalAlignment: Text.AlignLeft
+                width: parent.width
+                text: titleRole
+                color: CpbStyle.colorWhite
+                fontBold: true
             }
 
-            text: titleRole
-            color: CpbStyle.colorWhite
-            fontBold: true
+            CpbText {
+                horizontalAlignment: Text.AlignLeft
+                width: parent.width
+                text: ownerRole
+                color: CpbStyle.colorLightGrey
+                visible: ownerRole !== ""
+            }
         }
     }
 

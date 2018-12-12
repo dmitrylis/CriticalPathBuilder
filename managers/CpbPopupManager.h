@@ -23,7 +23,7 @@ public:
     Q_INVOKABLE void showPopup(const QString& popupPath, const QVariantList& popupData = QVariantList());
     Q_INVOKABLE void showCreateSprintPopup();
     Q_INVOKABLE void showCreateStoryPopup(const QVariant& parentSprint);
-    Q_INVOKABLE void showCreateTaskPopup(int row, int column, const QVariant& parentStory);
+    Q_INVOKABLE void showCreateTaskPopup(const QVariant& parentStory, int row, int column);
     Q_INVOKABLE void showRemoveSprintPopup(const QVariant& sprintToRemove);
     Q_INVOKABLE void showRemoveStoryPopup(const QVariant& storyToRemove);
     Q_INVOKABLE void showRemoveTaskPopup(const QVariant& taskToRemove);

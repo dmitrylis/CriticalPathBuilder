@@ -4,6 +4,8 @@ import QtQuick.Templates 2.4
 TextField {
     id: root
 
+    selectByMouse: true
+
     states: [
         State {
             name: "no_text"
