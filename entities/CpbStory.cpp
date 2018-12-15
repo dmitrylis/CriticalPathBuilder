@@ -3,10 +3,11 @@
 
 using namespace CPB;
 
-Story::Story(Sprint* parentSprint, const QString& title)
+Story::Story(Sprint* parentSprint, const QString& title, const QString& owner)
     : QObject(parentSprint),
       m_parentSprint(parentSprint),
       m_title(title),
+      m_owner(owner),
       m_rowCount(1),
       m_columnCount(parentSprint->daysCount()),
       m_taskModel(nullptr)

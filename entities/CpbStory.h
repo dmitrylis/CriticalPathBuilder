@@ -15,7 +15,7 @@ class Story : public QObject
     Q_PROPERTY(QString title READ title CONSTANT)
 
 public:
-    explicit Story(Sprint* parentSprint, const QString& title);
+    explicit Story(Sprint* parentSprint, const QString& title, const QString& owner);
     ~Story();
 
     Sprint* parentSprint() const;

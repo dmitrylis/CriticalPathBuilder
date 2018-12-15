@@ -61,9 +61,9 @@ void PopupManager::showCreateStoryPopup(const QVariant& parentSprint)
     showPopup(CREATE_STORY_POPUP, QVariantList() << parentSprint);
 }
 
-void PopupManager::showCreateTaskPopup(int row, int column, const QVariant& parentStory)
+void PopupManager::showCreateTaskPopup(const QVariant& parentStory, int row, int column)
 {
-    showPopup(CREATE_TASK_POPUP, QVariantList() << row << column << parentStory);
+    showPopup(CREATE_TASK_POPUP, QVariantList() << parentStory << row << column);
 }
 
 void PopupManager::showRemoveSprintPopup(const QVariant& sprintToRemove)

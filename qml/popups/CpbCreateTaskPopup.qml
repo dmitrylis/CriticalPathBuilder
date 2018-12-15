@@ -6,9 +6,9 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var row: _popupManager.popupData[0]
-    property var column: _popupManager.popupData[1]
-    property var parentStory: _popupManager.popupData[2]
+    property var parentStory: _popupManager.popupData[0]
+    property var row: _popupManager.popupData[1]
+    property var column: _popupManager.popupData[2]
 
     title: qsTr("Create task")
 
@@ -23,7 +23,7 @@ CpbBasePopup {
             text: _taskManager.newTaskName(root.parentStory)
         }
 
-        CpbTextInput { // NOT IMPLEMENTED
+        CpbTextInput {
             id: taskOwner
 
             placeholderText: qsTr("Task owner")
@@ -36,7 +36,7 @@ CpbBasePopup {
             enabled: taskTitle.text !== ""
 
             onClicked: {
-                _taskManager.createTask(taskTitle.text, root.row, root.column, root.parentStory)
+                _taskManager.createTask(root.parentStory, taskTitle.text, taskOwner.text, root.row, root.column)
                 _popupManager.hidePopup()
             }
         },

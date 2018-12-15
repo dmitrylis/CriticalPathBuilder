@@ -14,15 +14,17 @@ class Task : public QObject
     Q_PROPERTY(QString title READ title CONSTANT)
 
 public:
-    explicit Task(const QString& title, int row, int column, Story* parentStory);
+    explicit Task(Story* parentStory, const QString& title, const QString& owner, int row, int column);
     ~Task();
 
     Story* parentStory() const;
     QString title() const;
+    QString owner() const;
     int row() const;
     int column() const;
     int daysCount() const;
 
+    void setOwner(const QString& owner);
     void setRow(int row);
     void setColumn(int column);
     void setDaysCount(int daysCount);
@@ -30,6 +32,7 @@ public:
 private:
     Story* m_parentStory;
     QString m_title;
+    QString m_owner;
     int m_row;
     int m_column;
     int m_daysCount;
