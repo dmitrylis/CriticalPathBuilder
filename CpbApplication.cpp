@@ -22,6 +22,7 @@ void Application::registerTypes() const
     qRegisterMetaType<Story*>("Story*");
     qRegisterMetaType<Task*>("Task*");
 
+    qmlRegisterUncreatableType<Task>("com.cpb", 1, 0, "Task", "Task can't be instantiated directly");
     qmlRegisterUncreatableType<TaskManager>("com.cpb", 1, 0, "TaskManager", "TaskManager can't be instantiated directly");
 }
 

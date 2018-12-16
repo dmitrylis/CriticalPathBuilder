@@ -10,6 +10,7 @@ const QString TAG_TASK ("Task");
 
 const QString ATTRIBUTE_TITLE ("title");
 const QString ATTRIBUTE_OWNER ("owner");
+const QString ATTRIBUTE_TYPE ("type");
 const QString ATTRIBUTE_ROW_COUNT ("row_count");
 const QString ATTRIBUTE_ROW ("row");
 const QString ATTRIBUTE_COLUMN ("column");
@@ -68,11 +69,17 @@ void XmlSerializer::readFile(SprintModel* sprintModel) const
             processNodeList(storyElement, TAG_TASK, [&newStory] (QDomElement taskElement) {
                 QDomAttr taskTitleAttr = taskElement.attributeNode(ATTRIBUTE_TITLE);
                 QDomAttr taskOwnerAttr = taskElement.attributeNode(ATTRIBUTE_OWNER);
+                QDomAttr taskTypeAttr = taskElement.attributeNode(ATTRIBUTE_TYPE);
                 QDomAttr taskRowAttr = taskElement.attributeNode(ATTRIBUTE_ROW);
                 QDomAttr taskColumnAttr = taskElement.attributeNode(ATTRIBUTE_COLUMN);
                 QDomAttr taskDaysCountAttr = taskElement.attributeNode(ATTRIBUTE_DAYS_COUNT);
 
-                Task* newTask = new Task(newStory, taskTitleAttr.value(), taskOwnerAttr.value(), taskRowAttr.value().toInt(), taskColumnAttr.value().toInt());
+                Task* newTask = new Task(newStory,
+                                         taskTitleAttr.value(),
+                                         taskOwnerAttr.value(),
+                                         static_cast<Task::TaskType>(taskTypeAttr.value().toInt()),
+                                         taskRowAttr.value().toInt(),
+                                         taskColumnAttr.value().toInt());
                 newTask->setDaysCount(taskDaysCountAttr.value().toInt());
                 newStory->taskModel()->append(newTask);
 
@@ -207,6 +214,7 @@ void XmlSerializer::createTask(const QString& sprintTitle, const QString& storyT
                     QDomElement newTaskElement = m_document.createElement(TAG_TASK);
                     newTaskElement.setAttribute(ATTRIBUTE_TITLE, task->title());
                     newTaskElement.setAttribute(ATTRIBUTE_OWNER, task->owner());
+                    newTaskElement.setAttribute(ATTRIBUTE_TYPE, static_cast<int>(task->type()));
                     newTaskElement.setAttribute(ATTRIBUTE_ROW, task->row());
                     newTaskElement.setAttribute(ATTRIBUTE_COLUMN, task->column());
                     newTaskElement.setAttribute(ATTRIBUTE_DAYS_COUNT, task->daysCount());

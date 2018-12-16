@@ -131,8 +131,8 @@ CpbBaseTextInput {
             to: "focused"
             reversible: true
 
-            AnchorAnimation {}
-            NumberAnimation { property: "scale" }
+            AnchorAnimation { duration: 130 }
+            NumberAnimation { property: "scale"; duration: 130 }
         }
     }
 }

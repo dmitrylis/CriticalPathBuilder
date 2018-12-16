@@ -26,6 +26,8 @@ QVariant TaskModel::data(const QModelIndex &index, int role) const
         return task->title();
     case TaskRoles::OwnerRole:
         return task->owner();
+    case TaskRoles::TypeRole:
+        return task->type();
     case TaskRoles::RowRole:
         return task->row();
     case TaskRoles::ColumnRole:
@@ -74,6 +76,7 @@ QHash<int, QByteArray> TaskModel::roleNames() const
     roles[TaskRoles::TaskRole] = "taskRole";
     roles[TaskRoles::TitleRole] = "titleRole";
     roles[TaskRoles::OwnerRole] = "ownerRole";
+    roles[TaskRoles::TypeRole] = "typeRole";
     roles[TaskRoles::RowRole] = "rowRole";
     roles[TaskRoles::ColumnRole] = "columnRole";
     roles[TaskRoles::DaysCountRole] = "daysCountRole";

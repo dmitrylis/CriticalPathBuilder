@@ -1,5 +1,7 @@
 import QtQuick 2.11
 
+import com.cpb 1.0
+
 import "../singletons"
 
 Item {
@@ -16,7 +18,18 @@ Item {
             margins: CpbStyle.marginTiny
         }
 
-        color: CpbStyle.colorBlue
+        color: {
+            switch (typeRole) {
+            case Task.DevelopmentTask:
+                return CpbStyle.colorBlue
+            case Task.QaTask:
+                return CpbStyle.colorOrange
+            case Task.ResearchTask:
+                return CpbStyle.colorCyan
+            default:
+                return CpbStyle.colorBlue
+            }
+        }
         radius: CpbStyle.marginTiny
 
         Column {

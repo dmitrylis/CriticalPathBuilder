@@ -96,14 +96,19 @@ QString TaskManager::newTaskName(Story* parentStory) const
     return Utils::generateEntityName<TaskModel>(TASK_TITLE_TEMPLATE, parentStory->taskModel());
 }
 
-void TaskManager::createTask(Story* parentStory, const QString& taskTitle, const QString& taskOwner, int row, int column)
+void TaskManager::createTask(Story* parentStory,
+                             const QString& title,
+                             const QString& owner,
+                             int type,
+                             int row,
+                             int column)
 {
-    if (parentStory == nullptr || taskTitle.isNull() || taskTitle.isEmpty())
+    if (parentStory == nullptr || title.isNull() || title.isEmpty())
     {
         return;
     }
 
-    Task* newTask = new Task(parentStory, taskTitle, taskOwner, row, column);
+    Task* newTask = new Task(parentStory, title, owner, static_cast<Task::TaskType>(type), row, column);
     if (parentStory->taskModel()->append(newTask))
     {
         emit taskCreated(parentStory->parentSprint()->title(), parentStory->title(), newTask);

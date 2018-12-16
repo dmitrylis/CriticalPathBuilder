@@ -3,11 +3,12 @@
 
 using namespace CPB;
 
-Task::Task(Story* parentStory, const QString& title, const QString& owner, int row, int column)
+Task::Task(Story* parentStory, const QString& title, const QString& owner, TaskType type, int row, int column)
     : QObject(parentStory),
       m_parentStory(parentStory),
       m_title(title),
       m_owner(owner),
+      m_type(type),
       m_row(row),
       m_column(column),
       m_daysCount(1)
@@ -33,6 +34,11 @@ QString Task::owner() const
     return m_owner;
 }
 
+Task::TaskType Task::type() const
+{
+    return m_type;
+}
+
 int Task::row() const
 {
     return m_row;
@@ -51,6 +57,11 @@ int Task::daysCount() const
 void Task::setOwner(const QString &owner)
 {
     m_owner = owner;
+}
+
+void Task::setType(TaskType type)
+{
+    m_type = type;
 }
 
 void Task::setRow(int row)
