@@ -26,7 +26,7 @@ public:
 
 public:
     explicit TaskManager(QObject *parent = nullptr);
-    virtual ~TaskManager();
+    ~TaskManager();
 
     Task* draggedTask() const;
     GestureType gestureType() const;

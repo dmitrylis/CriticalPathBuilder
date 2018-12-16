@@ -17,7 +17,7 @@ class XmlSerializer: public QObject
     Q_OBJECT
 
 public:
-    XmlSerializer(QObject* parent = nullptr);
+    explicit XmlSerializer(QObject* parent = nullptr);
     ~XmlSerializer();
 
     void readFile(SprintModel* sprintModel) const;

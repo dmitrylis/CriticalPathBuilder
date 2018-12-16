@@ -34,7 +34,9 @@ SOURCES += \
     managers/CpbSprintManager.cpp \
     managers/CpbStoryManager.cpp \
     managers/CpbTaskManager.cpp \
-    managers/CpbPopupManager.cpp
+    managers/CpbBasePopupManager.cpp \
+    managers/CpbPopupManager.cpp \
+    managers/CpbTooltipManager.cpp
 
 RESOURCES += resources.qrc
 
@@ -64,4 +66,6 @@ HEADERS += \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
     managers/CpbTaskManager.h \
-    managers/CpbPopupManager.h
+    managers/CpbBasePopupManager.h \
+    managers/CpbPopupManager.h \
+    managers/CpbTooltipManager.h

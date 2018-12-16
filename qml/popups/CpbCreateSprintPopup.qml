@@ -70,15 +70,13 @@ CpbBasePopup {
                     _sprintManager.createSprint(sprintTitle.text, sprintStartDate.text, sprintDuration.currentIndex)
                 }
 
-                _popupManager.hidePopup()
+                _popupManager.hide()
             }
         },
         CpbButton {
             text: qsTr("CANCEL")
 
-            onClicked: {
-                _popupManager.hidePopup()
-            }
+            onClicked: _popupManager.hide()
         }
     ]
 }

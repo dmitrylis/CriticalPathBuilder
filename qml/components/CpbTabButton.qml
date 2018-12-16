@@ -46,9 +46,7 @@ CpbBaseButton {
                 verticalCenter: parent.verticalCenter
             }
 
-            onClicked: {
-                root.removeClicked()
-            }
+            onClicked: root.removeClicked()
         }
     }
 

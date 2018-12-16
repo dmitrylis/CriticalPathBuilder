@@ -50,6 +50,13 @@ Window {
 
         anchors.fill: parent
         blurSource: mainLayer
-        visible: _popupManager.popupPath !== ""
+        visible: _popupManager.path !== ""
+    }
+
+    CpbTooltipView {
+        id: tooltipLayer
+
+        anchors.fill: parent
+        visible: _tooltipManager.path !== ""
     }
 }

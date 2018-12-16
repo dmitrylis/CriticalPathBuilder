@@ -6,9 +6,9 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var parentStory: _popupManager.popupData[0]
-    property var row: _popupManager.popupData[1]
-    property var column: _popupManager.popupData[2]
+    property var parentStory: _popupManager.data[0]
+    property var row: _popupManager.data[1]
+    property var column: _popupManager.data[2]
 
     title: qsTr("Create task")
 
@@ -37,15 +37,13 @@ CpbBasePopup {
 
             onClicked: {
                 _taskManager.createTask(root.parentStory, taskTitle.text, taskOwner.text, root.row, root.column)
-                _popupManager.hidePopup()
+                _popupManager.hide()
             }
         },
         CpbButton {
             text: qsTr("CANCEL")
 
-            onClicked: {
-                _popupManager.hidePopup()
-            }
+            onClicked: _popupManager.hide()
         }
     ]
 }

@@ -61,9 +61,7 @@ Item {
                     verticalCenter: parent.verticalCenter
                 }
 
-                onClicked: {
-                    _popupManager.showRemoveStoryPopup(storyRole)
-                }
+                onClicked: _popupManager.showRemoveStoryPopup(storyRole)
             }
         }
 
@@ -93,9 +91,7 @@ Item {
                         x: column * CpbStyle.cellWidth
                         y: row * CpbStyle.cellHeight
 
-                        onClicked: {
-                            _popupManager.showCreateTaskPopup(storyRole, row, column)
-                        }
+                        onClicked: _popupManager.showCreateTaskPopup(storyRole, row, column)
                     }
                 }
             }
@@ -152,17 +148,11 @@ Item {
                         Behavior on y { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
                         Behavior on width { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
 
-                        onXChanged: {
-                            _taskManager.updateHighlightColumn(x, CpbStyle.cellWidth)
-                        }
+                        onXChanged: _taskManager.updateHighlightColumn(x, CpbStyle.cellWidth)
 
-                        onYChanged: {
-                            _taskManager.updateHighlightRow(y, CpbStyle.cellHeight)
-                        }
+                        onYChanged: _taskManager.updateHighlightRow(y, CpbStyle.cellHeight)
 
-                        onRemoveClicked: {
-                            _popupManager.showRemoveTaskPopup(taskRole)
-                        }
+                        onRemoveClicked: _popupManager.showRemoveTaskPopup(taskRole)
 
                         MouseArea {
                             id: dragArea
@@ -172,13 +162,20 @@ Item {
                             drag.target: taskDelegate
                             hoverEnabled: true
 
+                            onEntered: {
+                                if (daysCountRole < 4 && _taskManager.draggedTask === null) {
+                                    _tooltipManager.showTaskDescriptionTooltip(dragArea, taskRole)
+                                }
+                            }
+
+                            onExited: _tooltipManager.hide()
+
                             onPressed: {
+                                _tooltipManager.hide()
                                 _taskManager.startDragTask(taskRole, TaskManager.GestureMove)
                             }
 
-                            onReleased: {
-                                _taskManager.stopDragTask()
-                            }
+                            onReleased: _taskManager.stopDragTask()
                         }
 
                         MouseArea {
@@ -193,6 +190,7 @@ Item {
                             drag.target: resArea
 
                             onPressed: {
+                                _tooltipManager.hide()
                                 _taskManager.startDragTask(taskRole, TaskManager.GestureResizeX)
                             }
 
@@ -207,13 +205,9 @@ Item {
                                 _taskManager.updateHighlightDaysCount(rightEdge, CpbStyle.cellWidth)
                             }
 
-                            onReleased: {
-                                _taskManager.stopDragTask()
-                            }
+                            onReleased: _taskManager.stopDragTask()
 
-                            onCanceled: {
-                                _taskManager.stopDragTask()
-                            }
+                            onCanceled: _taskManager.stopDragTask()
                         }
 
                         states: State {
@@ -258,9 +252,7 @@ Item {
                 text: "+"
                 enabled: rowCountRole !== _storyManager.maxRowCount()
 
-                onClicked: {
-                    _storyManager.addRow(storyRole)
-                }
+                onClicked: _storyManager.addRow(storyRole)
             }
 
             CpbButton {
@@ -268,9 +260,7 @@ Item {
                 text: "-"
                 enabled: rowCountRole !== _storyManager.minRowCount()
 
-                onClicked: {
-                    _storyManager.removeRow(storyRole)
-                }
+                onClicked: _storyManager.removeRow(storyRole)
             }
         }
     }

@@ -53,8 +53,6 @@ Item {
         }
         z: 2
 
-        onClicked: {
-            root.removeClicked()
-        }
+        onClicked: root.removeClicked()
     }
 }
