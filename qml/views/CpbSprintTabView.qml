@@ -27,13 +27,9 @@ Item {
             checked: _sprintManager.currentSprint === sprintRole
             text: titleRole
 
-            onClicked: {
-                _sprintManager.currentSprint = sprintRole
-            }
+            onClicked: _sprintManager.currentSprint = sprintRole
 
-            onRemoveClicked: {
-                _popupManager.showRemoveSprintPopup(sprintRole)
-            }
+            onRemoveClicked: _popupManager.showRemoveSprintPopup(sprintRole)
         }
     }
 }

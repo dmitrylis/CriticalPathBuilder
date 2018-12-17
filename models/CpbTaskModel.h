@@ -15,6 +15,7 @@ public:
         TaskRole = Qt::UserRole + 1,
         TitleRole,
         OwnerRole,
+        TypeRole,
         RowRole,
         ColumnRole,
         DaysCountRole

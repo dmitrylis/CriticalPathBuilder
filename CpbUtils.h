@@ -8,7 +8,7 @@ namespace CPB {
 class Utils
 {
 public:
-    Utils();
+    explicit Utils();
     ~Utils();
 
     template<typename T>

@@ -15,9 +15,7 @@ MouseArea {
     onWheel: { /* do nothing */ }
 
     // click on dimmed area leads to closing this popup
-    onClicked: {
-        _popupManager.hidePopup()
-    }
+    onClicked: _popupManager.hide()
 
     CpbBlurEffect {
         id: blurEffect
@@ -40,6 +38,6 @@ MouseArea {
         id: loader
 
         anchors.centerIn: parent
-        source: _popupManager.popupPath
+        source: _popupManager.path
     }
 }

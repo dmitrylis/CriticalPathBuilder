@@ -27,6 +27,8 @@ Item {
     readonly property color colorDarkGrey: "#808080"
     readonly property color colorGreen: "#67ab49" // color from Jira
     readonly property color colorBlue: "#3b7fc4" // color from Jira
+    readonly property color colorOrange: "#ff9933" // color from Jira
+    readonly property color colorCyan: "#009aa2"
 
     // grid
     readonly property int cellWidth: 70

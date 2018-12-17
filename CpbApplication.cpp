@@ -22,6 +22,7 @@ void Application::registerTypes() const
     qRegisterMetaType<Story*>("Story*");
     qRegisterMetaType<Task*>("Task*");
 
+    qmlRegisterUncreatableType<Task>("com.cpb", 1, 0, "Task", "Task can't be instantiated directly");
     qmlRegisterUncreatableType<TaskManager>("com.cpb", 1, 0, "TaskManager", "TaskManager can't be instantiated directly");
 }
 
@@ -54,4 +55,5 @@ void Application::setContextProperties(const QQmlApplicationEngine& engine)
     context->setContextProperty("_storyManager", &m_storyManager);
     context->setContextProperty("_taskManager", &m_taskManager);
     context->setContextProperty("_popupManager", &m_popupManager);
+    context->setContextProperty("_tooltipManager", &m_tooltipManager);
 }

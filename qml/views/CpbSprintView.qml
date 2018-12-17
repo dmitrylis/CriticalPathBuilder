@@ -94,9 +94,7 @@ Rectangle {
                 DropArea {
                     anchors.fill: parent
 
-                    onEntered: {
-                        _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
-                    }
+                    onEntered: _storyManager.moveStory(drag.source.visualIndex, delegateRoot.visualIndex, storyRole)
                 }
 
                 states: State {
@@ -166,18 +164,14 @@ Rectangle {
         CpbButton {
             text: qsTr("Create sprint")
 
-            onClicked: {
-                _popupManager.showCreateSprintPopup()
-            }
+            onClicked: _popupManager.showCreateSprintPopup()
         }
 
         CpbButton {
             text: qsTr("Create story")
             visible: _sprintManager.currentSprint !== null
 
-            onClicked: {
-                _popupManager.showCreateStoryPopup(_sprintManager.currentSprint)
-            }
+            onClicked: _popupManager.showCreateStoryPopup(_sprintManager.currentSprint)
         }
     }
 }

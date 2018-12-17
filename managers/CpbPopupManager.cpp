@@ -11,7 +11,7 @@ const QString REMOVE_STORY_POPUP ("qrc:/qml/popups/CpbRemoveStoryPopup.qml");
 const QString REMOVE_TASK_POPUP ("qrc:/qml/popups/CpbRemoveTaskPopup.qml");
 }
 
-PopupManager::PopupManager(QObject *parent) : QObject(parent)
+PopupManager::PopupManager(QObject *parent) : BasePopupManager(parent)
 {
 }
 
@@ -19,69 +19,32 @@ PopupManager::~PopupManager()
 {
 }
 
-QString PopupManager::popupPath() const
-{
-    return m_popupPath;
-}
-
-QVariantList PopupManager::popupData() const
-{
-    return m_popupData;
-}
-
-void PopupManager::showPopup(const QString& popupPath, const QVariantList& popupData)
-{
-    bool updateNeeded = false;
-
-    if (m_popupPath != popupPath)
-    {
-        m_popupPath = popupPath;
-        updateNeeded = true;
-    }
-
-    if (m_popupData != popupData)
-    {
-        m_popupData = popupData;
-        updateNeeded = true;
-    }
-
-    if (updateNeeded)
-    {
-        emit popupChanged();
-    }
-}
-
 void PopupManager::showCreateSprintPopup()
 {
-    showPopup(CREATE_SPRINT_POPUP);
+    show(CREATE_SPRINT_POPUP);
 }
 
 void PopupManager::showCreateStoryPopup(const QVariant& parentSprint)
 {
-    showPopup(CREATE_STORY_POPUP, QVariantList() << parentSprint);
+    show(CREATE_STORY_POPUP, QVariantList() << parentSprint);
 }
 
 void PopupManager::showCreateTaskPopup(const QVariant& parentStory, int row, int column)
 {
-    showPopup(CREATE_TASK_POPUP, QVariantList() << parentStory << row << column);
+    show(CREATE_TASK_POPUP, QVariantList() << parentStory << row << column);
 }
 
 void PopupManager::showRemoveSprintPopup(const QVariant& sprintToRemove)
 {
-    showPopup(REMOVE_SPRINT_POPUP, QVariantList() << sprintToRemove);
+    show(REMOVE_SPRINT_POPUP, QVariantList() << sprintToRemove);
 }
 
 void PopupManager::showRemoveStoryPopup(const QVariant &storyToRemove)
 {
-    showPopup(REMOVE_STORY_POPUP, QVariantList() << storyToRemove);
+    show(REMOVE_STORY_POPUP, QVariantList() << storyToRemove);
 }
 
 void PopupManager::showRemoveTaskPopup(const QVariant& taskToRemove)
 {
-    showPopup(REMOVE_TASK_POPUP, QVariantList() << taskToRemove);
-}
-
-void PopupManager::hidePopup()
-{
-    showPopup("");
+    show(REMOVE_TASK_POPUP, QVariantList() << taskToRemove);
 }

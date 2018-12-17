@@ -6,7 +6,7 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var taskToRemove: _popupManager.popupData[0]
+    property var taskToRemove: _popupManager.data[0]
 
     title: qsTr("Remove task")
 
@@ -23,15 +23,13 @@ CpbBasePopup {
 
             onClicked: {
                 _taskManager.removeTask(taskToRemove)
-                _popupManager.hidePopup()
+                _popupManager.hide()
             }
         },
         CpbButton {
             text: qsTr("CANCEL")
 
-            onClicked: {
-                _popupManager.hidePopup()
-            }
+            onClicked: _popupManager.hide()
         }
     ]
 }

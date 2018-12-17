@@ -9,6 +9,7 @@
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
 #include "CpbPopupManager.h"
+#include "CpbTooltipManager.h"
 #include "CpbXmlSerializer.h"
 
 class QQmlContext;
@@ -19,7 +20,7 @@ class Application : public QGuiApplication
 {
     Q_OBJECT
 public:
-    Application(int &argc, char **argv, int flags = ApplicationFlags);
+    explicit Application(int &argc, char **argv, int flags = ApplicationFlags);
     ~Application();
 
     void registerTypes() const;
@@ -32,6 +33,7 @@ private:
     StoryManager m_storyManager;
     TaskManager m_taskManager;
     PopupManager m_popupManager;
+    TooltipManager m_tooltipManager;
     XmlSerializer m_xmlSerializer;
 };
 

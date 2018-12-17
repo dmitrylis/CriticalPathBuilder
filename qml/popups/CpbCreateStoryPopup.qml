@@ -6,7 +6,7 @@ import "../components"
 CpbBasePopup {
     id: root
 
-    property var parentSprint: _popupManager.popupData[0]
+    property var parentSprint: _popupManager.data[0]
 
     title: qsTr("Create story")
 
@@ -35,15 +35,13 @@ CpbBasePopup {
 
             onClicked: {
                 _storyManager.createStory(root.parentSprint, storyTitle.text, storyOwner.text)
-                _popupManager.hidePopup()
+                _popupManager.hide()
             }
         },
         CpbButton {
             text: qsTr("CANCEL")
 
-            onClicked: {
-                _popupManager.hidePopup()
-            }
+            onClicked: _popupManager.hide()
         }
     ]
 }
