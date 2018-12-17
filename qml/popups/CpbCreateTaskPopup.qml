@@ -1,5 +1,4 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
 import com.cpb 1.0
 
@@ -32,26 +31,17 @@ CpbBasePopup {
             placeholderText: qsTr("Task owner")
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        CpbComboBox {
+            id: taskType
 
-            CpbText {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Task type")
-            }
+            property int value: model.get(currentIndex).value
 
-            ComboBox {
-                id: taskType
-
-                property int value: model.get(currentIndex).value
-
-                textRole: "text"
-
-                model: ListModel {
-                    ListElement { text: QT_TR_NOOP("Development"); value: Task.DevelopmentTask }
-                    ListElement { text: QT_TR_NOOP("Qa"); value: Task.QaTask }
-                    ListElement { text: QT_TR_NOOP("Research"); value: Task.ResearchTask }
-                }
+            placeholderText: qsTr("Type")
+            textRole: "text"
+            model: ListModel {
+                ListElement { text: QT_TR_NOOP("Development"); value: Task.DevelopmentTask }
+                ListElement { text: QT_TR_NOOP("Qa"); value: Task.QaTask }
+                ListElement { text: QT_TR_NOOP("Research"); value: Task.ResearchTask }
             }
         }
     }

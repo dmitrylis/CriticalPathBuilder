@@ -1,5 +1,4 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.4
 
 import "../singletons"
 import "../components"
@@ -24,19 +23,11 @@ CpbBasePopup {
             text: _sprintManager.newSprintName()
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
+        CpbComboBox {
+            id: sprintDuration
 
-            CpbText {
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Duration")
-            }
-
-            ComboBox {
-                id: sprintDuration
-
-                model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
-            }
+            placeholderText: qsTr("Duration")
+            model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
         }
 
         CpbTextInput {

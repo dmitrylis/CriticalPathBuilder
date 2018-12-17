@@ -10,6 +10,7 @@ CpbBaseTextInput {
     implicitHeight: 35
     horizontalAlignment: Text.AlignLeft
     verticalAlignment: Text.AlignVCenter
+    font.pixelSize: CpbStyle.fontMedium
 
     background: Item {
         CpbText {
