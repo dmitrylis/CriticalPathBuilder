@@ -32,6 +32,7 @@
         <file>qml/popups/CpbCreateStoryPopup.qml</file>
         <file>qml/popups/CpbCreateTaskPopup.qml</file>
         <file>qml/tooltips/CpbTaskDescriptionTooltip.qml</file>
+        <file>qml/components/CpbCalendar.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="add_task.png">images/add_task.png</file>

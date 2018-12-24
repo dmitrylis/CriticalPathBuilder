@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import QtQuick.Controls 2.1
 
 import "../singletons"
 import "../components"
@@ -30,20 +31,12 @@ CpbBasePopup {
             model: [ "Personalidado", "1 week", "2 weeks", "3 weeks", "4 weeks" ]
         }
 
-        CpbTextInput {
+        CpbCalendar {
             id: sprintStartDate
-
-            maximumLength: 10
-            placeholderText: qsTr("Start Date")
-            text: currentDate.toLocaleDateString(locale , Locale.ShortFormat)
         }
 
-        CpbTextInput {
+        CpbCalendar {
             id: sprintEndDate
-
-            placeholderText: qsTr("End date")
-            text: currentDate.toLocaleDateString(locale, Locale.ShortFormat)
-            maximumLength: 10
             enabled: sprintDuration.currentIndex == 0
         }
     }
