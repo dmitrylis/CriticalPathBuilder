@@ -10,6 +10,7 @@ Item {
     id: root
 
     property alias titleMouseArea: titleMouseArea
+    property Flickable parentFlickable: null
 
     height: columnPositioner.height + CpbStyle.marginMedium
 
@@ -57,7 +58,7 @@ Item {
             CpbRemoveButton {
                 anchors {
                     right: parent.right
-                    rightMargin: CpbStyle.marginTiny
+                    rightMargin: !parentFlickable.atXEnd && (root.width > mainWindow.width) ? (root.width - mainWindow.width - parentFlickable.contentX) : CpbStyle.marginTiny
                     verticalCenter: parent.verticalCenter
                 }
 
@@ -238,6 +239,7 @@ Item {
 
         Row {
             anchors.right: parent.right
+            anchors.rightMargin: !parentFlickable.atXEnd && (root.width > mainWindow.width) ? (root.width - mainWindow.width - parentFlickable.contentX) : 0
             spacing: CpbStyle.marginTiny
 
             CpbText {

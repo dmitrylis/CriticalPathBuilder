@@ -52,6 +52,7 @@ Rectangle {
                     anchors.horizontalCenter: delegateRoot.horizontalCenter
                     anchors.verticalCenter: delegateRoot.verticalCenter
                     width: delegateRoot.width
+                    parentFlickable: hFlickable
 
                     titleMouseArea {
                         cursorShape: mainView.Drag.active || titleMouseArea.pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
