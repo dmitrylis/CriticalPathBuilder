@@ -5,6 +5,8 @@ import "views"
 import "singletons"
 
 Window {
+    id: mainWindow
+
     visible: true
     minimumWidth: 400
     minimumHeight: 300
