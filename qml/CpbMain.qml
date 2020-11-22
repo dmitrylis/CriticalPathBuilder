@@ -12,10 +12,18 @@ Window {
     height: 600
     title: qsTr("Critical Path Builder")
 
+    CpbWelcomeView {
+        id: welcomeLayer
+
+        anchors.fill: parent
+        visible: _globalManager.showWelcome
+    }
+
     Item {
         id: mainLayer
 
         anchors.fill: parent
+        visible: !_globalManager.showWelcome
 
         Rectangle {
             anchors.fill: parent
@@ -50,13 +58,13 @@ Window {
 
         anchors.fill: parent
         blurSource: mainLayer
-        visible: _popupManager.path !== ""
+        visible: !!_popupManager.path
     }
 
     CpbTooltipView {
         id: tooltipLayer
 
         anchors.fill: parent
-        visible: _tooltipManager.path !== ""
+        visible: !!_tooltipManager.path
     }
 }

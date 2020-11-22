@@ -31,6 +31,7 @@ SOURCES += \
     models/CpbStoryModel.cpp \
     models/CpbTaskModel.cpp \
     models/CpbDaysModel.cpp \
+    managers/CpbGlobalManager.cpp \
     managers/CpbSprintManager.cpp \
     managers/CpbStoryManager.cpp \
     managers/CpbTaskManager.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     models/CpbStoryModel.h \
     models/CpbTaskModel.h \
     models/CpbDaysModel.h \
+    managers/CpbGlobalManager.h \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
     managers/CpbTaskManager.h \

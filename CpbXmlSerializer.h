@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QFile>
 #include <QDomDocument>
-#include <QTextStream>
 
 #include <functional>
 
@@ -23,6 +22,8 @@ public:
     void readFile(SprintModel* sprintModel) const;
 
 public slots:
+    void updateShowWelcome(bool showWelcome);
+
     void createSprint(Sprint* sprint);
     void removeSprint(const QString& sprintTitle);
 
@@ -36,6 +37,7 @@ public slots:
     void updateTaskDaysCount(const QString& sprintTitle, const QString& storyTitle, Task* task);
 
 signals:
+    void showWelcomeRead(bool showWelcome) const;
     void modelLoaded() const;
 
 private:
