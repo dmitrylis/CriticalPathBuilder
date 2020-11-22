@@ -1,5 +1,7 @@
 #include "CpbXmlSerializer.h"
 
+#include <QTextStream>
+
 using namespace CPB;
 
 namespace {
@@ -8,6 +10,7 @@ const QString TAG_SPRINT ("Sprint");
 const QString TAG_STORY ("Story");
 const QString TAG_TASK ("Task");
 
+const QString ATTRIBUTE_SHOW_WELCOME ("show_welcome");
 const QString ATTRIBUTE_TITLE ("title");
 const QString ATTRIBUTE_OWNER ("owner");
 const QString ATTRIBUTE_TYPE ("type");
@@ -28,8 +31,9 @@ XmlSerializer::XmlSerializer(QObject* parent) : QObject(parent)
     if (!m_document.setContent(&m_file))
     {
         m_file.close();
-        QDomElement docEle = m_document.createElement(TAG_CPB);
-        m_document.appendChild(docEle);
+        QDomElement rootElement = m_document.createElement(TAG_CPB);
+        rootElement.setAttribute(ATTRIBUTE_SHOW_WELCOME, true);
+        m_document.appendChild(rootElement);
         writeFile();
     }
     m_file.close();
@@ -46,6 +50,9 @@ void XmlSerializer::readFile(SprintModel* sprintModel) const
     {
         return;
     }
+
+    QDomAttr showWelcomeAttr = rootElement.attributeNode(ATTRIBUTE_SHOW_WELCOME);
+    emit showWelcomeRead(showWelcomeAttr.value().toInt() == 1);
 
     processNodeList(rootElement, TAG_SPRINT, [this, &sprintModel] (QDomElement sprintElement) {
         QDomAttr sprintTitleAttr = sprintElement.attributeNode(ATTRIBUTE_TITLE);
@@ -93,6 +100,19 @@ void XmlSerializer::readFile(SprintModel* sprintModel) const
     });
 
     emit modelLoaded();
+}
+
+void XmlSerializer::updateShowWelcome(bool showWelcome)
+{
+    QDomElement rootElement = cpbRootElement();
+    if (rootElement.isNull())
+    {
+        return;
+    }
+
+    rootElement.setAttribute(ATTRIBUTE_SHOW_WELCOME, showWelcome);
+
+    writeFile();
 }
 
 void XmlSerializer::createSprint(Sprint* sprint)

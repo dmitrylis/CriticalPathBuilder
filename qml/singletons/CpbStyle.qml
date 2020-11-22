@@ -8,6 +8,8 @@ Item {
     readonly property int marginMedium: 15
     readonly property int marginLarge: 20
     readonly property int marginHuge: 25
+    readonly property int marginGiant: 30
+    readonly property int marginEnormous: 35
 
     // font sizes section
     readonly property int fontTiny: 8

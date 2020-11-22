@@ -5,6 +5,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 
+#include "CpbGlobalManager.h"
 #include "CpbSprintManager.h"
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
@@ -29,6 +30,7 @@ public:
     void setContextProperties(const QQmlApplicationEngine& engine);
 
 private:
+    GlobalManager m_globalManager;
     SprintManager m_sprintManager;
     StoryManager m_storyManager;
     TaskManager m_taskManager;

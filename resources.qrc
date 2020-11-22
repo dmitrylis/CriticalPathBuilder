@@ -13,6 +13,7 @@
         <file>qml/components/CpbAddTask.qml</file>
         <file>qml/components/CpbRemoveButton.qml</file>
         <file>qml/components/CpbComboBox.qml</file>
+        <file>qml/components/CpbParallaxView.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>
@@ -20,6 +21,7 @@
         <file>qml/views/CpbPopupView.qml</file>
         <file>qml/views/CpbTooltipView.qml</file>
         <file>qml/views/CpbDaysView.qml</file>
+        <file>qml/views/CpbWelcomeView.qml</file>
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
         <file>qml/effects/CpbShadowEffect.qml</file>
@@ -33,8 +35,10 @@
         <file>qml/popups/CpbCreateTaskPopup.qml</file>
         <file>qml/tooltips/CpbTaskDescriptionTooltip.qml</file>
     </qresource>
+
     <qresource prefix="/images">
         <file alias="add_task.png">images/add_task.png</file>
         <file alias="remove_icon_tiny.png">images/remove_icon_tiny.png</file>
+        <file alias="bg_pattern.png">images/bg_pattern.png</file>
     </qresource>
 </RCC>

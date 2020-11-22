@@ -28,7 +28,10 @@ void Application::registerTypes() const
 
 void Application::createBindings() const
 {
+    connect(&m_xmlSerializer, &XmlSerializer::showWelcomeRead, &m_globalManager, &GlobalManager::setShowWelcome);
     connect(&m_xmlSerializer, &XmlSerializer::modelLoaded, &m_sprintManager, &SprintManager::onModelLoaded);
+
+    connect(&m_globalManager, &GlobalManager::showWelcomeChanged, &m_xmlSerializer, &XmlSerializer::updateShowWelcome);
 
     connect(&m_sprintManager, &SprintManager::sprintCreated, &m_xmlSerializer, &XmlSerializer::createSprint);
     connect(&m_sprintManager, &SprintManager::sprintRemoved, &m_xmlSerializer, &XmlSerializer::removeSprint);
@@ -51,6 +54,7 @@ void Application::loadResources() const
 void Application::setContextProperties(const QQmlApplicationEngine& engine)
 {
     QQmlContext* context = engine.rootContext();
+    context->setContextProperty("_globalManager", &m_globalManager);
     context->setContextProperty("_sprintManager", &m_sprintManager);
     context->setContextProperty("_storyManager", &m_storyManager);
     context->setContextProperty("_taskManager", &m_taskManager);

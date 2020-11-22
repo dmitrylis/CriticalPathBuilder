@@ -249,7 +249,7 @@ Item {
 
             CpbButton {
                 width: 50
-                text: "+"
+                text: "▼"
                 enabled: rowCountRole !== _storyManager.maxRowCount()
 
                 onClicked: _storyManager.addRow(storyRole)
@@ -257,7 +257,7 @@ Item {
 
             CpbButton {
                 width: 50
-                text: "-"
+                text: "▲"
                 enabled: rowCountRole !== _storyManager.minRowCount()
 
                 onClicked: _storyManager.removeRow(storyRole)
