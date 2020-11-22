@@ -12,9 +12,7 @@ CpbBasePopup {
 
     content: CpbText {
         anchors.fill: parent
-        text: storyToRemove ? storyToRemove.title : ""
-        // to fix strage warning on application closing
-        // TypeError: Cannot read property 'title' of null
+        text: "Do you really want to remove \"%1\" story?".arg(storyToRemove ? storyToRemove.title : "")
     }
 
     buttons: [
