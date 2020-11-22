@@ -31,9 +31,14 @@ XmlSerializer::XmlSerializer(QObject* parent) : QObject(parent)
     if (!m_document.setContent(&m_file))
     {
         m_file.close();
+
+        const QDomProcessingInstruction processingInstruction = m_document.createProcessingInstruction("xml", "version='1.0' encoding='windows-1251'");
+        m_document.appendChild(processingInstruction);
+
         QDomElement rootElement = m_document.createElement(TAG_CPB);
         rootElement.setAttribute(ATTRIBUTE_SHOW_WELCOME, true);
         m_document.appendChild(rootElement);
+
         writeFile();
     }
     m_file.close();
