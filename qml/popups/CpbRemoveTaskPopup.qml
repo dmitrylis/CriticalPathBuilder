@@ -12,7 +12,7 @@ CpbBasePopup {
 
     content: CpbText {
         anchors.fill: parent
-        text: "Do you really want to remove \"%1\" task?".arg(taskToRemove ? taskToRemove.title : "")
+        text: qsTr("Do you really want to remove \"%1\" task?").arg(taskToRemove ? taskToRemove.title : "")
     }
 
     buttons: [
