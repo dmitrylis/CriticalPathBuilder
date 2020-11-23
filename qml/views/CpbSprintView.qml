@@ -174,5 +174,11 @@ Rectangle {
 
             onClicked: _popupManager.showCreateStoryPopup(_sprintManager.currentSprint)
         }
+
+        CpbButton {
+            text: qsTr("To welcome")
+
+            onClicked: _globalManager.setShowWelcome(true)
+        }
     }
 }

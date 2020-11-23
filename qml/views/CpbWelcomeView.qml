@@ -1,6 +1,7 @@
 import QtQuick 2.11
 
 import "../components"
+import "../singletons"
 
 Rectangle {
     id: root
@@ -12,36 +13,103 @@ Rectangle {
         backgroundPattern: "qrc:/images/bg_pattern.png"
 
         CpbParallaxPage {
-            id: page1
+            opacity: 1.0 - Math.abs(animationProgress) // sample animation
+            scale: 0.2 * opacity + 0.8 // sample animation
 
-            CpbButton {
+            Column {
                 anchors.centerIn: parent
-                text: "NEXT"
+                spacing: CpbStyle.marginHuge
 
-                onClicked: {
-                    parallaxView.incrementCurrentIndex()
+                CpbText {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Welcome to Critical Path Builder!")
+                    fontSize: CpbStyle.fontEnormous
+                    fontBold: true
+                }
+
+                CpbButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("NEXT")
+
+                    onClicked: {
+                        parallaxView.incrementCurrentIndex()
+                    }
                 }
             }
         }
 
         CpbParallaxPage {
-            CpbButton {
-                anchors.centerIn: parent
-                text: "NEXT"
+            opacity: 1.0 - Math.abs(animationProgress) // sample animation
+            scale: 0.2 * opacity + 0.8 // sample animation
 
-                onClicked: {
-                    parallaxView.incrementCurrentIndex()
+            Column {
+                anchors.centerIn: parent
+                spacing: CpbStyle.marginHuge
+
+                CpbText {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("This application allows you to create critical paths...TBD")
+                    fontSize: CpbStyle.fontEnormous
+                    fontBold: true
+                }
+
+                Row {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: CpbStyle.marginHuge
+
+                    CpbButton {
+                        text: qsTr("BACK")
+
+                        onClicked: {
+                            parallaxView.decrementCurrentIndex()
+                        }
+                    }
+
+                    CpbButton {
+                        text: qsTr("NEXT")
+
+                        onClicked: {
+                            parallaxView.incrementCurrentIndex()
+                        }
+                    }
                 }
             }
         }
 
         CpbParallaxPage {
-            CpbButton {
-                anchors.centerIn: parent
-                text: "GO TO APP"
+            opacity: 1.0 - Math.abs(animationProgress) // sample animation
+            scale: 0.2 * opacity + 0.8 // sample animation
 
-                onClicked: {
-                    _globalManager.finishWelcome()
+            Column {
+                anchors.centerIn: parent
+                spacing: CpbStyle.marginHuge
+
+                CpbText {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Let's go to the app!")
+                    fontSize: CpbStyle.fontEnormous
+                    fontBold: true
+                }
+
+                Row {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: CpbStyle.marginHuge
+
+                    CpbButton {
+                        text: qsTr("BACK")
+
+                        onClicked: {
+                            parallaxView.decrementCurrentIndex()
+                        }
+                    }
+
+                    CpbButton {
+                        text: qsTr("GO TO APP")
+
+                        onClicked: {
+                            _globalManager.finishWelcome()
+                        }
+                    }
                 }
             }
         }
