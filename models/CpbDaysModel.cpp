@@ -5,7 +5,7 @@
 CPB::DaysModel::DaysModel(const QDate& startDate, const QDate& endDate, QObject *parent)
     : QAbstractListModel(parent)
 {
-    int days = static_cast<int>(startDate.daysTo(endDate));
+    const int days = static_cast<int>(startDate.daysTo(endDate)) + 1;
     QDate iDay;
     for (int i = 0; i < days; ++i)
     {

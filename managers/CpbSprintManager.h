@@ -23,8 +23,7 @@ public:
     void setCurrentSprint(Sprint* sprint);
 
     Q_INVOKABLE QString newSprintName() const;
-    Q_INVOKABLE void createSprint(const QString& sprintTitle, const QString& startDate, const QString& endDate);
-    Q_INVOKABLE void createSprint(const QString& sprintTitle, const QString& startDate, const qint32& duration);
+    Q_INVOKABLE void createSprint(const QString& sprintTitle, const QDate& startDate, const QDate& endDate);
     Q_INVOKABLE void removeSprint(Sprint* sprint);
     Q_INVOKABLE void moveSprint(int from, int to);
 

@@ -6,7 +6,6 @@ using namespace CPB;
 
 namespace  {
 const QString SPRINT_TITLE_TEMPLATE ("Sprint %0");
-const QString DATE_FORMAT ("dd.MM.yyyy");
 }
 
 SprintManager::SprintManager(QObject *parent) :
@@ -47,39 +46,14 @@ QString SprintManager::newSprintName() const
     return Utils::generateEntityName<SprintModel>(SPRINT_TITLE_TEMPLATE, sprintModel());
 }
 
-void SprintManager::createSprint(const QString& sprintTitle, const QString& startDate, const QString& endDate)
+void SprintManager::createSprint(const QString& sprintTitle, const QDate& startDate, const QDate& endDate)
 {
     if (sprintTitle.isNull() || sprintTitle.isEmpty())
     {
         return;
     }
 
-    Sprint* newSprint = new Sprint(sprintTitle,
-                                   QDate::fromString(startDate, DATE_FORMAT),
-                                   QDate::fromString(endDate, DATE_FORMAT),
-                                   this);
-
-    if (m_sprintModel->append(newSprint))
-    {
-        setCurrentSprint(newSprint);
-        emit sprintCreated(newSprint);
-        return;
-    }
-    newSprint->deleteLater();
-}
-
-void SprintManager::createSprint(const QString& sprintTitle, const QString& startDate, const qint32& duration)
-{
-    if (sprintTitle.isNull() || sprintTitle.isEmpty())
-    {
-        return;
-    }
-
-    Sprint* newSprint = new Sprint(sprintTitle,
-                                   QDate::fromString(startDate, DATE_FORMAT),
-                                   duration,
-                                   this);
-
+    Sprint* newSprint = new Sprint(sprintTitle, startDate, endDate, this);
     if (m_sprintModel->append(newSprint))
     {
         setCurrentSprint(newSprint);

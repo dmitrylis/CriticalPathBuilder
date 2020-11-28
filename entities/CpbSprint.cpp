@@ -2,19 +2,6 @@
 
 using namespace CPB;
 
-Sprint::Sprint(const QString& title, const QDate& startDate, int weeksCount, QObject *parent)
-    : QObject(parent),
-      m_title(title),
-      m_startDate(startDate),
-      m_daysCount(weeksCount * 7),
-      m_storyModel(nullptr),
-      m_daysModel(nullptr)
-{
-    m_endDate = m_startDate.addDays(m_daysCount);
-    m_storyModel = new StoryModel(this);
-    m_daysModel = new DaysModel(m_startDate, m_endDate, this);
-}
-
 Sprint::Sprint(const QString& title, const QDate& startDate, const QDate& endDate, QObject *parent)
     : QObject(parent),
       m_title(title),
@@ -23,7 +10,7 @@ Sprint::Sprint(const QString& title, const QDate& startDate, const QDate& endDat
       m_storyModel(nullptr),
       m_daysModel(nullptr)
 {
-    m_daysCount = static_cast<int>(m_startDate.daysTo(m_endDate));
+    m_daysCount = static_cast<int>(m_startDate.daysTo(m_endDate)) + 1;
     m_storyModel = new StoryModel(this);
     m_daysModel = new DaysModel(m_startDate, m_endDate, this);
 }

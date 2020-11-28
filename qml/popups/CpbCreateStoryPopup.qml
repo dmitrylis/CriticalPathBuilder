@@ -17,14 +17,14 @@ CpbBasePopup {
         CpbTextInput {
             id: storyTitle
 
-            placeholderText: qsTr("Task title")
+            placeholderText: qsTr("Story title")
             text: _storyManager.newStoryName(root.parentSprint)
         }
 
         CpbTextInput {
             id: storyOwner
 
-            placeholderText: qsTr("Task owner")
+            placeholderText: qsTr("Story owner")
         }
     }
 

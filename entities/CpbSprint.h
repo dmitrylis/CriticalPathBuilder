@@ -16,7 +16,16 @@ class Sprint : public QObject
     Q_PROPERTY(DaysModel* daysModel READ daysModel CONSTANT)
 
 public:
-    explicit Sprint(const QString& title, const QDate& startDate, int weeksCount, QObject *parent = nullptr);
+    enum SprintDuration {
+        OneWeek = 0,
+        TwoWeeks,
+        ThreeWeeks,
+        FourWeeks,
+        Custom
+    };
+    Q_ENUM(SprintDuration)
+
+public:
     explicit Sprint(const QString& title, const QDate& startDate, const QDate& endDate, QObject *parent = nullptr);
     ~Sprint();
 
