@@ -93,7 +93,36 @@ void TaskManager::setDropPossible(bool dropPossible)
 
 QString TaskManager::newTaskName(Story* parentStory) const
 {
+    if (parentStory == nullptr)
+    {
+        return QString();
+    }
     return Utils::generateEntityName<TaskModel>(TASK_TITLE_TEMPLATE, parentStory->taskModel());
+}
+
+int TaskManager::maxTaskCount(Story *parentStory, int row, int column) const
+{
+    if (parentStory == nullptr)
+    {
+        return 1;
+    }
+
+    int count = 0;
+    TaskModel* taskModel = parentStory->taskModel();
+
+    for (int itColumn = column; itColumn < parentStory->columnCount(); ++itColumn)
+    {
+        Task* task = taskModel->task(row, itColumn);
+        if (task == nullptr)
+        {
+            ++count;
+        }
+        else
+        {
+            break;
+        }
+    }
+    return count;
 }
 
 void TaskManager::createTask(Story* parentStory,
@@ -101,14 +130,15 @@ void TaskManager::createTask(Story* parentStory,
                              const QString& owner,
                              int type,
                              int row,
-                             int column)
+                             int column,
+                             int daysCount)
 {
     if (parentStory == nullptr || title.isNull() || title.isEmpty())
     {
         return;
     }
 
-    Task* newTask = new Task(parentStory, title, owner, static_cast<Task::TaskType>(type), row, column);
+    Task* newTask = new Task(parentStory, title, owner, static_cast<Task::TaskType>(type), row, column, daysCount);
     if (parentStory->taskModel()->append(newTask))
     {
         emit taskCreated(parentStory->parentSprint()->title(), parentStory->title(), newTask);
