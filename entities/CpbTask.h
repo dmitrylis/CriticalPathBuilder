@@ -24,7 +24,7 @@ public:
     Q_ENUM(TaskType)
 
 public:
-    explicit Task(Story* parentStory, const QString& title, const QString& owner, TaskType type, int row, int column);
+    explicit Task(Story* parentStory, const QString& title, const QString& owner, TaskType type, int row, int column, int daysCount = 1);
     ~Task();
 
     Story* parentStory() const;

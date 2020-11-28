@@ -4,6 +4,7 @@
         <file>qml/controls/CpbBaseButton.qml</file>
         <file>qml/controls/CpbBaseTextInput.qml</file>
         <file>qml/controls/CpbBaseComboBox.qml</file>
+        <file>qml/controls/CpbBaseSpinBox.qml</file>
         <file>qml/components/CpbRectangle.qml</file>
         <file>qml/components/CpbButton.qml</file>
         <file>qml/components/CpbTabButton.qml</file>
@@ -15,6 +16,7 @@
         <file>qml/components/CpbComboBox.qml</file>
         <file>qml/components/CpbParallaxView.qml</file>
         <file>qml/components/CpbParallaxPage.qml</file>
+        <file>qml/components/CpbSpinBox.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>

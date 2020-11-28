@@ -44,6 +44,14 @@ CpbBasePopup {
                 ListElement { text: QT_TR_NOOP("Research"); value: Task.ResearchTask }
             }
         }
+
+        CpbSpinBox {
+            id: taskDuration
+
+            value: 1
+            from: 1
+            to: _taskManager.maxTaskCount(root.parentStory, root.row, root.column)
+        }
     }
 
     buttons: [
@@ -57,7 +65,8 @@ CpbBasePopup {
                                         taskOwner.text,
                                         taskType.value,
                                         root.row,
-                                        root.column)
+                                        root.column,
+                                        taskDuration.value)
                 _popupManager.hide()
             }
         },

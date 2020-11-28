@@ -3,7 +3,7 @@
 
 using namespace CPB;
 
-Task::Task(Story* parentStory, const QString& title, const QString& owner, TaskType type, int row, int column)
+Task::Task(Story* parentStory, const QString& title, const QString& owner, TaskType type, int row, int column, int daysCount)
     : QObject(parentStory),
       m_parentStory(parentStory),
       m_title(title),
@@ -11,7 +11,7 @@ Task::Task(Story* parentStory, const QString& title, const QString& owner, TaskT
       m_type(type),
       m_row(row),
       m_column(column),
-      m_daysCount(1)
+      m_daysCount(daysCount)
 {
 }
 
