@@ -6,6 +6,13 @@ ComboBox {
 
     property string placeholderText: ""
 
+    readonly property var currentData: {
+        if (Array.isArray(root.model)) {
+            return root.model[root.currentIndex]
+        }
+        return root.model.get(root.currentIndex)
+    }
+
     states: [
         State {
             name: "normal"

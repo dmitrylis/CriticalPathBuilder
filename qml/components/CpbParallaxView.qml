@@ -41,7 +41,7 @@ Item {
         boundsBehavior: Flickable.DragOverBounds
         model: ObjectModel { id: visualModel }
         highlightRangeMode: ListView.StrictlyEnforceRange
-        highlightMoveDuration: 300
+        highlightMoveDuration: 500
         snapMode: ListView.SnapOneItem
     }
 

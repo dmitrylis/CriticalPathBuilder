@@ -39,6 +39,8 @@ Rectangle {
         }
 
         CpbParallaxPage {
+            id: page2
+
             opacity: 1.0 - Math.abs(animationProgress) // sample animation
             scale: 0.2 * opacity + 0.8 // sample animation
 
@@ -48,9 +50,31 @@ Rectangle {
 
                 CpbText {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: qsTr("This application allows you to create critical paths...TBD")
+                    text: qsTr("TBD")
                     fontSize: CpbStyle.fontEnormous
                     fontBold: true
+                }
+
+                Item {
+                    width: 300
+                    height: 300
+
+                    Image {
+                        anchors.centerIn: parent
+                        anchors.horizontalCenterOffset: -200 * Math.abs(page2.animationProgress)
+
+                        source: "qrc:/images/face_pic.png"
+                        rotation: -50 * Math.abs(page2.animationProgress)
+                    }
+
+                    Image {
+                        anchors.centerIn: parent
+                        anchors.horizontalCenterOffset: 150
+                        anchors.verticalCenterOffset: 20 + 200 * Math.abs(page2.animationProgress)
+                        rotation: 20 + 50 * Math.abs(page2.animationProgress)
+
+                        source: "qrc:/images/f_pic.png"
+                    }
                 }
 
                 Row {
