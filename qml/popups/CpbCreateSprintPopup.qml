@@ -82,7 +82,11 @@ CpbBasePopup {
             placeholderText: qsTr("Start Date")
             text: internal.dateToString(internal.currentDate)
 
-            onTextEdited: {
+            onPressed: {
+                 _tooltipManager.showCalendarTooltip(sprintStartDate, internal.dateFromString(text))
+            }
+
+            onTextChanged: {
                 internal.updateEndDate(internal.dateFromString(text))
             }
         }
@@ -96,6 +100,10 @@ CpbBasePopup {
 
             Component.onCompleted: {
                 internal.updateEndDate(internal.currentDate)
+            }
+
+            onPressed: {
+                 _tooltipManager.showCalendarTooltip(sprintEndDate, internal.dateFromString(text))
             }
         }
     }

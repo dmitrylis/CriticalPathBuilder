@@ -17,7 +17,7 @@ Item {
         onWheel: { /* do nothing */ }
 
         // click on dimmed area leads to closing this popup
-        onClicked: _popupManager.hide()
+        onClicked: _tooltipManager.hide()
     }
 
     Loader {
