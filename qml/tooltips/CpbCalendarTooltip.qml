@@ -10,7 +10,7 @@ import "../singletons"
 Item {
     id: root
 
-    property var sourceDate: _tooltipManager.data[0]
+    property date sourceDate: _tooltipManager.data[0]
 
     width: calendar.width
     height: calendar.height + CpbStyle.marginTiny * 2
@@ -27,8 +27,34 @@ Item {
         }
 
         onClicked: {
-            _tooltipManager.senderItem().text = selectedDate.toLocaleDateString(Locale.ShortFormat)
+            _tooltipManager.senderItem.date = selectedDate
             _tooltipManager.hide()
+        }
+    }
+
+    Connections {
+        target: _tooltipManager.senderItem
+
+        onDateChanged: {
+            const date = _tooltipManager.senderItem.date
+            if (!isNaN(date.getDate())) {
+                calendar.selectedDate = date
+            }
+            else {
+                calendar.selectedDate = new Date()
+            }
+        }
+    }
+
+    Connections {
+        target: mainWindow
+
+        onWidthChanged: {
+            _tooltipManager.updateTooltipPosition(root)
+        }
+
+        onHeightChanged: {
+            _tooltipManager.updateTooltipPosition(root)
         }
     }
 }

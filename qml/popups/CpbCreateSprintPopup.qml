@@ -13,24 +13,8 @@ CpbBasePopup {
 
         property date currentDate: new Date()
 
-        function validDate(date) {
-            return !isNaN(date.getDate())
-        }
-
-        function validDateString(dateString) {
-            return validDate(dateFromString(dateString))
-        }
-
-        function dateToString(date) {
-            return date.toLocaleDateString(Locale.ShortFormat)
-        }
-
-        function dateFromString(dateString) {
-            return Date.fromLocaleDateString(Qt.locale(), dateString, Locale.ShortFormat)
-        }
-
         function updateEndDate(date) {
-            if (!validDate(date) || !sprintDuration.currentData) {
+            if (isNaN(date.getDate()) || !sprintDuration.currentData) {
                 return
             }
 
@@ -38,7 +22,7 @@ CpbBasePopup {
             if (duration !== Sprint.Custom) {
                 const newDate = date
                 newDate.setDate(newDate.getDate() + (duration + 1) * 7)
-                sprintEndDate.text = dateToString(newDate)
+                sprintEndDate.date = newDate
             }
         }
     }
@@ -71,39 +55,29 @@ CpbBasePopup {
             }
 
             onCurrentDataChanged: {
-                internal.updateEndDate(internal.dateFromString(sprintStartDate.text))
+                internal.updateEndDate(sprintStartDate.date)
             }
         }
 
-        CpbTextInput {
+        CpbCalendarInput {
             id: sprintStartDate
 
-            maximumLength: 10
             placeholderText: qsTr("Start Date")
-            text: internal.dateToString(internal.currentDate)
+            date: internal.currentDate
 
-            onPressed: {
-                 _tooltipManager.showCalendarTooltip(sprintStartDate, internal.dateFromString(text))
-            }
-
-            onTextChanged: {
-                internal.updateEndDate(internal.dateFromString(text))
+            onDateChanged: {
+                internal.updateEndDate(date)
             }
         }
 
-        CpbTextInput {
+        CpbCalendarInput {
             id: sprintEndDate
 
             placeholderText: qsTr("End date")
-            maximumLength: 10
             enabled: sprintDuration.currentData.value === Sprint.Custom
 
             Component.onCompleted: {
                 internal.updateEndDate(internal.currentDate)
-            }
-
-            onPressed: {
-                 _tooltipManager.showCalendarTooltip(sprintEndDate, internal.dateFromString(text))
             }
         }
     }
@@ -111,10 +85,10 @@ CpbBasePopup {
     buttons: [
         CpbButton {
             text: qsTr("OK")
-            enabled: sprintTitle.text !== "" && internal.validDateString(sprintStartDate.text) && internal.validDateString(sprintEndDate.text)
+            enabled: sprintTitle.text !== "" && sprintStartDate.validDate && sprintEndDate.validDate
 
             onClicked: {
-                _sprintManager.createSprint(sprintTitle.text, internal.dateFromString(sprintStartDate.text), internal.dateFromString(sprintEndDate.text))
+                _sprintManager.createSprint(sprintTitle.text, sprintStartDate.date, sprintEndDate.date)
                 _popupManager.hide()
             }
         },

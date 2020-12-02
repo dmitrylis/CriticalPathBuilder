@@ -17,6 +17,7 @@
         <file>qml/components/CpbParallaxView.qml</file>
         <file>qml/components/CpbParallaxPage.qml</file>
         <file>qml/components/CpbSpinBox.qml</file>
+        <file>qml/components/CpbCalendarInput.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>

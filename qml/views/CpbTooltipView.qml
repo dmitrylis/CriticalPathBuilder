@@ -16,7 +16,7 @@ Item {
         // blocks propagation of some mouse events
         onWheel: { /* do nothing */ }
 
-        // click on dimmed area leads to closing this popup
+        // click on dimmed area leads to popup closing
         onClicked: _tooltipManager.hide()
     }
 
