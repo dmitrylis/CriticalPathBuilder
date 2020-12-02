@@ -10,7 +10,8 @@ const QString CALENDAR_TOOLTIP ("qrc:/qml/tooltips/CpbCalendarTooltip.qml");
 TooltipManager::TooltipManager(QObject *parent)
     : BasePopupManager(parent),
       m_senderItem(nullptr),
-      m_position(0.0, 0.0),
+      m_alignment(TooltipAlignment::None),
+      m_position(QPointF(0.0, 0.0)),
       m_autoHide(false)
 {
 }
@@ -41,6 +42,7 @@ void TooltipManager::hide()
     m_autoHide = false;
     emit autoHideChanged();
 
+    m_alignment = TooltipAlignment::None;
     m_position = QPointF(0.0, 0.0);
     emit positionChanged();
 
@@ -55,32 +57,30 @@ void TooltipManager::updateTooltipPosition(QQuickItem* tooltipItem)
         return;
     }
 
-    // calculate local point
-    // TODO: it's need to code smart positioning of tooltip depends on window size and sender position
-    QPointF source(0.0, -tooltipItem->height());
-
     // map it to the scene coordinate system
-    m_position = m_senderItem->mapToScene(source);
+    m_position = m_senderItem->mapToScene(calculatePosition(tooltipItem));
     emit positionChanged();
 }
 
 void TooltipManager::showTaskDescriptionTooltip(QQuickItem* senderItem, const QVariant& task)
 {
-    show(senderItem, TASK_DESCRIPTION_TOOLTIP, true, QVariantList() << task);
+    show(senderItem, TASK_DESCRIPTION_TOOLTIP, TooltipAlignment::LeftAbove, true, QVariantList() << task);
 }
 
 void TooltipManager::showCalendarTooltip(QQuickItem *senderItem, const QDate& sourceDate)
 {
-    show(senderItem, CALENDAR_TOOLTIP, false, QVariantList() << sourceDate);
+    show(senderItem, CALENDAR_TOOLTIP, TooltipAlignment::CenterAbove, false, QVariantList() << sourceDate);
 }
 
-void TooltipManager::show(QQuickItem *senderItem, const QString &path, bool autoHide, const QVariantList &data)
+void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAlignment alignment, bool autoHide, const QVariantList &data)
 {
     if (m_senderItem != senderItem)
     {
         m_senderItem = senderItem;
         emit senderItemChanged();
     }
+
+    m_alignment = alignment;
 
     if (m_autoHide != autoHide)
     {
@@ -89,4 +89,22 @@ void TooltipManager::show(QQuickItem *senderItem, const QString &path, bool auto
     }
 
     BasePopupManager::show(path, data);
+}
+
+QPointF TooltipManager::calculatePosition(QQuickItem* tooltipItem)
+{
+    // calculate local point
+    // TODO: it's need to code smart positioning of tooltip depends on window size and sender position
+    QPointF position(0.0, 0.0);
+
+    if (m_alignment == TooltipAlignment::LeftAbove)
+    {
+        position = QPointF(0.0, -tooltipItem->height());
+    }
+    else if (m_alignment == TooltipAlignment::CenterAbove)
+    {
+        position = QPointF((m_senderItem->width() - tooltipItem->width()) * 0.5, -tooltipItem->height());
+    }
+
+    return position;
 }
