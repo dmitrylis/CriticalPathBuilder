@@ -10,6 +10,7 @@ namespace CPB {
 class TooltipManager : public BasePopupManager
 {
     Q_OBJECT
+    Q_PROPERTY(QQuickItem* senderItem READ senderItem NOTIFY senderItemChanged)
     Q_PROPERTY(QPointF position READ position NOTIFY positionChanged)
     Q_PROPERTY(bool autoHide READ autoHide NOTIFY autoHideChanged)
 
@@ -17,7 +18,7 @@ public:
     explicit TooltipManager(QObject *parent = nullptr);
     ~TooltipManager() override;
 
-    Q_INVOKABLE QQuickItem *senderItem() const;
+    QQuickItem *senderItem() const;
     QPointF position() const;
     bool autoHide() const;
 
@@ -27,6 +28,7 @@ public:
     Q_INVOKABLE void showCalendarTooltip(QQuickItem* senderItem, const QDate& sourceDate);
 
 signals:
+    void senderItemChanged();
     void positionChanged();
     void autoHideChanged();
 

@@ -43,6 +43,9 @@ void TooltipManager::hide()
 
     m_position = QPointF(0.0, 0.0);
     emit positionChanged();
+
+    m_senderItem = nullptr;
+    emit senderItemChanged();
 }
 
 void TooltipManager::updateTooltipPosition(QQuickItem* tooltipItem)
@@ -76,6 +79,7 @@ void TooltipManager::show(QQuickItem *senderItem, const QString &path, bool auto
     if (m_senderItem != senderItem)
     {
         m_senderItem = senderItem;
+        emit senderItemChanged();
     }
 
     if (m_autoHide != autoHide)
