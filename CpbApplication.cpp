@@ -9,7 +9,6 @@ using namespace CPB;
 Application::Application(int &argc, char **argv, int flags)
     : QGuiApplication (argc, argv, flags)
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 }
 
 Application::~Application()
