@@ -18,6 +18,7 @@
         <file>qml/components/CpbParallaxPage.qml</file>
         <file>qml/components/CpbSpinBox.qml</file>
         <file>qml/components/CpbCalendarInput.qml</file>
+        <file>qml/components/CpbEmployeInput.qml</file>
         <file>qml/views/CpbCardsView.qml</file>
         <file>qml/views/CpbSprintTabView.qml</file>
         <file>qml/views/CpbSprintView.qml</file>
@@ -39,6 +40,7 @@
         <file>qml/popups/CpbCreateTaskPopup.qml</file>
         <file>qml/tooltips/CpbTaskDescriptionTooltip.qml</file>
         <file>qml/tooltips/CpbCalendarTooltip.qml</file>
+        <file>qml/tooltips/CpbEmployeTooltip.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="add_task.png">images/add_task.png</file>

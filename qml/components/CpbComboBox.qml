@@ -33,6 +33,7 @@ CpbBaseComboBox {
 
             anchors.centerIn: parent
             source: "qrc:/images/combo_arrow.png"
+
             Behavior on rotation { NumberAnimation { duration: 250 } }
         }
     }

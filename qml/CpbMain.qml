@@ -7,12 +7,12 @@ import "singletons"
 Window {
     id: mainWindow
 
-    visible: true
-    minimumWidth: 400
-    minimumHeight: 300
     width: 800
     height: 600
+    minimumWidth: 460
+    minimumHeight: 700
     title: qsTr("Critical Path Builder")
+    visible: true
 
     CpbWelcomeView {
         id: welcomeLayer

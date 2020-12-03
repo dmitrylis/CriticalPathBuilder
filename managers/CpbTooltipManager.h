@@ -38,6 +38,7 @@ public:
     Q_INVOKABLE void updateTooltipPosition(QQuickItem* tooltipItem);
     Q_INVOKABLE void showTaskDescriptionTooltip(QQuickItem* senderItem, const QVariant& task);
     Q_INVOKABLE void showCalendarTooltip(QQuickItem* senderItem, const QDate& sourceDate);
+    Q_INVOKABLE void showEmployeTooltip(QQuickItem* senderItem);
 
 signals:
     void senderItemChanged();
