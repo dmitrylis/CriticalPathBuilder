@@ -93,18 +93,31 @@ void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAl
 
 QPointF TooltipManager::calculatePosition(QQuickItem* tooltipItem)
 {
-    // calculate local point
-    // TODO: it's need to code smart positioning of tooltip depends on window size and sender position
     QPointF position(0.0, 0.0);
 
-    if (m_alignment == TooltipAlignment::LeftAbove)
+    switch (m_alignment)
     {
+    case TooltipAlignment::LeftAbove:
         position = QPointF(0.0, -tooltipItem->height());
-    }
-    else if (m_alignment == TooltipAlignment::CenterAbove)
-    {
+        break;
+    case TooltipAlignment::LeftBelow:
+        position = QPointF(0.0, m_senderItem->height());
+        break;
+    case TooltipAlignment::RightAbove:
+        position = QPointF(m_senderItem->width() - tooltipItem->width(), -tooltipItem->height());
+        break;
+    case TooltipAlignment::RightBelow:
+        position = QPointF(m_senderItem->width() - tooltipItem->width(), m_senderItem->height());
+        break;
+    case TooltipAlignment::CenterAbove:
         position = QPointF((m_senderItem->width() - tooltipItem->width()) * 0.5, -tooltipItem->height());
+        break;
+    case TooltipAlignment::CenterBelow:
+        position = QPointF((m_senderItem->width() - tooltipItem->width()) * 0.5, m_senderItem->height());
+        break;
+    default:
+        qWarning() << "Wrong tooltip alignment";
+        break;
     }
-
     return position;
 }
