@@ -21,7 +21,7 @@ CpbBasePopup {
             text: _storyManager.newStoryName(root.parentSprint)
         }
 
-        CpbTextInput {
+        CpbEmployeInput {
             id: storyOwner
 
             placeholderText: qsTr("Story owner")

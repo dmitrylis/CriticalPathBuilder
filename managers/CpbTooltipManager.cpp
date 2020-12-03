@@ -5,6 +5,7 @@ using namespace CPB;
 namespace  {
 const QString TASK_DESCRIPTION_TOOLTIP ("qrc:/qml/tooltips/CpbTaskDescriptionTooltip.qml");
 const QString CALENDAR_TOOLTIP ("qrc:/qml/tooltips/CpbCalendarTooltip.qml");
+const QString EMPLOYE_TOOLTIP ("qrc:/qml/tooltips/CpbEmployeTooltip.qml");
 }
 
 TooltipManager::TooltipManager(QObject *parent)
@@ -70,6 +71,11 @@ void TooltipManager::showTaskDescriptionTooltip(QQuickItem* senderItem, const QV
 void TooltipManager::showCalendarTooltip(QQuickItem *senderItem, const QDate& sourceDate)
 {
     show(senderItem, CALENDAR_TOOLTIP, TooltipAlignment::CenterAbove, false, QVariantList() << sourceDate);
+}
+
+void TooltipManager::showEmployeTooltip(QQuickItem *senderItem)
+{
+    show(senderItem, EMPLOYE_TOOLTIP, TooltipAlignment::CenterBelow, false);
 }
 
 void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAlignment alignment, bool autoHide, const QVariantList &data)

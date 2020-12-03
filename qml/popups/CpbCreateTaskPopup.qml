@@ -25,7 +25,7 @@ CpbBasePopup {
             text: _taskManager.newTaskName(root.parentStory)
         }
 
-        CpbTextInput {
+        CpbEmployeInput {
             id: taskOwner
 
             placeholderText: qsTr("Task owner")
