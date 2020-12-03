@@ -1,4 +1,4 @@
-import QtQuick 2.11
+import QtQuick 2.15
 import QtQuick.Controls 1.4
 
 import com.cpb 1.0
@@ -35,7 +35,7 @@ Item {
     Connections {
         target: _tooltipManager.senderItem
 
-        onDateChanged: {
+        function onDateChanged() {
             const date = _tooltipManager.senderItem.date
             if (!isNaN(date.getDate())) {
                 calendar.selectedDate = date
@@ -49,11 +49,11 @@ Item {
     Connections {
         target: mainWindow
 
-        onWidthChanged: {
+        function onWidthChanged() {
             _tooltipManager.updateTooltipPosition(root)
         }
 
-        onHeightChanged: {
+        function onHeightChanged() {
             _tooltipManager.updateTooltipPosition(root)
         }
     }

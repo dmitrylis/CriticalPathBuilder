@@ -1,5 +1,5 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12 // replace by templates
+import QtQuick 2.15
+import QtQuick.Controls 2.15 // replace by templates
 
 SpinBox {
 
