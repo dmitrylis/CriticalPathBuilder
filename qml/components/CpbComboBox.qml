@@ -23,12 +23,18 @@ CpbBaseComboBox {
         }
     }
 
-    indicator: Rectangle {
-        id: indicatorItem
+    indicator: Item {
+        anchors.right: parent.right
+        width: root.height
+        height: root.height
 
-        x: root.width - width
-        width: 10
-        height: 10
+        Image {
+            id: comboArrow
+
+            anchors.centerIn: parent
+            source: "qrc:/images/combo_arrow.png"
+            Behavior on rotation { NumberAnimation { duration: 250 } }
+        }
     }
 
     contentItem: CpbText {
@@ -111,11 +117,6 @@ CpbBaseComboBox {
                     height: 1
                     color: CpbStyle.colorBlue
                 }
-
-                PropertyChanges {
-                    target: indicatorItem
-                    color: CpbStyle.colorBlue
-                }
             },
             State {
                 name: "focused"
@@ -125,11 +126,6 @@ CpbBaseComboBox {
                     target: stroke
                     height: 2
                     color: CpbStyle.colorBlue
-                }
-
-                PropertyChanges {
-                    target: indicatorItem
-                    color: "magenta"
                 }
             },
             State {
@@ -143,9 +139,8 @@ CpbBaseComboBox {
                 }
 
                 PropertyChanges {
-                    target: indicatorItem
-                    color: "magenta"
-                    height: 5
+                    target: comboArrow
+                    opacity: 0.5
                 }
             },
             State {
@@ -159,9 +154,8 @@ CpbBaseComboBox {
                 }
 
                 PropertyChanges {
-                    target: indicatorItem
-                    color: "magenta"
-                    rotation: 45
+                    target: comboArrow
+                    rotation: 180
                 }
             },
             State {
@@ -175,10 +169,9 @@ CpbBaseComboBox {
                 }
 
                 PropertyChanges {
-                    target: indicatorItem
-                    color: "magenta"
-                    height: 5
-                    rotation: 45
+                    target: comboArrow
+                    rotation: 180
+                    opacity: 0.5
                 }
             },
             State {
@@ -192,8 +185,8 @@ CpbBaseComboBox {
                 }
 
                 PropertyChanges {
-                    target: indicatorItem
-                    color: CpbStyle.colorDarkGrey
+                    target: comboArrow
+                    opacity: 0.3
                 }
             }
         ]
