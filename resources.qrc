@@ -32,6 +32,7 @@
         <file>qml/effects/CpbBlurEffect.qml</file>
         <file>qml/popups/CpbBasePopup.qml</file>
         <file>qml/popups/CpbWelcomePopup.qml</file>
+        <file>qml/popups/CpbSettingsPopup.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
         <file>qml/popups/CpbCreateSprintPopup.qml</file>

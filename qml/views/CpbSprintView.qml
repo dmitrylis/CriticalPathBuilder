@@ -176,9 +176,9 @@ Rectangle {
         }
 
         CpbButton {
-            text: qsTr("To welcome")
+            text: qsTr("Settings")
 
-            onClicked: _globalManager.setShowWelcome(true)
+            onClicked: _popupManager.showSettingsPopup()
         }
     }
 }

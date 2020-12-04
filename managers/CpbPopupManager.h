@@ -14,6 +14,7 @@ public:
     ~PopupManager() override;
 
     Q_INVOKABLE void showWelcomePopup();
+    Q_INVOKABLE void showSettingsPopup();
     Q_INVOKABLE void showCreateSprintPopup();
     Q_INVOKABLE void showCreateStoryPopup(const QVariant& parentSprint);
     Q_INVOKABLE void showCreateTaskPopup(const QVariant& parentStory, int row, int column);
