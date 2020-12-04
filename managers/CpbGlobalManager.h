@@ -15,7 +15,6 @@ public:
     ~GlobalManager();
 
     bool showWelcome() const;
-    Q_INVOKABLE void finishWelcome();
 
 public slots:
     void setShowWelcome(bool showWelcome);

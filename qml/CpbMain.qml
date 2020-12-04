@@ -7,25 +7,33 @@ import "singletons"
 Window {
     id: mainWindow
 
-    width: 800
-    height: 600
-    minimumWidth: 460
-    minimumHeight: 700
+    width: 1024
+    height: 768
+    minimumWidth: 750
+    minimumHeight: 750
     title: qsTr("Critical Path Builder")
     visible: true
 
-    CpbWelcomeView {
-        id: welcomeLayer
+    Connections {
+        target: _globalManager
 
-        anchors.fill: parent
-        visible: _globalManager.showWelcome
+        Component.onCompleted: {
+            if (_globalManager.showWelcome) {
+                _popupManager.showWelcomePopup()
+            }
+        }
+
+        function onShowWelcomeChanged(showWelcome) {
+            if (showWelcome) {
+                _popupManager.showWelcomePopup()
+            }
+        }
     }
 
     Item {
         id: mainLayer
 
         anchors.fill: parent
-        visible: !_globalManager.showWelcome
 
         Rectangle {
             anchors.fill: parent

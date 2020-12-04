@@ -24,6 +24,8 @@ void Application::registerTypes() const
     qmlRegisterUncreatableType<Task>("com.cpb", 1, 0, "Task", "Task can't be instantiated directly");
     qmlRegisterUncreatableType<Sprint>("com.cpb", 1, 0, "Sprint", "Sprint can't be instantiated directly");
     qmlRegisterUncreatableType<TaskManager>("com.cpb", 1, 0, "TaskManager", "TaskManager can't be instantiated directly");
+    qmlRegisterUncreatableType<PopupManager>("com.cpb", 1, 0, "PopupManager", "PopupManager can't be instantiated directly");
+    qmlRegisterUncreatableType<TooltipManager>("com.cpb", 1, 0, "TooltipManager", "TooltipManager can't be instantiated directly");
 }
 
 void Application::createBindings() const

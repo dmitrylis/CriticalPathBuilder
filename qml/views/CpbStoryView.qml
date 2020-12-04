@@ -164,7 +164,7 @@ Item {
                             hoverEnabled: true
 
                             onEntered: {
-                                if (/*daysCountRole < 4 &&*/ _taskManager.draggedTask === null) {
+                                if (_taskManager.draggedTask === null) {
                                     _tooltipManager.showTaskDescriptionTooltip(dragArea, taskRole)
                                 }
                             }

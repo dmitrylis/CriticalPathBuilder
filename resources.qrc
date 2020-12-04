@@ -26,12 +26,12 @@
         <file>qml/views/CpbPopupView.qml</file>
         <file>qml/views/CpbTooltipView.qml</file>
         <file>qml/views/CpbDaysView.qml</file>
-        <file>qml/views/CpbWelcomeView.qml</file>
         <file>qml/singletons/CpbStyle.qml</file>
         <file>qml/singletons/qmldir</file>
         <file>qml/effects/CpbShadowEffect.qml</file>
         <file>qml/effects/CpbBlurEffect.qml</file>
         <file>qml/popups/CpbBasePopup.qml</file>
+        <file>qml/popups/CpbWelcomePopup.qml</file>
         <file>qml/popups/CpbRemoveSprintPopup.qml</file>
         <file>qml/popups/CpbRemoveStoryPopup.qml</file>
         <file>qml/popups/CpbCreateSprintPopup.qml</file>

@@ -23,6 +23,8 @@ Item {
         property real percentage: (listView.originX - listView.contentX) / (listView.contentWidth - root.width)
     }
 
+    clip: true
+
     Image {
         id: background
 

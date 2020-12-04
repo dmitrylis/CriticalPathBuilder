@@ -12,7 +12,6 @@ class TooltipManager : public BasePopupManager
     Q_OBJECT
     Q_PROPERTY(QQuickItem* senderItem READ senderItem NOTIFY senderItemChanged)
     Q_PROPERTY(QPointF position READ position NOTIFY positionChanged)
-    Q_PROPERTY(bool autoHide READ autoHide NOTIFY autoHideChanged)
 
 public:
     enum TooltipAlignment
@@ -32,7 +31,6 @@ public:
 
     QQuickItem *senderItem() const;
     QPointF position() const;
-    bool autoHide() const;
 
     Q_INVOKABLE void hide() override;
     Q_INVOKABLE void updateTooltipPosition(QQuickItem* tooltipItem);
@@ -43,17 +41,15 @@ public:
 signals:
     void senderItemChanged();
     void positionChanged();
-    void autoHideChanged();
 
 protected:
-    void show(QQuickItem* senderItem, const QString& path, TooltipAlignment alignment = TooltipAlignment::LeftAbove, bool autoHide = true, const QVariantList& data = QVariantList());
+    void show(QQuickItem* senderItem, const QString& path, TooltipAlignment alignment, Policy policy, const QVariantList& data = QVariantList());
     QPointF calculatePosition(QQuickItem* tooltipItem);
 
 private:
     QQuickItem* m_senderItem;
     TooltipAlignment m_alignment;
     QPointF m_position;
-    bool m_autoHide;
 };
 
 }

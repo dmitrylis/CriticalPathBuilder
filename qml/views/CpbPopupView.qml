@@ -1,5 +1,7 @@
 import QtQuick 2.15
 
+import com.cpb 1.0
+
 import "../singletons"
 import "../effects"
 
@@ -15,7 +17,11 @@ MouseArea {
     onWheel: { /* do nothing */ }
 
     // click on dimmed area leads to closing this popup
-    onClicked: _popupManager.hide()
+    onClicked: {
+        if (_popupManager.policy !== PopupManager.StrictlyModal) {
+            _popupManager.hide()
+        }
+    }
 
     CpbBlurEffect {
         id: blurEffect
