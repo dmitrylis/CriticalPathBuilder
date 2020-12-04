@@ -18,11 +18,6 @@ bool GlobalManager::showWelcome() const
     return m_showWelcome;
 }
 
-void GlobalManager::finishWelcome()
-{
-    setShowWelcome(false);
-}
-
 void GlobalManager::setShowWelcome(bool showWelcome)
 {
     if (m_showWelcome != showWelcome)

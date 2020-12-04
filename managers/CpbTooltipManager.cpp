@@ -12,8 +12,7 @@ TooltipManager::TooltipManager(QObject *parent)
     : BasePopupManager(parent),
       m_senderItem(nullptr),
       m_alignment(TooltipAlignment::None),
-      m_position(QPointF(0.0, 0.0)),
-      m_autoHide(false)
+      m_position(QPointF(0.0, 0.0))
 {
 }
 
@@ -31,17 +30,9 @@ QPointF TooltipManager::position() const
     return m_position;
 }
 
-bool TooltipManager::autoHide() const
-{
-    return m_autoHide;
-}
-
 void TooltipManager::hide()
 {
     BasePopupManager::hide();
-
-    m_autoHide = false;
-    emit autoHideChanged();
 
     m_alignment = TooltipAlignment::None;
     m_position = QPointF(0.0, 0.0);
@@ -65,20 +56,20 @@ void TooltipManager::updateTooltipPosition(QQuickItem* tooltipItem)
 
 void TooltipManager::showTaskDescriptionTooltip(QQuickItem* senderItem, const QVariant& task)
 {
-    show(senderItem, TASK_DESCRIPTION_TOOLTIP, TooltipAlignment::LeftAbove, true, QVariantList() << task);
+    show(senderItem, TASK_DESCRIPTION_TOOLTIP, TooltipAlignment::LeftAbove, Policy::NonModal, QVariantList() << task);
 }
 
 void TooltipManager::showCalendarTooltip(QQuickItem *senderItem, const QDate& sourceDate)
 {
-    show(senderItem, CALENDAR_TOOLTIP, TooltipAlignment::CenterAbove, false, QVariantList() << sourceDate);
+    show(senderItem, CALENDAR_TOOLTIP, TooltipAlignment::CenterAbove, Policy::PartiallyModal, QVariantList() << sourceDate);
 }
 
 void TooltipManager::showEmployeTooltip(QQuickItem *senderItem)
 {
-    show(senderItem, EMPLOYE_TOOLTIP, TooltipAlignment::CenterBelow, false);
+    show(senderItem, EMPLOYE_TOOLTIP, TooltipAlignment::CenterBelow, Policy::PartiallyModal);
 }
 
-void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAlignment alignment, bool autoHide, const QVariantList &data)
+void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAlignment alignment, Policy policy, const QVariantList &data)
 {
     if (m_senderItem != senderItem)
     {
@@ -88,13 +79,7 @@ void TooltipManager::show(QQuickItem *senderItem, const QString &path, TooltipAl
 
     m_alignment = alignment;
 
-    if (m_autoHide != autoHide)
-    {
-        m_autoHide = autoHide;
-        emit autoHideChanged();
-    }
-
-    BasePopupManager::show(path, data);
+    BasePopupManager::show(path, policy, data);
 }
 
 QPointF TooltipManager::calculatePosition(QQuickItem* tooltipItem)

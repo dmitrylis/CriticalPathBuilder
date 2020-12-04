@@ -1,5 +1,7 @@
 import QtQuick 2.15
 
+import com.cpb 1.0
+
 import "../singletons"
 
 Item {
@@ -7,7 +9,7 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        enabled: !_tooltipManager.autoHide
+        enabled: _tooltipManager.policy !== TooltipManager.NonModal
         visible: enabled
 
         // blocks propagation of some mouse events
@@ -17,7 +19,11 @@ Item {
         onWheel: { /* do nothing */ }
 
         // click on dimmed area leads to popup closing
-        onClicked: _tooltipManager.hide()
+        onClicked: {
+            if (_tooltipManager.policy !== TooltipManager.StrictlyModal) {
+                _tooltipManager.hide()
+            }
+        }
     }
 
     Loader {
