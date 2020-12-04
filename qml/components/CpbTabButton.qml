@@ -9,7 +9,7 @@ CpbBaseButton {
 
     signal removeClicked()
 
-    width: 100
+    width: 150
     height: 50
 
     background: Item {

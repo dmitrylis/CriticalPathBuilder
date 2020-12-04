@@ -7,9 +7,9 @@ import "../singletons"
 Rectangle {
     id: root
 
-    property alias title: popupTitle.text
-    property alias content: popupContentItem.children
-    property alias buttons: popupButtonsRow.children
+    property alias title: titleText.text
+    property alias content: contentArea.children
+    property alias buttons: buttonsRow.children
 
     width: 400
     height: 300
@@ -18,43 +18,46 @@ Rectangle {
         alpha: 0.5
     }
 
-    CpbText {
-        id: popupTitle
+    Item {
+        id: titleArea
 
         anchors {
             left: parent.left
             right: parent.right
             top: parent.top
-            margins: CpbStyle.marginMedium
+        }
+        height: !!titleText.text ? 50 : 0
+
+        CpbText {
+            id: titleText
+
+            anchors.fill: parent
         }
     }
 
     Item {
-        id: popupContentItem
+        id: contentArea
 
         anchors {
             left: parent.left
             right: parent.right
-            top: popupTitle.bottom
-            bottom: popupButtonsItem.top
-            leftMargin: CpbStyle.marginMedium
-            rightMargin: CpbStyle.marginMedium
+            top: titleArea.bottom
+            bottom: buttonsArea.top
         }
     }
 
     Item {
-        id: popupButtonsItem
+        id: buttonsArea
 
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-            margins: CpbStyle.marginMedium
         }
-        height: 50
+        height: buttonsRow.visibleChildren.length > 0 ? 80 : 0
 
         Row {
-            id: popupButtonsRow
+            id: buttonsRow
 
             anchors.centerIn: parent
             spacing: CpbStyle.marginTiny

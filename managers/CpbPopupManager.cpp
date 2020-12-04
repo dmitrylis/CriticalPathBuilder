@@ -4,6 +4,7 @@ using namespace CPB;
 
 namespace  {
 const QString WELCOME_POPUP ("qrc:/qml/popups/CpbWelcomePopup.qml");
+const QString SETTINGS_POPUP ("qrc:/qml/popups/CpbSettingsPopup.qml");
 const QString CREATE_SPRINT_POPUP ("qrc:/qml/popups/CpbCreateSprintPopup.qml");
 const QString CREATE_STORY_POPUP ("qrc:/qml/popups/CpbCreateStoryPopup.qml");
 const QString CREATE_TASK_POPUP ("qrc:/qml/popups/CpbCreateTaskPopup.qml");
@@ -23,6 +24,11 @@ PopupManager::~PopupManager()
 void PopupManager::showWelcomePopup()
 {
     show(WELCOME_POPUP, Policy::StrictlyModal);
+}
+
+void PopupManager::showSettingsPopup()
+{
+    show(SETTINGS_POPUP, Policy::PartiallyModal);
 }
 
 void PopupManager::showCreateSprintPopup()
