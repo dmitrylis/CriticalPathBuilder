@@ -10,12 +10,24 @@ Rectangle {
     property alias title: titleText.text
     property alias content: contentArea.children
     property alias buttons: buttonsRow.children
+    property bool headerAffectsContent: true
+    property bool footerAffectsContent: true
 
     width: 400
     height: 300
     layer.enabled: true
     layer.effect: CpbShadowEffect {
         alpha: 0.5
+    }
+
+    Item {
+        id: contentArea
+
+        anchors {
+            fill: parent
+            topMargin: root.headerAffectsContent ? titleArea.height : 0
+            bottomMargin: root.footerAffectsContent ? buttonsArea.height : 0
+        }
     }
 
     Item {
@@ -32,17 +44,6 @@ Rectangle {
             id: titleText
 
             anchors.fill: parent
-        }
-    }
-
-    Item {
-        id: contentArea
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: titleArea.bottom
-            bottom: buttonsArea.top
         }
     }
 

@@ -8,6 +8,7 @@ Item {
     default property alias content: visualModel.children
     property alias backgroundPattern: background.source
     property alias currentIndex: listView.currentIndex
+    property int pageIndicatorMargin: 0
 
     function incrementCurrentIndex() {
         listView.incrementCurrentIndex()
@@ -50,6 +51,7 @@ Item {
         anchors {
             bottom: listView.bottom
             horizontalCenter: parent.horizontalCenter
+            bottomMargin: root.pageIndicatorMargin
         }
         count: listView.count
         currentIndex: listView.currentIndex
