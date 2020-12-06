@@ -10,6 +10,7 @@ CpbBasePopup {
     width: 700
     height: 700
     title: qsTr("Settings")
+    closeButtonVisible: true
 
     content: Column {
         anchors.centerIn: parent
