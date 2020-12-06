@@ -10,14 +10,39 @@ Rectangle {
     property alias title: titleText.text
     property alias content: contentArea.children
     property alias buttons: buttonsRow.children
+    property alias closeButtonVisible: closeButton.visible
     property bool headerAffectsContent: true
     property bool footerAffectsContent: true
+
+    QtObject {
+        id: internal
+
+        function buttonWidth(count) {
+            switch (count) {
+            case 1: return 240 + CpbStyle.marginTiny
+            case 2: return 120
+            case 3:
+            default: return 100
+            }
+        }
+
+        function updateButtonsWidth() {
+            const buttonWidth = internal.buttonWidth(buttonsRow.visibleChildren.length)
+            for (var i = 0; i < buttonsRow.visibleChildren.length; ++i) {
+                buttonsRow.visibleChildren[i].width = buttonWidth
+            }
+        }
+    }
 
     width: 400
     height: 300
     layer.enabled: true
     layer.effect: CpbShadowEffect {
         alpha: 0.5
+    }
+
+    Component.onCompleted: {
+        internal.updateButtonsWidth()
     }
 
     Item {
@@ -44,6 +69,23 @@ Rectangle {
             id: titleText
 
             anchors.fill: parent
+            fontSize: CpbStyle.fontHuge
+            fontBold: true
+        }
+    }
+
+    CpbRemoveButton {
+        id: closeButton
+
+        anchors {
+            right: parent.right
+            top: parent.top
+            margins: CpbStyle.marginSmall
+        }
+        visible: false
+
+        onClicked: {
+            _popupManager.hide()
         }
     }
 
@@ -62,6 +104,10 @@ Rectangle {
 
             anchors.centerIn: parent
             spacing: CpbStyle.marginTiny
+
+            onVisibleChildrenChanged: {
+                internal.updateButtonsWidth()
+            }
         }
     }
 }
