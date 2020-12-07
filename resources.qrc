@@ -50,5 +50,6 @@
         <file alias="f_pic.png">images/f_pic.png</file>
         <file alias="face_pic.png">images/face_pic.png</file>
         <file alias="combo_arrow.png">images/combo_arrow.png</file>
+        <file alias="digital_mankind_logo.png">images/digital_mankind_logo.png</file>
     </qresource>
 </RCC>
