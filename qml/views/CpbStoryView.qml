@@ -250,7 +250,8 @@ Item {
             }
 
             CpbButton {
-                width: 50
+                width: 75
+                height: 30
                 text: "▼"
                 enabled: rowCountRole !== _storyManager.maxRowCount()
 
@@ -258,7 +259,8 @@ Item {
             }
 
             CpbButton {
-                width: 50
+                width: 75
+                height: 30
                 text: "▲"
                 enabled: rowCountRole !== _storyManager.minRowCount()
 

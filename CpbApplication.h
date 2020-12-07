@@ -9,6 +9,7 @@
 #include "CpbSprintManager.h"
 #include "CpbStoryManager.h"
 #include "CpbTaskManager.h"
+#include "CpbUserManager.h"
 #include "CpbPopupManager.h"
 #include "CpbTooltipManager.h"
 #include "CpbXmlSerializer.h"
@@ -20,6 +21,7 @@ namespace CPB {
 class Application : public QGuiApplication
 {
     Q_OBJECT
+
 public:
     explicit Application(int &argc, char **argv, int flags = ApplicationFlags);
     ~Application();
@@ -34,6 +36,7 @@ private:
     SprintManager m_sprintManager;
     StoryManager m_storyManager;
     TaskManager m_taskManager;
+    UserManager m_userManager;
     PopupManager m_popupManager;
     TooltipManager m_tooltipManager;
     XmlSerializer m_xmlSerializer;

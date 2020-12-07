@@ -34,6 +34,7 @@ Window {
         id: mainLayer
 
         anchors.fill: parent
+        visible: _globalManager.appReady
 
         Rectangle {
             anchors.fill: parent

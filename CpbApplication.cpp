@@ -20,6 +20,7 @@ void Application::registerTypes() const
     qRegisterMetaType<Sprint*>("Sprint*");
     qRegisterMetaType<Story*>("Story*");
     qRegisterMetaType<Task*>("Task*");
+    qRegisterMetaType<User*>("User*");
 
     qmlRegisterUncreatableType<Task>("com.cpb", 1, 0, "Task", "Task can't be instantiated directly");
     qmlRegisterUncreatableType<Sprint>("com.cpb", 1, 0, "Sprint", "Sprint can't be instantiated directly");
@@ -31,6 +32,7 @@ void Application::registerTypes() const
 void Application::createBindings() const
 {
     connect(&m_xmlSerializer, &XmlSerializer::showWelcomeRead, &m_globalManager, &GlobalManager::setShowWelcome);
+    connect(&m_xmlSerializer, &XmlSerializer::modelLoaded, &m_globalManager, &GlobalManager::setAppReady);
     connect(&m_xmlSerializer, &XmlSerializer::modelLoaded, &m_sprintManager, &SprintManager::onModelLoaded);
 
     connect(&m_globalManager, &GlobalManager::showWelcomeChanged, &m_xmlSerializer, &XmlSerializer::updateShowWelcome);
@@ -60,6 +62,7 @@ void Application::setContextProperties(const QQmlApplicationEngine& engine)
     context->setContextProperty("_sprintManager", &m_sprintManager);
     context->setContextProperty("_storyManager", &m_storyManager);
     context->setContextProperty("_taskManager", &m_taskManager);
+    context->setContextProperty("_userManager", &m_userManager);
     context->setContextProperty("_popupManager", &m_popupManager);
     context->setContextProperty("_tooltipManager", &m_tooltipManager);
 }

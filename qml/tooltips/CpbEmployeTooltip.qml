@@ -31,7 +31,7 @@ CpbRectangle {
 
         width: parent.width
         implicitHeight: contentHeight
-        model: ["Dmitry Lisin", "Christoph Waltz", "Jesse Pinkman", "Walter White", "Dr. Baxter Stockman"]
+        model: _userManager.userModel
         delegate: ItemDelegate {
             width: root.width
             height: _tooltipManager.senderItem.height
@@ -39,11 +39,11 @@ CpbRectangle {
 
             contentItem: CpbText {
                 horizontalAlignment: Text.AlignLeft
-                text: modelData
+                text: nameRole
             }
 
             onClicked: {
-                _tooltipManager.senderItem.text = modelData
+                _tooltipManager.senderItem.text = nameRole
                 _tooltipManager.hide()
             }
         }
