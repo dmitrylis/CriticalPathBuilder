@@ -99,9 +99,9 @@ CpbBasePopup {
 
                     CpbButton {
                         width: parent.width
-                        text: "show welcome"
+                        text: "reset settings"
 
-                        onClicked: _globalManager.setShowWelcome(true)
+                        onClicked: _globalManager.resetSettings()
                     }
                 }
             }
