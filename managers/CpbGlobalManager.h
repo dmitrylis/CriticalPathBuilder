@@ -21,6 +21,7 @@ public:
 public slots:
     void setAppReady();
     void setShowWelcome(bool showWelcome);
+    void resetSettings();
 
 signals:
     void appReadyChanged(bool appReady);

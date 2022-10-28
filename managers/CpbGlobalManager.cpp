@@ -38,3 +38,10 @@ void GlobalManager::setShowWelcome(bool showWelcome)
         emit showWelcomeChanged(showWelcome);
     }
 }
+
+void GlobalManager::resetSettings()
+{
+    setShowWelcome(true);
+
+    // reset cache
+}
