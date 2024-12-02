@@ -9,8 +9,8 @@ Item {
 
     property alias model: daysRepeater.model
 
-    width: daysBg.width + CpbStyle.marginMedium
-    height: daysBg.height + CpbStyle.marginMedium
+    width: daysBg.width + _themeManager.sizes.medium
+    height: daysBg.height + _themeManager.sizes.medium
 
     Rectangle {
         id: daysBg
@@ -19,7 +19,7 @@ Item {
         width: daysRow.width
         height: daysRow.height
         color: CpbStyle.colorLightGrey
-        radius: CpbStyle.marginTiny
+        radius: _themeManager.sizes.tiny
 
         layer.enabled: true
         layer.effect: CpbShadowEffect {
@@ -33,13 +33,13 @@ Item {
                 id: daysRepeater
 
                 delegate: Item {
-                    width: CpbStyle.cellWidth
-                    height: CpbStyle.cellHeight
+                    width: _themeManager.sizes.cellWidth
+                    height: _themeManager.sizes.cellHeight
 
                     Column {
                         anchors.centerIn: parent
                         width: parent.width
-                        spacing: CpbStyle.marginTiny
+                        spacing: _themeManager.sizes.tiny
 
                         CpbText {
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -60,7 +60,7 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             width: parent.width
                             text: monthNameRole
-                            color: CpbStyle.colorDarkGrey
+                            color: _themeManager.colorScheme.foregroundColor
                         }
                     }
                 }

@@ -2,21 +2,20 @@
 #define CPBAPPLICATION_H
 
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlEngine>
 
-#include "CpbGlobalManager.h"
-#include "CpbSprintManager.h"
-#include "CpbStoryManager.h"
-#include "CpbTaskManager.h"
-#include "CpbUserManager.h"
-#include "CpbPopupManager.h"
-#include "CpbTooltipManager.h"
-#include "CpbXmlSerializer.h"
-
-class QQmlContext;
+class QQmlApplicationEngine;
 
 namespace CPB {
+
+class GlobalManager;
+class SprintManager;
+class StoryManager;
+class TaskManager;
+class UserManager;
+class PopupManager;
+class TooltipManager;
+class ThemeManager;
+class XmlSerializer;
 
 class Application : public QGuiApplication
 {
@@ -26,20 +25,27 @@ public:
     explicit Application(int &argc, char **argv, int flags = ApplicationFlags);
     ~Application();
 
+    void initialize(QQmlApplicationEngine *engine);
+
+protected:
+    void createObjects(QQmlApplicationEngine *engine);
     void registerTypes() const;
     void createBindings() const;
     void loadResources() const;
-    void setContextProperties(const QQmlApplicationEngine& engine);
+    void setContextProperties();
 
 private:
-    GlobalManager m_globalManager;
-    SprintManager m_sprintManager;
-    StoryManager m_storyManager;
-    TaskManager m_taskManager;
-    UserManager m_userManager;
-    PopupManager m_popupManager;
-    TooltipManager m_tooltipManager;
-    XmlSerializer m_xmlSerializer;
+    QQmlApplicationEngine *m_engine {nullptr};
+
+    GlobalManager *m_globalManager {nullptr};
+    SprintManager *m_sprintManager {nullptr};
+    StoryManager *m_storyManager {nullptr};
+    TaskManager *m_taskManager {nullptr};
+    UserManager *m_userManager {nullptr};
+    PopupManager *m_popupManager {nullptr};
+    TooltipManager *m_tooltipManager {nullptr};
+    ThemeManager *m_themeManager {nullptr};
+    XmlSerializer *m_xmlSerializer {nullptr};
 };
 
 }

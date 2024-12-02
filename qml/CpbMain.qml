@@ -38,7 +38,7 @@ Window {
 
         Rectangle {
             anchors.fill: parent
-            color: CpbStyle.colorDarkGrey
+            color: _themeManager.colorScheme.foregroundColor
         }
 
         CpbSprintTabView {
@@ -49,7 +49,7 @@ Window {
                 right: parent.right
                 top: parent.top
             }
-            height: 50 + CpbStyle.marginTiny
+            height: 50 + _themeManager.sizes.tiny
         }
 
         CpbSprintView {

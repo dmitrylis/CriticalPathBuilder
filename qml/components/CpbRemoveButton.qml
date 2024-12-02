@@ -45,7 +45,7 @@ CpbBaseButton {
 
                 PropertyChanges {
                     target: buttonBg
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                 }
             }
         ]

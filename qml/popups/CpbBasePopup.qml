@@ -19,7 +19,7 @@ Rectangle {
 
         function buttonWidth(count) {
             switch (count) {
-            case 1: return 240 + CpbStyle.marginTiny
+            case 1: return 240 + _themeManager.sizes.tiny
             case 2: return 120
             case 3:
             default: return 100
@@ -80,7 +80,7 @@ Rectangle {
         anchors {
             right: parent.right
             top: parent.top
-            margins: CpbStyle.marginSmall
+            margins: _themeManager.sizes.small
         }
         visible: false
 
@@ -103,7 +103,7 @@ Rectangle {
             id: buttonsRow
 
             anchors.centerIn: parent
-            spacing: CpbStyle.marginTiny
+            spacing: _themeManager.sizes.tiny
 
             onVisibleChildrenChanged: {
                 internal.updateButtonsWidth()

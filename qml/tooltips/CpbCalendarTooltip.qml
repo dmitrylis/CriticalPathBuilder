@@ -13,7 +13,7 @@ Item {
     property date sourceDate: _tooltipManager.data[0]
 
     width: calendar.width
-    height: calendar.height + CpbStyle.marginTiny * 2
+    height: calendar.height + _themeManager.sizes.tiny * 2
 
     Calendar {
         id: calendar

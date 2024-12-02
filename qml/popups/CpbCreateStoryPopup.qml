@@ -12,7 +12,7 @@ CpbBasePopup {
 
     content: Column {
         anchors.centerIn: parent
-        spacing: CpbStyle.marginMedium
+        spacing: _themeManager.sizes.medium
 
         CpbTextInput {
             id: storyTitle

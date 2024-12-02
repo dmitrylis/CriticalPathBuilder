@@ -26,8 +26,8 @@ Item {
         }
     }
 
-    width: body.width + CpbStyle.marginTiny * 2
-    height: body.height + CpbStyle.marginTiny * 2
+    width: body.width + _themeManager.sizes.tiny * 2
+    height: body.height + _themeManager.sizes.tiny * 2
 
     Rectangle {
         id: body
@@ -36,7 +36,7 @@ Item {
 
         width: column.width
         height: column.height
-        radius: CpbStyle.marginTiny
+        radius: _themeManager.sizes.tiny
         color: CpbStyle.colorBlack
         layer.enabled: true
         layer.effect: CpbShadowEffect {
@@ -46,8 +46,8 @@ Item {
         Column {
             id: column
 
-            padding: CpbStyle.marginSmall
-            spacing: CpbStyle.marginTiny
+            padding: _themeManager.sizes.small
+            spacing: _themeManager.sizes.tiny
 
             CpbText {
                 text: task ? qsTr("Title: %1").arg(task.title) : ""

@@ -11,7 +11,7 @@ CpbRectangle {
 
     width: _tooltipManager.senderItem.width
     height: view.height
-    radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
+    radius: [0, 0, _themeManager.sizes.tiny, _themeManager.sizes.tiny]
     layer.enabled: true
     layer.effect: CpbShadowEffect {
         alpha: 0.5

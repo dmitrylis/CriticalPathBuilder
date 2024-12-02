@@ -44,7 +44,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                     scale: 1.0
                 }
 
@@ -70,7 +70,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: placeholder
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                     scale: 0.8
                 }
 
@@ -102,7 +102,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: stroke
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                 }
             },
             State {
@@ -112,7 +112,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: root
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                 }
 
                 PropertyChanges {
@@ -122,7 +122,7 @@ CpbBaseTextInput {
 
                 PropertyChanges {
                     target: stroke
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                 }
             }
         ]

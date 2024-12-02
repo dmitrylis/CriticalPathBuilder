@@ -20,7 +20,7 @@ CpbBaseButton {
                 fill: parent
                 bottomMargin: -buttonBg.radius
             }
-            radius: CpbStyle.marginTiny
+            radius: _themeManager.sizes.tiny
         }
     }
 
@@ -32,8 +32,8 @@ CpbBaseButton {
                 verticalCenter: parent.verticalCenter
             }
             horizontalAlignment: Text.AlignLeft
-            leftPadding: CpbStyle.marginSmall
-            rightPadding: CpbStyle.marginSmall
+            leftPadding: _themeManager.sizes.small
+            rightPadding: _themeManager.sizes.small
             text: root.text
         }
 
@@ -42,7 +42,7 @@ CpbBaseButton {
 
             anchors {
                 right: parent.right
-                rightMargin: CpbStyle.marginTiny
+                rightMargin: _themeManager.sizes.tiny
                 verticalCenter: parent.verticalCenter
             }
 

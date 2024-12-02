@@ -50,7 +50,7 @@ CpbBaseComboBox {
             id: placeholder
 
             anchors.verticalCenter: parent.top
-            color: CpbStyle.colorDarkGrey
+            color: _themeManager.colorScheme.foregroundColor
             scale: 0.8
             text: root.placeholderText
             transformOrigin: Item.Left
@@ -70,8 +70,8 @@ CpbBaseComboBox {
     popup: Popup {
         id: popupItem
 
-        property int dynamicRadius: y !== root.height ? CpbStyle.marginTiny : 0
-        property var radius: [dynamicRadius, dynamicRadius, CpbStyle.marginTiny, CpbStyle.marginTiny]
+        property int dynamicRadius: y !== root.height ? _themeManager.sizes.tiny : 0
+        property var radius: [dynamicRadius, dynamicRadius, _themeManager.sizes.tiny, _themeManager.sizes.tiny]
 
         y: root.height
         width: root.width
@@ -182,7 +182,7 @@ CpbBaseComboBox {
                 PropertyChanges {
                     target: stroke
                     height: 1
-                    color: CpbStyle.colorDarkGrey
+                    color: _themeManager.colorScheme.foregroundColor
                 }
 
                 PropertyChanges {

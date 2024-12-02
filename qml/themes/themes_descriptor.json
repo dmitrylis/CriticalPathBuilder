@@ -1,0 +1,17 @@
+{
+    "default_theme": "CpbLightTheme",
+    "themes": [
+        {
+            "name": "CpbLightTheme",
+            "color_scheme": "qrc:/qml/themes/CpbLightTheme.qml",
+            "typography": "qrc:/qml/themes/CpbTypography.qml",
+            "sizes": "qrc:/qml/themes/CpbSizes.qml"
+        },
+        {
+            "name": "CpbDarkTheme",
+            "color_scheme": "qrc:/qml/themes/CpbDarkTheme.qml",
+            "typography": "qrc:/qml/themes/CpbTypography.qml",
+            "sizes": "qrc:/qml/themes/CpbSizes.qml"
+        }
+    ]
+}

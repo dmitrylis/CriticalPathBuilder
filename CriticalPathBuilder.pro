@@ -27,12 +27,14 @@ HEADERS += \
     entities/CpbStory.h \
     entities/CpbTask.h \
     entities/CpbUser.h \
+    entities/CpbTheme.h \
     models/CpbEntityModel.h \
     models/CpbSprintModel.h \
     models/CpbStoryModel.h \
     models/CpbTaskModel.h \
     models/CpbUserModel.h \
     models/CpbDaysModel.h \
+    managers/CpbThemeManager.h \
     managers/CpbGlobalManager.h \
     managers/CpbSprintManager.h \
     managers/CpbStoryManager.h \
@@ -51,11 +53,13 @@ SOURCES += \
     entities/CpbStory.cpp \
     entities/CpbTask.cpp \
     entities/CpbUser.cpp \
+    entities/CpbTheme.cpp \
     models/CpbSprintModel.cpp \
     models/CpbStoryModel.cpp \
     models/CpbTaskModel.cpp \
     models/CpbUserModel.cpp \
     models/CpbDaysModel.cpp \
+    managers/CpbThemeManager.cpp \
     managers/CpbGlobalManager.cpp \
     managers/CpbSprintManager.cpp \
     managers/CpbStoryManager.cpp \

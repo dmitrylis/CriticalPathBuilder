@@ -12,14 +12,14 @@ CpbBaseButton {
     background: Rectangle {
         id: buttonBg
 
-        radius: CpbStyle.marginTiny
+        radius: _themeManager.sizes.tiny
     }
 
     contentItem: CpbText {
         id: buttonContent
 
-        leftPadding: CpbStyle.marginSmall
-        rightPadding: CpbStyle.marginSmall
+        leftPadding: _themeManager.sizes.small
+        rightPadding: _themeManager.sizes.small
         text: root.text
     }
 

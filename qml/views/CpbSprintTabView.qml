@@ -11,11 +11,11 @@ Item {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-            leftMargin: CpbStyle.marginTiny
-            rightMargin: CpbStyle.marginTiny
+            leftMargin: _themeManager.sizes.tiny
+            rightMargin: _themeManager.sizes.tiny
         }
         height: 50
-        spacing: CpbStyle.marginTiny
+        spacing: _themeManager.sizes.tiny
 
         displaced: Transition {
             NumberAnimation { properties: "x, y"; easing.overshoot: 1; easing.type: Easing.OutBack }

@@ -42,6 +42,12 @@
         <file>qml/tooltips/CpbTaskDescriptionTooltip.qml</file>
         <file>qml/tooltips/CpbCalendarTooltip.qml</file>
         <file>qml/tooltips/CpbEmployeTooltip.qml</file>
+        <file>qml/themes/CpbAbstractTheme.qml</file>
+        <file>qml/themes/CpbDarkTheme.qml</file>
+        <file>qml/themes/CpbLightTheme.qml</file>
+        <file>qml/themes/CpbSizes.qml</file>
+        <file>qml/themes/CpbTypography.qml</file>
+        <file>qml/themes/themes_descriptor.json</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="add_task.png">images/add_task.png</file>

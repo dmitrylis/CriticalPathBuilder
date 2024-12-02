@@ -29,9 +29,9 @@ CpbBasePopup {
             Column {
                 anchors {
                     fill: parent
-                    margins: CpbStyle.marginSmall
+                    margins: _themeManager.sizes.small
                 }
-                spacing: CpbStyle.marginSmall
+                spacing: _themeManager.sizes.small
 
                 CpbButton {
                     width: parent.width
@@ -90,11 +90,20 @@ CpbBasePopup {
                 Column {
                     property int pageId: 0
 
-                    spacing: CpbStyle.marginSmall
+                    spacing: _themeManager.sizes.small
 
-                    Switch {
-                        width: parent.width
-                        text: qsTr("Theme: %1").arg(checked ? "Light" : "Dark")
+                    Repeater {
+                        model: _themeManager.themesList
+
+                        delegate: CpbButton {
+                            width: parent.width
+                            text: modelData
+                            checked: _themeManager.currentTheme.name === modelData
+
+                            onClicked: {
+                                _themeManager.setCurrentTheme(modelData)
+                            }
+                        }
                     }
 
                     CpbButton {

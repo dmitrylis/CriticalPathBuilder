@@ -6,8 +6,8 @@ import "../singletons"
 CpbBaseButton {
     id: root
 
-    implicitWidth: CpbStyle.cellWidth
-    implicitHeight: CpbStyle.cellHeight
+    implicitWidth: _themeManager.sizes.cellWidth
+    implicitHeight: _themeManager.sizes.cellHeight
 
     background: Image {
         id: buttonBg

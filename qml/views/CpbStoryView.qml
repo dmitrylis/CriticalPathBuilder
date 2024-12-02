@@ -12,13 +12,13 @@ Item {
     property alias titleMouseArea: titleMouseArea
     property Flickable parentFlickable: null
 
-    height: columnPositioner.height + CpbStyle.marginMedium
+    height: columnPositioner.height + _themeManager.sizes.medium
 
     Column {
         id: columnPositioner
 
         anchors.centerIn: parent
-        width: parent.width - CpbStyle.marginMedium
+        width: parent.width - _themeManager.sizes.medium
 
         CpbRectangle {
             id: title
@@ -26,7 +26,7 @@ Item {
             height: 40
             width: parent.width
             color: CpbStyle.colorGreen
-            radius: [CpbStyle.marginTiny, CpbStyle.marginTiny, 0, 0]
+            radius: [_themeManager.sizes.tiny, _themeManager.sizes.tiny, 0, 0]
 
             MouseArea {
                 id: titleMouseArea
@@ -38,10 +38,10 @@ Item {
                 anchors {
                     left: parent.left
                     verticalCenter: parent.verticalCenter
-                    leftMargin: CpbStyle.marginMedium
+                    leftMargin: _themeManager.sizes.medium
                 }
 
-                spacing: CpbStyle.marginSmall
+                spacing: _themeManager.sizes.small
 
                 CpbText {
                     text: titleRole
@@ -58,7 +58,7 @@ Item {
             CpbRemoveButton {
                 anchors {
                     right: parent.right
-                    rightMargin: !parentFlickable.atXEnd && (root.width > mainWindow.width) ? (root.width - mainWindow.width - parentFlickable.contentX) : CpbStyle.marginTiny
+                    rightMargin: !parentFlickable.atXEnd && (root.width > mainWindow.width) ? (root.width - mainWindow.width - parentFlickable.contentX) : _themeManager.sizes.tiny
                     verticalCenter: parent.verticalCenter
                 }
 
@@ -71,7 +71,7 @@ Item {
 
             width: parent.width
             height: backLayout.height
-            radius: [0, 0, CpbStyle.marginTiny, CpbStyle.marginTiny]
+            radius: [0, 0, _themeManager.sizes.tiny, _themeManager.sizes.tiny]
             color: CpbStyle.colorLightGrey
             z: 1
 
@@ -89,8 +89,8 @@ Item {
                         property int column: index % columnCountRole
                         property int row: index / columnCountRole
 
-                        x: column * CpbStyle.cellWidth
-                        y: row * CpbStyle.cellHeight
+                        x: column * _themeManager.sizes.cellWidth
+                        y: row * _themeManager.sizes.cellHeight
 
                         onClicked: _popupManager.showCreateTaskPopup(storyRole, row, column)
                     }
@@ -106,21 +106,21 @@ Item {
                 Item {
                     id: highlight
 
-                    x: _taskManager.highlight.x * CpbStyle.cellWidth
-                    y: _taskManager.highlight.y * CpbStyle.cellHeight
-                    width: _taskManager.highlight.width * CpbStyle.cellWidth
-                    height: _taskManager.highlight.height * CpbStyle.cellHeight
+                    x: _taskManager.highlight.x * _themeManager.sizes.cellWidth
+                    y: _taskManager.highlight.y * _themeManager.sizes.cellHeight
+                    width: _taskManager.highlight.width * _themeManager.sizes.cellWidth
+                    height: _taskManager.highlight.height * _themeManager.sizes.cellHeight
                     visible: _taskManager.draggedTask !== null && _taskManager.draggedTask.parentStory === storyRole
 
                     Rectangle {
                         anchors {
                             fill: parent
-                            margins: CpbStyle.marginSmall
+                            margins: _themeManager.sizes.small
                         }
                         color: CpbStyle.colorTransparent
                         border.width: 2
                         border.color: _taskManager.dropPossible ? "green" : "red"
-                        radius: CpbStyle.marginTiny
+                        radius: _themeManager.sizes.tiny
                     }
                 }
 
@@ -130,14 +130,14 @@ Item {
                     delegate: CpbTask {
                         id: taskDelegate
 
-                        x: columnRole * CpbStyle.cellWidth
-                        y: rowRole * CpbStyle.cellHeight
+                        x: columnRole * _themeManager.sizes.cellWidth
+                        y: rowRole * _themeManager.sizes.cellHeight
                         visible: rowRole < rowCountRole
 
                         Binding {
                             target: taskDelegate
                             property: "width"
-                            value: daysCountRole * CpbStyle.cellWidth
+                            value: daysCountRole * _themeManager.sizes.cellWidth
                         }
 
                         layer.enabled: _taskManager.draggedTask === taskRole
@@ -149,9 +149,9 @@ Item {
                         Behavior on y { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
                         Behavior on width { enabled: _taskManager.draggedTask === null; NumberAnimation { easing.overshoot: 1; easing.type: Easing.OutBack } }
 
-                        onXChanged: _taskManager.updateHighlightColumn(x, CpbStyle.cellWidth)
+                        onXChanged: _taskManager.updateHighlightColumn(x, _themeManager.sizes.cellWidth)
 
-                        onYChanged: _taskManager.updateHighlightRow(y, CpbStyle.cellHeight)
+                        onYChanged: _taskManager.updateHighlightRow(y, _themeManager.sizes.cellHeight)
 
                         onRemoveClicked: _popupManager.showRemoveTaskPopup(taskRole)
 
@@ -200,10 +200,10 @@ Item {
                                     return
                                 }
 
-                                var rightEdge = Math.max(resArea.x + resArea.width, CpbStyle.cellWidth / 2)
+                                var rightEdge = Math.max(resArea.x + resArea.width, _themeManager.sizes.cellWidth / 2)
                                 taskDelegate.width = rightEdge
 
-                                _taskManager.updateHighlightDaysCount(rightEdge, CpbStyle.cellWidth)
+                                _taskManager.updateHighlightDaysCount(rightEdge, _themeManager.sizes.cellWidth)
                             }
 
                             onReleased: _taskManager.stopDragTask()
@@ -233,14 +233,14 @@ Item {
 
         // spacer
         Item {
-            height: CpbStyle.marginTiny
-            width: CpbStyle.marginTiny
+            height: _themeManager.sizes.tiny
+            width: _themeManager.sizes.tiny
         }
 
         Row {
             anchors.right: parent.right
             anchors.rightMargin: !parentFlickable.atXEnd && (root.width > mainWindow.width) ? (root.width - mainWindow.width - parentFlickable.contentX) : 0
-            spacing: CpbStyle.marginTiny
+            spacing: _themeManager.sizes.tiny
 
             CpbText {
                 anchors.verticalCenter: parent.verticalCenter

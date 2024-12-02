@@ -9,13 +9,13 @@ Item {
 
     signal removeClicked()
 
-    implicitWidth: CpbStyle.cellWidth
-    implicitHeight: CpbStyle.cellHeight
+    implicitWidth: _themeManager.sizes.cellWidth
+    implicitHeight: _themeManager.sizes.cellHeight
 
     Rectangle {
         anchors {
             fill: parent
-            margins: CpbStyle.marginTiny
+            margins: _themeManager.sizes.tiny
         }
 
         color: {
@@ -30,16 +30,16 @@ Item {
                 return CpbStyle.colorBlue
             }
         }
-        radius: CpbStyle.marginTiny
+        radius: _themeManager.sizes.tiny
 
         Column {
             anchors {
                 left: parent.left
                 right: parent.right
                 verticalCenter: parent.verticalCenter
-                margins: CpbStyle.marginSmall
+                margins: _themeManager.sizes.small
             }
-            spacing: CpbStyle.marginTiny
+            spacing: _themeManager.sizes.tiny
 
             CpbText {
                 horizontalAlignment: Text.AlignLeft

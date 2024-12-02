@@ -158,9 +158,9 @@ Rectangle {
         anchors {
             bottom: parent.bottom
             left: parent.left
-            margins: CpbStyle.marginTiny
+            margins: _themeManager.sizes.tiny
         }
-        spacing: CpbStyle.marginTiny
+        spacing: _themeManager.sizes.tiny
 
         CpbButton {
             text: qsTr("Create sprint")
